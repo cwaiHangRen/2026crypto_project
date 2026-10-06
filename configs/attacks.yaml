@@ -1,0 +1,21 @@
+# 初始、可复现的变换配置；当前 benchmark 尚未声称已跑完。
+seed: 20261005
+images:
+  jpeg_reencode: [90, 75, 50]
+  resize: [0.5, 0.75, 1.5]
+  crop_keep_area: [0.95, 0.90]
+  metadata_clear: true
+  screenshot:
+    viewport: [768, 768]
+    simulated: true
+documents:
+  pdf_render_dpi: [96, 120, 160]
+  page_delete: true
+  page_reorder: true
+  screenshot:
+    simulated: true
+attacks:
+  - content_replacement_with_original_manifest
+  - manifest_field_tamper
+  - signature_bytes_tamper
+  - copied_watermark_on_unrelated_fixture

@@ -1,0 +1,15 @@
+# 已在应用自带 Python 3.12 中验证的核心运行时包（离线环境可直接复用）
+numpy==2.3.5
+Pillow==12.3.0
+pypdfium2==5.13.0
+reportlab==4.4.9
+pypdf==6.10.0
+# 可选增强/测试；当前受网络策略影响未安装
+scipy>=1.14,<2
+reedsolo==1.7.0
+rfc8785==0.1.4
+pytest>=8,<10
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+httpx>=0.27,<1
+gmssl==3.2.2
