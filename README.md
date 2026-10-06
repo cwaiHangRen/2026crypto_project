@@ -14,11 +14,12 @@
 
 ## 快速开始
 
-建议使用 Python 3.11 或更高版本：
+建议使用 Python 3.12（最低支持 Python 3.11）。项目依赖的唯一来源是 `pyproject.toml`；`requirements.txt` 只是兼容入口：
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[test]"
+# 也可以使用：.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 运行快速演示：
@@ -33,6 +34,12 @@ python scripts\smoke_test.py
 
 ```powershell
 python -m pytest -q --basetemp results\validation-installed\tmp
+```
+
+检查当前解释器和关键依赖：
+
+```powershell
+python scripts\check_environment.py
 ```
 
 启动本地 API：
