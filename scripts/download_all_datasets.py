@@ -131,6 +131,23 @@ FULL_UNAVAILABLE = {
     "arXiv": "arXiv 是开放集合，不是一个固定大小且统一许可证的单一归档。",
 }
 
+STATUS_LABELS = {
+    "existing_verified": "已完成，跳过",
+    "downloaded_verified": "下载完成",
+    "missing": "未下载",
+    "partial": "部分下载，可续传",
+    "partial_parts": "分块部分下载，可续传",
+    "full_unavailable": "没有固定全集",
+    "repair_required": "校验不符，需修复",
+    "hash_or_signature_mismatch": "哈希或文件格式不符",
+    "size_mismatch": "文件大小不符",
+    "invalid_archive": "归档损坏或不可读",
+    "size_conflict": "文件过大，需人工处理",
+    "download_failed": "下载失败",
+    "download_failed_validation": "下载后校验失败",
+    "manual_review": "需人工处理",
+}
+
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -211,7 +228,15 @@ def inspect_archive(entry: dict, path: Path) -> dict:
     parts_dir = path.parent / f"{path.name}.parts"
     if not path.exists():
         if parts_dir.exists():
-            result.update({"status": "partial_parts", "action": "resume"})
+            parts = [part for part in parts_dir.glob("part-*") if part.is_file()]
+            result.update(
+                {
+                    "status": "partial_parts",
+                    "action": "resume",
+                    "part_count": len(parts),
+                    "parts_bytes": sum(part.stat().st_size for part in parts),
+                }
+            )
         else:
             result.update({"status": "missing", "action": "download"})
         return result
@@ -426,6 +451,66 @@ def unavailable_record(dataset: str) -> dict:
     }
 
 
+def human_size(value: int | float | None) -> str:
+    if value is None:
+        return "-"
+    size = float(value)
+    for unit in ("B", "KiB", "MiB", "GiB", "TiB"):
+        if size < 1024 or unit == "TiB":
+            return f"{size:.1f} {unit}" if unit != "B" else f"{int(size)} B"
+        size /= 1024
+    return "-"
+
+
+def human_record(record: dict) -> str:
+    dataset = record.get("dataset", "-")
+    name = record.get("name") or record.get("id") or "全集"
+    status = record.get("status", "-")
+    label = STATUS_LABELS.get(status, status)
+    detail = ""
+    if status in {"existing_verified", "downloaded_verified"}:
+        detail = "大小、文件格式和必要的校验均通过"
+    elif status in {"partial", "partial_parts"}:
+        actual_value = record.get("actual_bytes", record.get("parts_bytes"))
+        actual = human_size(actual_value)
+        expected = human_size(record.get("expected_bytes"))
+        if status == "partial_parts":
+            detail = f"已有 {record.get('part_count', 0)} 个分块，共 {actual} / 目标 {expected}"
+        else:
+            detail = f"当前 {actual} / 目标 {expected}"
+    elif status == "missing":
+        detail = "运行正式下载命令后会开始下载"
+    elif status == "full_unavailable":
+        detail = record.get("reason", "当前项目没有固定的全集下载入口")
+    elif record.get("error"):
+        detail = str(record["error"]).replace("\n", " ")[:160]
+    return f"{dataset:<10} {name:<38} {label:<14} {detail}"
+
+
+def print_human_report(records: list[dict], summary: dict, manifest: Path) -> None:
+    print("数据集状态检查（离线，不会下载）")
+    print("=" * 96)
+    print(f"{'数据集':<10} {'资源':<38} {'状态':<14} 说明")
+    print("-" * 96)
+    for record in records:
+        print(human_record(record))
+    print("-" * 96)
+    print(
+        "汇总："
+        f"已完成 {summary['existing_verified']}，"
+        f"本次下载完成 {summary['downloaded_verified']}，"
+        f"未下载 {summary['missing']}，"
+        f"部分下载 {summary['partial']}，"
+        f"需处理 {summary['failed']}，"
+        f"无固定全集 {summary['full_unavailable']}。"
+    )
+    print(f"状态清单：{manifest}")
+    if summary["missing"] or summary["partial"]:
+        print("提示：确认路径和磁盘空间后，运行不带 --status 的命令才会真正下载。")
+    if summary["failed"]:
+        print("提示：存在校验或下载问题，请先查看状态清单中的 error 字段。")
+
+
 def selected(dataset: str) -> tuple[list[dict], list[dict]]:
     if dataset == "all":
         return list(PILOT_ITEMS), list(ARCHIVES)
@@ -460,6 +545,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--status", action="store_true", help="只检查本地状态，不联网、不下载")
     parser.add_argument("--dry-run", action="store_true", help="显示会执行的动作，不联网、不下载")
     parser.add_argument("--offline", action="store_true", help="--status 的别名，完全离线检查")
+    parser.add_argument("--json", action="store_true", help="输出逐条 JSON 记录，供脚本处理；默认显示中文汇总")
     parser.add_argument("--refresh", action="store_true", help="显式重新下载已验证文件，并保留旧文件备份")
     parser.add_argument("--pilot-root", type=Path, default=PILOT_ROOT, help="pilot 文件目录")
     parser.add_argument("--full-root", type=Path, default=FULL_ROOT, help="完整归档目录")
@@ -485,21 +571,27 @@ def main(argv: list[str] | None = None) -> int:
         current = inspect_pilot(item, PILOT_ROOT / item["relative_path"])
         record = download_pilot(item, current, refresh=args.refresh, dry_run=args.dry_run)
         records.append(record)
-        print(json.dumps(record, ensure_ascii=False))
+        if args.json:
+            print(json.dumps(record, ensure_ascii=False))
     for entry in archives:
         current = inspect_archive(entry, FULL_ROOT / entry["name"])
         record = download_archive(entry, current, refresh=args.refresh, dry_run=args.dry_run, workers=args.workers, chunk_mib=args.chunk_mib)
         records.append(record)
-        print(json.dumps(record, ensure_ascii=False))
+        if args.json:
+            print(json.dumps(record, ensure_ascii=False))
     unavailable_datasets = list(FULL_UNAVAILABLE) if args.dataset == "all" else ([args.dataset] if args.dataset in FULL_UNAVAILABLE else [])
     if unavailable_datasets:
         records.extend(unavailable_record(dataset) for dataset in unavailable_datasets)
-        for record in records[-len(unavailable_datasets):]:
-            print(json.dumps(record, ensure_ascii=False))
+        if args.json:
+            for record in records[-len(unavailable_datasets):]:
+                print(json.dumps(record, ensure_ascii=False))
     write_manifest(records, args=args)
     summary = json.loads(MANIFEST.read_text(encoding="utf-8"))["summary"]
     summary["manifest"] = str(MANIFEST)
-    print(json.dumps(summary, ensure_ascii=False))
+    if args.json:
+        print(json.dumps(summary, ensure_ascii=False))
+    else:
+        print_human_report(records, summary, MANIFEST)
     failed = summary["failed"] > 0
     return 1 if failed else 0
 
