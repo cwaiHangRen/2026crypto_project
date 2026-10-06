@@ -1,5 +1,7 @@
 # gm-provenance
 
+[![Tests](https://github.com/cwaiHangRen/2026crypto_project/actions/workflows/ci.yml/badge.svg)](https://github.com/cwaiHangRen/2026crypto_project/actions/workflows/ci.yml)
+
 面向 AI 生成内容的密码水印与可验证溯源系统原型。项目将 SM2/SM3、内容凭证、媒体水印、状态登记、版本派生和验证接口组合为一个可复现的本地服务。
 
 ## 项目范围

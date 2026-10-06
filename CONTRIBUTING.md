@@ -7,6 +7,8 @@
 3. 提交前运行离线状态检查和与改动相关的测试。
 4. 通过 Pull Request 说明改动、验证命令和已知限制，再合并到 `main`。
 
+仓库管理员建议在 GitHub 的 `Settings → Branches` 中为 `main` 添加保护规则：要求 Pull Request、至少一名审查者批准，并要求 `tests / pytest` 检查通过后才能合并。当前仓库已提交 Actions 工作流，但保护规则仍需在网页端由管理员启用。
+
 ## 数据和运行产物
 
 完整数据集放在本机 D 盘或其他外部目录。使用 `scripts/download_all_datasets.py --status` 检查本地状态，不要把归档、解压数据和私钥上传到 GitHub。
