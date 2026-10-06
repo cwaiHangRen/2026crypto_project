@@ -1,5 +1,6 @@
 from pathlib import Path
 import zipfile
+import pytest
 
 from scripts import download_all_datasets as downloader
 
@@ -65,3 +66,29 @@ def test_dry_run_never_calls_network_for_missing_resources(tmp_path: Path, monke
 def test_human_size_is_compact():
     assert downloader.human_size(1024 * 1024) == "1.0 MiB"
     assert downloader.human_size(2 * 1024**3) == "2.0 GiB"
+
+
+@pytest.mark.parametrize("size,expected,status", [(32, 64, "partial"), (64, 32, "size_conflict"), (32, 32, "invalid_archive")])
+def test_bad_archive_is_never_skipped(tmp_path, size, expected, status):
+    path = tmp_path / "bad.zip"
+    path.write_bytes(b"x" * size)
+    entry = {"dataset": "Test", "name": path.name, "url": "https://example.invalid/bad.zip", "bytes": expected}
+    checked = downloader.inspect_archive(entry, path)
+    assert checked["status"] == status
+    assert checked["action"] != "skip"
+
+
+def test_verified_archive_skips_transport(tmp_path, monkeypatch):
+    path = tmp_path / "ok.zip"
+    with zipfile.ZipFile(path, "w") as archive:
+        archive.writestr("content.txt", "valid")
+    entry = {"dataset": "Test", "name": path.name, "url": "https://example.invalid/ok.zip", "bytes": path.stat().st_size}
+    original = path.read_bytes()
+    def forbidden(*args, **kwargs):
+        pytest.fail("complete archive must not download")
+    monkeypatch.setattr(downloader, "curl_download", forbidden)
+    monkeypatch.setattr(downloader, "download_archive_parallel", forbidden)
+    checked = downloader.inspect_archive(entry, path)
+    result = downloader.download_archive(entry, checked, refresh=False, dry_run=False, workers=8, chunk_mib=16)
+    assert result["action"] == "skip"
+    assert path.read_bytes() == original
