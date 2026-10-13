@@ -5,7 +5,7 @@ The runner keeps Round6's fixture construction and mutually-exclusive timing
 instrumentation, adding v3, D0/S0 labels, and explicit prepare/smoke modes.
 """
 from __future__ import annotations
-import argparse, hashlib, json, secrets, sys, time
+import argparse, hashlib, json, random, secrets, sys, time
 from datetime import datetime
 from pathlib import Path
 
@@ -23,6 +23,63 @@ from run_round6_recover_performance import _image_transform  # noqa: E402
 
 PROFILES = ("dct-difference-v1", "decoder-v2-sync", "decoder-v3-sync")
 MODES = ("hard", "recover", "full")
+
+
+def _write_smoke_image(path: Path, seed: int, size=(768, 768)) -> None:
+    """Write a deterministic, textured carrier for dataset-free CI smoke runs."""
+    from PIL import Image, ImageDraw
+
+    rng = random.Random(seed)
+    image = Image.new("RGB", size, (242, 244, 238))
+    draw = ImageDraw.Draw(image)
+    width, height = size
+    for _ in range(3500):
+        x, y = rng.randrange(width), rng.randrange(height)
+        radius = rng.randrange(2, 16)
+        draw.ellipse(
+            (x, y, x + radius, y + radius),
+            fill=tuple(rng.randrange(30, 230) for _ in range(3)),
+        )
+    for y in range(0, height, 32):
+        draw.line((0, y, width, y), fill=(80, 90, 110), width=1)
+    image.save(path, "PNG")
+
+
+def _write_smoke_pdf(path: Path) -> None:
+    """Write a tiny deterministic PDF carrier for dataset-free CI smoke runs."""
+    from reportlab.pdfgen.canvas import Canvas
+
+    canvas = Canvas(str(path), pagesize=(612, 792), invariant=1)
+    canvas.setFont("Helvetica", 18)
+    canvas.drawString(40, 750, "gm-provenance CI smoke fixture")
+    canvas.setFont("Helvetica", 10)
+    for row in range(12):
+        canvas.drawString(40, 715 - row * 24, f"Synthetic row {row + 1}: deterministic test content")
+    canvas.showPage()
+    canvas.save()
+
+
+def _input_files(work: Path, smoke_only: bool = False) -> tuple[Path, Path, Path]:
+    """Return real dataset inputs, or local smoke fixtures when explicitly requested."""
+    manifest_path = ROOT / "data/round3-development-v3/dataset_manifest.jsonl"
+    required = ("img-real-coco-139", "img-real-coco-285", "pdf-synth-001")
+    if manifest_path.exists():
+        rows = [json.loads(x) for x in manifest_path.read_text(encoding="utf-8").splitlines() if x.strip()]
+        index = {x["sample_id"]: x for x in rows}
+        if all(key in index and (ROOT / index[key]["local_path"]).exists() for key in required):
+            return tuple(ROOT / index[key]["local_path"] for key in required)  # type: ignore[return-value]
+    if not smoke_only:
+        raise FileNotFoundError(
+            "Round7 performance requires data/round3-development-v3/dataset_manifest.jsonl "
+            "and its local inputs; prepare the dataset before running the full benchmark."
+        )
+    smoke = work / "smoke-inputs"
+    smoke.mkdir()
+    image_a, image_b, pdf = smoke / "image-a.png", smoke / "image-b.png", smoke / "document.pdf"
+    _write_smoke_image(image_a, 139)
+    _write_smoke_image(image_b, 285, size=(832, 704))
+    _write_smoke_pdf(pdf)
+    return image_a, image_b, pdf
 
 
 def oracle_crop(data: bytes, source_data: bytes, keep: float, offset=(0.0, 0.0)) -> tuple[bytes, dict]:
@@ -49,15 +106,13 @@ def _provision(service, private, public, passphrase, publisher):
     service.trust_key(public, publisher)
 
 
-def prepare(run_id: str | None = None) -> Path:
+def prepare(run_id: str | None = None, smoke_only: bool = False) -> Path:
     """Create the fixed Round6-compatible fixture and case manifest only."""
     rid = run_id or datetime.now().strftime("%Y%m%dT%H%M%S-round7-prepare")
     out = ROOT / "results" / "round7-performance" / rid
     out.mkdir(parents=True, exist_ok=False)
     work = out / "work"; work.mkdir()
-    rows = [json.loads(x) for x in (ROOT / "data/round3-development-v3/dataset_manifest.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
-    idx = {x["sample_id"]: x for x in rows}
-    src1, src2, pdfsrc = (ROOT / idx[k]["local_path"] for k in ("img-real-coco-139", "img-real-coco-285", "pdf-synth-001"))
+    src1, src2, pdfsrc = _input_files(work, smoke_only=smoke_only)
     svc = ProvenanceService(work / "registry")
     priv, pub = work / "publisher.pem", work / "publisher.pub"; ppass = secrets.token_urlsafe(32)
     _provision(svc, priv, pub, ppass, "round7-perf")
@@ -151,7 +206,7 @@ if __name__ == "__main__":
         target = Path(a.input)
         result = smoke(target) if a.smoke else {"status": "prepared", "path": str(target)}
     elif a.prepare or a.smoke:
-        target = prepare(a.run_id); result = smoke(target) if a.smoke else {"status": "prepared", "path": str(target)}
+        target = prepare(a.run_id, smoke_only=a.smoke); result = smoke(target) if a.smoke else {"status": "prepared", "path": str(target)}
     else:
         result = {"status": "completed", "path": str(run(a.repetitions, a.run_id))}
     print(json.dumps(result, ensure_ascii=False))
