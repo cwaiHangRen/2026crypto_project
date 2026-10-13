@@ -9,6 +9,7 @@ from PIL import Image
 import pytest
 
 from gm_provenance.service import ProvenanceService
+from tests.helpers import provision_publisher
 
 
 def _published(tmp_path: Path):
@@ -16,7 +17,7 @@ def _published(tmp_path: Path):
     Image.new("RGB", (768, 768), "white").save(source)
     service = ProvenanceService(tmp_path / "registry")
     private, public = tmp_path / "publisher.pem", tmp_path / "publisher.pub"
-    service.keygen(private, public, "protocol-pass")
+    provision_publisher(service, private, public, "protocol-pass")
     return service, source, private
 
 
@@ -30,7 +31,7 @@ def test_full_without_fresh_state_is_indeterminate_and_hard_is_explicit(tmp_path
     assert full["conclusion"] == "INDETERMINATE"
 
     hard = service.verify(published["media_path"], published["manifest_path"], mode="hard")
-    assert hard["conclusion"] == "VERIFIED_EXACT"
+    assert hard["conclusion"] == "VERIFIED_BINDING_ONLY"
     assert hard["watermark_status"] == "NOT_CHECKED"
     assert hard["state_freshness"] == "NOT_CHECKED"
 
@@ -40,7 +41,7 @@ def test_authorized_child_is_verified_derivative(tmp_path: Path):
     root = service.register(source, private, "protocol-pass")
     child = service.derive(root["content_id"], private, "protocol-pass", "resize")
     checked = service.verify(child["media_path"], child["manifest_path"], mode="hard")
-    assert checked["conclusion"] == "VERIFIED_DERIVATIVE"
+    assert checked["conclusion"] == "VERIFIED_BINDING_ONLY"
     assert checked["parent_chain_status"] == "PASS"
     assert checked["authorization_status"] == "PASS"
 

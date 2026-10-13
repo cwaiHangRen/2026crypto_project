@@ -28,3 +28,11 @@ def test_pdf_pages_roundtrip():
     assert result["status"] == "FOUND" and result["content_ids"] == [CID]
     assert len(result["pages"]) == 2
 
+
+def test_pdf_detection_exposes_current_page_scope_without_original_identity_claim():
+    result = detect(source_pdf(2), "application/pdf")
+    details = result["details"]
+    assert details["current_page_count"] == 2
+    assert details["original_page_identity"] == "NOT_CHECKED"
+    assert details["whole_file_digest"] == "NOT_CHECKED"
+    assert "current rendered pages" in details["page_source_hint"]

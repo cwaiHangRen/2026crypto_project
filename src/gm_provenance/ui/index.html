@@ -6,7 +6,7 @@ body{font-family:system-ui,-apple-system,sans-serif;max-width:1120px;margin:1.5r
 <p>内容凭证、SM2/SM3、媒体水印、版本链和状态检查的本地回环界面。所有结果来自当前后端；来源线索不等于当前文件完整性通过。</p>
 <div class="grid">
 <section class="card"><h2>环境与登记发布</h2><input id="registerFile" type="file" accept="image/png,image/jpeg,application/pdf"><br><button id="register">登记并发布</button><button class="secondary" id="doctor">检查环境</button><p class="hint">登记按钮使用一次性本地演示密钥，私钥不会写入结果。</p><pre id="registerOut">等待操作…</pre></section>
-<section class="card"><h2>文件验证</h2><input id="verifyFile" type="file" accept="image/png,image/jpeg,application/pdf"><br><button id="verify">验证来源与完整性</button><pre id="verifyOut">等待上传…</pre></section>
+<section class="card"><h2>文件验证</h2><input id="verifyFile" type="file" accept="image/png,image/jpeg,application/pdf"><br><select id="decoderProfile"><option value="dct-difference-v1">D0 精确检测（默认）</option><option value="decoder-v2-sync">D_sync Round6 固定工作域</option><option value="decoder-v3-sync">D_sync Round7 原生画布候选</option></select><br><button id="verify">验证来源与完整性</button><pre id="verifyOut">等待上传…</pre></section>
 <section class="card"><h2>传播变换对比</h2><input id="transformFile" type="file" accept="image/png,image/jpeg"><select id="operation"><option value="jpeg-reencode">JPEG 重编码</option><option value="resize">缩放</option></select><br><button id="transform">执行变换并验证</button><pre id="transformOut">等待操作…</pre></section>
 <section class="card"><h2>版本链与撤销</h2><button class="secondary" id="refresh">刷新已登记内容</button><select id="content"></select><button id="history">查看版本链</button><button id="revoke">撤销当前内容</button><pre id="historyOut">尚未加载登记内容…</pre></section>
 <section class="card"><h2>四组方案评测</h2><button id="benchmark">读取真实 benchmark 结果</button><p class="hint">G0 无凭证/无水印，G1 仅凭证，G2 仅水印，G3 联合方案。没有结果时后端会明确返回缺失。</p><pre id="benchmarkOut">等待读取…</pre></section>
@@ -17,7 +17,7 @@ async function call(url, options={}){const r=await fetch(url,options);let body;t
 function formFor(id){const f=$(id).files[0];if(!f)throw new Error('请选择文件');const fd=new FormData();fd.append('file',f);return fd}
 $('doctor').onclick=async()=>{try{show('registerOut',await call('/api/doctor'))}catch(e){show('registerOut','请求失败：'+e.message)}};
 $('register').onclick=async()=>{try{show('registerOut','处理中…');const r=await call('/api/register-demo',{method:'POST',body:formFor('registerFile')});show('registerOut',r);await refreshContents()}catch(e){show('registerOut','请求失败：'+e.message)}};
-$('verify').onclick=async()=>{try{show('verifyOut','处理中…');show('verifyOut',await call('/api/verify',{method:'POST',body:formFor('verifyFile')}))}catch(e){show('verifyOut','请求失败：'+e.message)}};
+$('verify').onclick=async()=>{try{show('verifyOut','处理中…');show('verifyOut',await call('/api/verify?decoder_profile='+encodeURIComponent($('decoderProfile').value),{method:'POST',body:formFor('verifyFile')}))}catch(e){show('verifyOut','请求失败：'+e.message)}};
 $('transform').onclick=async()=>{try{show('transformOut','处理中…');const fd=formFor('transformFile');show('transformOut',await call('/api/transform-preview?operation='+encodeURIComponent($('operation').value),{method:'POST',body:fd}))}catch(e){show('transformOut','请求失败：'+e.message)}};
 async function refreshContents(){const rows=await call('/api/contents');$('content').innerHTML='';for(const row of rows){const o=document.createElement('option');o.value=row.content_id;o.textContent=row.content_id+' · v'+row.version;$('content').appendChild(o)}show('historyOut',rows)}
 $('refresh').onclick=async()=>{try{await refreshContents()}catch(e){show('historyOut','请求失败：'+e.message)}};

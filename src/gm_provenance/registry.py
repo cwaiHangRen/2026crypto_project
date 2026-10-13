@@ -120,6 +120,8 @@ class Registry:
             old = c.execute("SELECT public_pem,publisher_id,trusted FROM keys WHERE key_id=?", (key_id,)).fetchone()
             if old and bytes(old[0]) != bytes(public_pem):
                 raise ValueError("key_id collision with different public key")
+            if old and old[1] != publisher_id:
+                raise PermissionError("key ownership is immutable")
             if old and old[1] == publisher_id and bool(old[2]) == bool(trusted):
                 c.execute("COMMIT")
                 return key_id

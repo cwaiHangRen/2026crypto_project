@@ -11,6 +11,8 @@ def test_api_register_verify_transform_and_revoke(tmp_path: Path, monkeypatch):
     service = ProvenanceService(tmp_path / "data")
     monkeypatch.setattr(api, "service", service)
     client = TestClient(api.app)
+    admin_token = service.initialize_admin()
+    auth = {"Authorization": f"Bearer {admin_token}"}
 
     image = tmp_path / "source.png"
     # The production PNG watermark profile needs a sufficiently large carrier.
@@ -18,6 +20,7 @@ def test_api_register_verify_transform_and_revoke(tmp_path: Path, monkeypatch):
     response = client.post(
         "/api/register-demo",
         files={"file": ("source.png", image.read_bytes(), "image/png")},
+        headers=auth,
     )
     assert response.status_code == 200
     published = response.json()
@@ -35,6 +38,7 @@ def test_api_register_verify_transform_and_revoke(tmp_path: Path, monkeypatch):
     transformed = client.post(
         "/api/transform-preview?operation=resize",
         files={"file": ("published.png", Path(published["media_path"]).read_bytes(), "image/png")},
+        headers=auth,
     )
     assert transformed.status_code == 200
     assert transformed.json()["verification"]["recovered_content_ids"] == [published["content_id"]]
@@ -43,11 +47,19 @@ def test_api_register_verify_transform_and_revoke(tmp_path: Path, monkeypatch):
         "/api/revoke",
         json={"target_type": "content", "target_id": published["content_id"], "reason": "test"},
     )
-    assert denied.status_code == 403
+    assert denied.status_code == 401
+
+    denied_confirm = client.post(
+        "/api/revoke",
+        json={"target_type": "content", "target_id": published["content_id"], "reason": "test"},
+        headers=auth,
+    )
+    assert denied_confirm.status_code == 403
 
     revoked = client.post(
         "/api/revoke",
         json={"target_type": "content", "target_id": published["content_id"], "reason": "test", "confirm": True},
+        headers=auth,
     )
     assert revoked.status_code == 200
     assert revoked.json()["target_id"] == published["content_id"]

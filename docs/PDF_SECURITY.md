@@ -1,6 +1,8 @@
 # PDF 结构与水印安全证据
 
-本页记录 `media.embed` 与 `media.detect` 对 PDF 页级攻击的实际边界。发布端将 PDF 每页按 120 DPI 栅格化后嵌入同一个 ContentID，再生成新的 PDF；因此检测结果以渲染出的页为范围单位。它不会保留原 PDF 的文字层、书签或交互对象。
+本页记录 `media.embed` 与 `media.detect` 对 PDF 页级攻击的实际边界。发布端将 PDF 每页按 120 DPI 栅格化后嵌入同一个 ContentID，再生成新的 PDF；因此检测结果以渲染出的当前页为范围单位。它不会保留原 PDF 的文字层、书签或交互对象。
+
+页面水印是来源线索，不是原始页面身份协议。`media.detect` 明确返回 `current_page_count`、`page_source_hint`、`whole_file_digest=NOT_CHECKED` 和 `original_page_identity=NOT_CHECKED`。页删除或重排后，检测器只能报告当前输出中仍可检测的页面和顺序，不能根据水印恢复原始页集合或原始页号。
 
 ## 可复现实验
 
@@ -16,12 +18,16 @@ python scripts/pdf_qa.py --output results/pdf-qa
 
 | 输入 | 文件状态 | 页级范围 |
 | --- | --- | --- |
-| 所有页面只有同一个可校验 ContentID | `FOUND` | 每个页面为 `FOUND`，`pages` 保留原输出顺序 |
+| 所有当前页面只有同一个可校验 ContentID | `FOUND` | 每个当前页面为 `FOUND`，`pages` 保留当前输出顺序 |
 | 页面没有水印，或同一 PDF 中存在未找到水印的页面 | `NOT_FOUND` | 未找到的页明确列为 `NOT_FOUND`；已找到的 ID 仍列在文件级 `content_ids` |
 | 页面中校验出多个不同 ContentID | `CONFLICT` | 每页列出自己的 `content_ids`，文件级列出去重后的有序集合 |
 | 截图 PNG/JPEG | 图片级 `FOUND`/`NOT_FOUND` | 图片检测没有 `pages`；截图不会伪造 PDF 页范围 |
 
-页删除和页重排只改变 `pages` 的数量或顺序，保留下来的页仍应为 `FOUND`。将中间页替换为未加水印页面会得到文件级 `NOT_FOUND`，并在该页显示 `NOT_FOUND`。把一个页面替换为第二个 ContentID 会得到 `CONFLICT`。
+页删除和页重排只改变当前 `pages` 的数量或顺序，保留下来的页仍应为 `FOUND`；这不等于证明原始页集合或顺序。将中间页替换为未加水印页面会得到文件级 `NOT_FOUND`，并在该页显示 `NOT_FOUND`。把一个页面替换为第二个 ContentID 会得到 `CONFLICT`。
+
+## 页面质量对照
+
+`scripts/dataset_pilot_quality.py` 对本地 pilot 的 PDF 用同一 `120 DPI` 分别渲染原文档和发布文档，按页记录渲染尺寸、点单位页面几何、文字层字符数和 RGB PSNR/局部窗口 SSIM。这个比较只说明渲染后像素差异；它不会把文字层丢失写成质量通过，也不会以单页结果代替整份 PDF 的签名、SM3 摘要和状态验证。图片才有严格的 A/B/C 三组（原图、同编码无水印、完整水印）；PDF 的 B 组标记为 `NOT_APPLICABLE`，避免制造不存在的等价无水印 PDF 编码。
 
 ## 截图边界
 

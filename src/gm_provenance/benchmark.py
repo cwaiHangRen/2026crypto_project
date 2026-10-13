@@ -128,16 +128,17 @@ def _bytes_image(data: bytes, operation: str, value: Any = None) -> bytes:
     return out.getvalue()
 
 
-def _signed_only(service: ProvenanceService, source: Path, private: Path, password: str, output_root: Path) -> dict[str, Any]:
+def _signed_only(service: ProvenanceService, source: Path, private: Path, password: str,
+                 output_root: Path, publisher_id: str = "publisher-benchmark") -> dict[str, Any]:
     """创建不含水印的合法签名凭证，供 G1 使用。"""
     original = source.read_bytes(); media_type = media.sniff(original)
     content_id = __import__("secrets").token_hex(16); asset_id = __import__("secrets").token_hex(16)
     public = service._public_from_private(private, password); key_id = service.crypto.key_id(public)
-    service.registry.add_key(public, "publisher-benchmark", True, service.crypto)
+    service.trust_key(public, publisher_id)
     metadata = {"source_name": source.name, "source_size": len(original), "watermark_media_profile": {"algorithm": "none", "reason": "G1"}}
     body = {
         "schema_version": "1.0", "asset_id": asset_id, "content_id": content_id, "version": 1,
-        "publisher_id": "publisher-benchmark", "signer_key_id": key_id,
+        "publisher_id": publisher_id, "signer_key_id": key_id,
         "generator": {"name": "gm-provenance", "version": "0.1.0", "method": "benchmark"},
         "created_at": "2026-01-01T00:00:00Z", "media_type": media_type, "content_size": len(original),
         "content_hash_alg": "SM3", "content_hash": service.crypto.sm3(original), "metadata": metadata,
@@ -212,6 +213,7 @@ def run_benchmark(output_dir: str | Path = "results/benchmark", config_path: str
     root = output / "runtime"; service = ProvenanceService(root / "registry")
     private, public = root / "benchmark-private.pem", root / "benchmark-public.pem"; password = "benchmark-local-pass-2026"
     service.keygen(private, public, password)
+    service.trust_key(public, "publisher-benchmark")
     records: list[dict[str, Any]] = []
     cases = _transform_cases(config)
     for index in range(max(1, int(sample_count))):
@@ -247,7 +249,7 @@ def run_benchmark(output_dir: str | Path = "results/benchmark", config_path: str
                 recovered = observed.get("recovered_content_ids", [])
                 expected = base["content_id"]
                 if group == "G0": expected_outcome = "NO_PROVENANCE"; handled = observed.get("conclusion") == expected_outcome
-                elif case["operation"] == "identity": expected_outcome = "VERIFIED_EXACT" if group in ("G1", "G3") else ("ORIGIN_HINT_ONLY" if group == "G2" else "NO_PROVENANCE"); handled = (observed.get("conclusion") == expected_outcome and (group != "G2" or expected in recovered))
+                elif case["operation"] == "identity": expected_outcome = "VERIFIED_BINDING_ONLY" if group in ("G1", "G3") else ("ORIGIN_HINT_ONLY" if group == "G2" else "NO_PROVENANCE"); handled = (observed.get("conclusion") == expected_outcome and (group != "G2" or expected in recovered))
                 else: expected_outcome = "ORIGIN_HINT_ONLY" if group == "G3" else ("INDETERMINATE" if group == "G1" else ("ORIGIN_HINT_ONLY" if group == "G2" else "NO_PROVENANCE")); handled = (observed.get("conclusion") == expected_outcome and (group != "G2" or expected in recovered))
                 records.append({"sample_id": f"fixture-{index:02d}", "group": group, "transform": case["name"], "simulated": case["simulated"], "media_type": media.sniff(transformed), "detector_input": {"manifest_supplied": bool(supplied_manifest)}, "observed": {"conclusion": observed.get("conclusion"), "watermark_status": observed.get("watermark_status"), "recovered_content_ids": recovered, "elapsed_ms": elapsed}, "truth": {"expected_content_id": expected, "expected_outcome": expected_outcome}, "handled": bool(handled), "media_path": str(media_path)})
         records.extend(_attack_records(service, source, g3, root, f"fixture-{index:02d}"))
@@ -259,11 +261,11 @@ def run_benchmark(output_dir: str | Path = "results/benchmark", config_path: str
     measured = {group: {"samples": len(items), "handled": sum(1 for r in items if r["handled"]), "handled_rate": round(sum(1 for r in items if r["handled"]) / len(items), 4) if items else None, "mean_verify_ms": round(statistics.mean(r["observed"]["elapsed_ms"] for r in items), 3) if items else None} for group, items in by_group.items()}
     attacks = [r for r in records if r.get("kind") == "attack"]
     attack_measured = {r["attack"]: {"samples": 1, "handled": int(r["handled"]), "expected": r["truth"]["expected"], "observed": r["observed"].get("conclusion")} for r in attacks}
-    summary = {"status": "LOCAL_SMOKE", "dataset": {"kind": "synthetic-fixtures", "base_samples": max(1, int(sample_count)), "media_types": ["image/png"], "independent_sources": max(1, int(sample_count)), "documents": "N/A", "representativeness": "小规模机制评测，不代表真实内容数据集"}, "seed": run_seed, "groups": list(GROUPS), "group_scope": {"G0": "无凭证、无水印", "G1": "仅签名凭证", "G2": "仅水印", "G3": "水印+签名+Registry；版本链/撤销在本轮未评估（N/A）"}, "targets": {"content_id_accuracy": {"target": "未在此 smoke benchmark 评估；不作 95% 承诺", "measured": None}, "verification_p95_ms": {"target": "未在此 smoke benchmark 评估；不作 P95 承诺", "measured": None}}, "measured": measured, "attacks": attack_measured, "transform_scope": {"image_cases": [c["name"] for c in cases], "pdf": {"status": "N/A", "reason": "本轮仅冻结 PNG fixture；PDF page delete/reorder/render 配置已保留，未伪装成实测", "screenshot": "simulated_only"}}, "artifacts": {"samples_jsonl": str(jsonl), "attacks_jsonl": str(attack_jsonl), "summary_json": str(output / "summary.json"), "markdown": str(output / "BENCHMARK.md")}}
+    summary = {"status": "LOCAL_SMOKE", "dataset": {"kind": "synthetic-fixtures", "base_samples": max(1, int(sample_count)), "media_types": ["image/png"], "independent_sources": max(1, int(sample_count)), "documents": "N/A", "representativeness": "小规模机制评测，不代表真实内容数据集"}, "seed": run_seed, "groups": list(GROUPS), "group_scope": {"G0": "无凭证、无水印", "G1": "仅签名凭证", "G2": "仅水印", "G3": "水印+签名+Registry；本 smoke 的版本链/撤销见独立 round2 acceptance"}, "targets": {"content_id_accuracy": {"target": "未在此 smoke benchmark 评估；不作 95% 承诺", "measured": None}, "verification_p95_ms": {"target": "未在此 smoke benchmark 评估；不作 P95 承诺", "measured": None}}, "measured": measured, "attacks": attack_measured, "lifecycle": {"status": "MEASURED_SEPARATELY", "artifact": "results/round2-api-final3/summary.json"}, "transform_scope": {"image_cases": [c["name"] for c in cases], "pdf": {"status": "NOT_IN_THIS_SMOKE", "reason": "本轮 smoke 仅冻结 PNG fixture；PDF 语义与实际页级证据见 scripts/pdf_qa.py 和 results/round2-pdf-qa", "screenshot": "simulated_only"}}, "artifacts": {"samples_jsonl": str(jsonl), "attacks_jsonl": str(attack_jsonl), "summary_json": str(output / "summary.json"), "markdown": str(output / "BENCHMARK.md")}}
     _write(output / "summary.json", summary)
     lines = ["# 小型四组评测", "", "状态：`LOCAL_SMOKE`。数据集是合成 PNG fixture，仅用于机制联调，不代表真实内容数据集。", "", "## 目标与实测", "", "| 项目 | 预设目标 | 本轮实测 |", "|---|---|---|", "| ContentID 正确率 | 未评估；不作 95% 承诺 | 未计算 |", "| 验证延迟 P95 | 未评估；不作 P95 承诺 | 未计算 |", "", "## 分组结果", "", "| 组 | 样本数 | 处理正确数 | 处理率 | 平均验证毫秒 |", "|---|---:|---:|---:|---:|"]
     lines += [f"| {g} | {measured[g]['samples']} | {measured[g]['handled']} | {measured[g]['handled_rate']} | {measured[g]['mean_verify_ms']} |" for g in GROUPS]
-    lines += ["", "## 变换与范围", "", "已执行图片变换：" + ", ".join(c["name"] for c in cases) + "。截图为渲染/缩放/编码的模拟截图，未称为真实浏览器截图。", "PDF 页面删除、重排、重新渲染和截图目前为 N/A；配置项已冻结，待 PDF fixture 接入后再报告实测。", "", "逐样本记录见 `samples.jsonl`；攻击记录单独见 `attacks.jsonl`。两者中的 truth 只供评测器汇总，未传入检测器。"]
+    lines += ["", "## 变换与范围", "", "已执行图片变换：" + ", ".join(c["name"] for c in cases) + "。截图为渲染/缩放/编码的模拟截图，未称为真实浏览器截图。", "本 smoke 仅使用 PNG fixture；PDF 页删除、重排和渲染证据由 `scripts/pdf_qa.py` 单独生成，不能从本文件推导原始页身份。G3 版本链与撤销由 round2 API 验收单独实测。", "", "逐样本记录见 `samples.jsonl`；攻击记录单独见 `attacks.jsonl`。两者中的 truth 只供评测器汇总，未传入检测器。"]
     lines += ["", "## 攻击矩阵", "", "| 攻击 | 预期 | 实测结论 | 处理 |", "|---|---|---|---|"]
     lines += [f"| {name} | {item['expected']} | {item['observed']} | {'是' if item['handled'] else '否'} |" for name, item in attack_measured.items()]
     (output / "BENCHMARK.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

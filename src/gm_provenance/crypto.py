@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import hashlib
 from pathlib import Path
 import secrets
 import shutil
@@ -25,13 +26,79 @@ class InvalidKeyError(CryptoError, ValueError):
 
 
 class OpenSSLCrypto:
-    def __init__(self, binary=None):
+    """SM2/SM3 adapter.
+
+    SM2 deliberately remains the OpenSSL CLI implementation.  SM3 can use
+    the process-local hashlib implementation when it passes a small
+    known-answer, chunked, and CLI differential probe.  ``auto`` is selected
+    by default; ``hashlib`` and ``cli`` are explicit choices for paired
+    performance runs.
+    """
+    def __init__(self, binary=None, sm3_backend="auto"):
         candidate = binary or os.environ.get("GM_OPENSSL") or shutil.which("openssl")
         if candidate is None and Path("C:/msys64/ucrt64/bin/openssl.exe").is_file():
             candidate = "C:/msys64/ucrt64/bin/openssl.exe"
         if candidate is None:
             raise CryptoEnvironmentError("未找到 OpenSSL，请安装或设置 GM_OPENSSL")
         self.binary = str(candidate)
+        requested = str(sm3_backend).lower()
+        if requested not in ("auto", "hashlib", "cli"):
+            raise ValueError("sm3_backend 必须是 auto、hashlib 或 cli")
+        self.sm3_backend_requested = requested
+        self.sm3_backend = self._select_sm3_backend(requested)
+
+    @staticmethod
+    def _hashlib_sm3(data: bytes) -> bytes:
+        # Do not pass usedforsecurity=False: the probe must reflect the
+        # environment's normal security policy.
+        return hashlib.new("sm3", data).digest()
+
+    def _cli_sm3(self, data: bytes) -> bytes:
+        digest = self._ok(["dgst", "-sm3", "-binary"], data)
+        if len(digest) != 32:
+            raise CryptoEnvironmentError("OpenSSL 返回异常 SM3 长度")
+        return digest
+
+    def _probe_hashlib_sm3(self) -> bool:
+        vectors = [
+            b"abc",
+            bytes(range(256)) * 3 + b"gm-provenance-sm3",
+            # A fresh short random vector catches provider state/length bugs
+            # that a fixed KAT alone cannot expose; it is never persisted.
+            secrets.token_bytes(257),
+            b"",
+        ]
+        expected_abc = "66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0"
+        try:
+            if self._hashlib_sm3(vectors[0]).hex() != expected_abc:
+                return False
+            for value in vectors:
+                # Chunk updates exercise the streaming path used by callers
+                # that read media in blocks.
+                h = hashlib.new("sm3")
+                for offset in range(0, len(value), 7):
+                    h.update(value[offset:offset + 7])
+                if h.digest() != self._hashlib_sm3(value):
+                    return False
+                if h.digest() != self._cli_sm3(value):
+                    return False
+        except (ValueError, TypeError, CryptoError, CryptoEnvironmentError):
+            return False
+        return True
+
+    def _select_sm3_backend(self, requested: str) -> str:
+        if requested == "cli":
+            # Fail during initialization rather than silently changing the
+            # requested backend later.
+            self._cli_sm3(b"abc")
+            return "cli"
+        available = "sm3" in getattr(hashlib, "algorithms_available", set())
+        if available and self._probe_hashlib_sm3():
+            return "hashlib"
+        if requested == "hashlib":
+            raise CryptoEnvironmentError("当前 hashlib SM3 未通过 KAT/分块/CLI 差分")
+        self._cli_sm3(b"abc")
+        return "cli"
 
     def _run(self, args, data=None, passphrase=None):
         env = os.environ.copy()
@@ -57,9 +124,7 @@ class OpenSSLCrypto:
     def sm3(self, data: bytes) -> str:
         if not isinstance(data, bytes):
             raise TypeError("SM3 输入必须是 bytes")
-        digest = self._ok(["dgst", "-sm3", "-binary"], data)
-        if len(digest) != 32:
-            raise CryptoEnvironmentError("OpenSSL 返回异常 SM3 长度")
+        digest = self._hashlib_sm3(data) if self.sm3_backend == "hashlib" else self._cli_sm3(data)
         return digest.hex()
 
     def public_der(self, public_pem: bytes) -> bytes:
@@ -145,5 +210,7 @@ class OpenSSLCrypto:
             signature = self.sign(b"gm-provenance doctor", private, password)
             sm2_ok = self.verify(b"gm-provenance doctor", signature, public.read_bytes())
         return {"backend": "OpenSSL CLI", "version": version, "sm3_known_answer": sm3_ok,
+                "sm3_backend_requested": self.sm3_backend_requested,
+                "sm3_backend": self.sm3_backend,
                 "sm2_roundtrip": sm2_ok, "sm2_user_id": DEFAULT_USER_ID,
                 "signature_encoding": "DER", "process_startup_included": True}
