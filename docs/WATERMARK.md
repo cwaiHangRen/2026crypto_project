@@ -6,7 +6,9 @@
 
 `embed_image(data, content_id, output_format)` 严格接受 32 位小写十六进制 ContentID。图片在内部归一化到 512×512，按 8×8 DCT 块在 `(2,3)/(3,2)` 系数差中写入版本（1）、128 bit ContentID 和 CRC32；Reed-Solomon RS(53,21) 提供 32 字节纠错，每一位写入 4 个块。发布后恢复原始宽高，默认采用 PNG，JPEG 输出质量为 95。
 
-输入上限为 20 MB、16 MP。检测不需要原图、真值或 ContentID，成功返回 `FOUND` 和恢复的候选；无候选返回 `NOT_FOUND`。当前单个候选实现不会制造冲突，未来扩展多候选时必须保留 `CONFLICT` 语义。
+输入上限为 20 MB、16 MP。检测不需要原图、真值或 ContentID。检测端自动搜索四种正交旋转与左右镜像后的四种旋转，共八种方向；成功返回 `FOUND` 和唯一编号，无候选返回 `NOT_FOUND`，不同方向出现不同可校验编号时返回 `CONFLICT`。相同编号去重，所有方向均检查，不在首个成功候选处提前结束。
+
+图片仅解码、归一化一次，之后在灰度矩阵上旋转/翻转；DCT 按块批量执行，载荷顺序、重复多数票和嵌入参数保持 v1 兼容。`details.orientations_checked` 记录尝试方向，`details.matches` 记录有效候选；方向是检测时的校正操作，不证明图片实际传播历史。详细范围、实测与复现方法见 [ROTATION_MIRROR.md](ROTATION_MIRROR.md)。
 
 运行环境安装 `reedsolo` 时使用真实 RS(53,21) 纠错；离线运行时会明确在 profile 标记 `crc-only-fallback (RS unavailable)`，此模式只校验 CRC，不把它报告为纠错能力。
 

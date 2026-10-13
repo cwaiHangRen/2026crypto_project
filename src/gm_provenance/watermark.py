@@ -21,7 +21,7 @@ except ImportError:  # offline bundled runtime fallback; same orthonormal DCT-II
     _I, _J = np.indices((_N, _N))
     _C = np.sqrt(2 / _N) * np.cos(np.pi * (2 * _J + 1) * _I / (2 * _N))
     _C[0, :] = 1 / np.sqrt(_N)
-    def dctn(block, type=2, norm="ortho"):
+    def dctn(block, type=2, norm="ortho", axes=(-2, -1)):
         return _C @ np.asarray(block, dtype=np.float32) @ _C.T
     def idctn(block, type=2, norm="ortho"):
         return _C.T @ np.asarray(block, dtype=np.float32) @ _C
@@ -140,16 +140,20 @@ def embed_image(data: bytes, content_id: str, output_format: str = "PNG") -> tup
 
 def _detect_bits(gray: np.ndarray) -> np.ndarray:
     positions = [(r, c) for r in range(1, WORK_SIZE // 8 - 1) for c in range(1, WORK_SIZE // 8 - 1)]
-    vals = []
-    for br, bc in positions[: _HEADER_BITS * _REPEAT]:
-        block = gray[br * 8 : br * 8 + 8, bc * 8 : bc * 8 + 8]
-        coeff = dctn(block, type=2, norm="ortho")
-        vals.append(1 if coeff[2, 3] - coeff[3, 2] >= 0 else 0)
-    return np.asarray(vals, dtype=np.uint8).reshape(_HEADER_BITS, _REPEAT).sum(axis=1) >= (_REPEAT / 2)
+    rows, columns = np.asarray(positions[: _HEADER_BITS * _REPEAT]).T
+    blocks = gray.reshape(WORK_SIZE // 8, 8, WORK_SIZE // 8, 8).transpose(0, 2, 1, 3)
+    # Batch only the spatial axes: payload order and majority ties stay v1-compatible.
+    coeff = dctn(blocks[rows, columns], type=2, norm="ortho", axes=(-2, -1))
+    vals = coeff[:, 2, 3] - coeff[:, 3, 2] >= 0
+    return vals.reshape(_HEADER_BITS, _REPEAT).sum(axis=1) >= (_REPEAT / 2)
 
 
 def _candidate(im: Image.Image) -> str | None:
     gray, _ = _work_gray(im)
+    return _candidate_gray(gray)
+
+
+def _candidate_gray(gray: np.ndarray) -> str | None:
     bits = _detect_bits(gray)
     raw = np.packbits(bits).tobytes()
     # Majority bits can produce 53 bytes; RS decoder expects exactly that.
@@ -166,12 +170,28 @@ def _candidate(im: Image.Image) -> str | None:
 
 
 def detect_image(data: bytes) -> dict[str, Any]:
-    """盲检测图片水印；返回 FOUND/NOT_FOUND/CONFLICT。"""
+    """盲检测八种正交方向；完整汇总后返回 FOUND/NOT_FOUND/CONFLICT。
+
+    方向名称表示检测时尝试的校正操作，不证明图片实际经历的变换。
+    只解码、归一化一次；不改变嵌入格式，也不需要原图或 ContentID。
+    """
     try:
         im, _ = _load(data)
     except ValueError as exc:
         return {"status": "NOT_FOUND", "content_ids": [], "details": {"error": str(exc)}}
-    cid = _candidate(im)
-    if cid is None:
-        return {"status": "NOT_FOUND", "content_ids": [], "details": {"profile": "dct-difference-v1"}}
-    return {"status": "FOUND", "content_ids": [cid], "details": {"profile": "dct-difference-v1", "work_size": WORK_SIZE}}
+    gray, _ = _work_gray(im)
+    checked = []
+    matches = []
+    for mirrored in (False, True):
+        base = np.fliplr(gray) if mirrored else gray
+        for quarter_turns in range(4):
+            name = f"{'mirror_' if mirrored else ''}rotate_{quarter_turns * 90}"
+            checked.append(name)
+            cid = _candidate_gray(np.rot90(base, quarter_turns))
+            if cid is not None:
+                matches.append({"orientation": name, "content_id": cid})
+    ids = sorted({match["content_id"] for match in matches})
+    status = "FOUND" if len(ids) == 1 else ("CONFLICT" if len(ids) > 1 else "NOT_FOUND")
+    return {"status": status, "content_ids": ids,
+            "details": {"profile": "dct-difference-v1", "work_size": WORK_SIZE,
+                        "orientations_checked": checked, "matches": matches}}
