@@ -1,0 +1,64 @@
+{
+  "schema_version": "round7-external-marked-exact-1",
+  "output_category": "round7-external-marked-exact",
+  "report_title": "Round 7 外部挑战 exact 配对验收",
+  "seed": 20261007,
+  "sample_count": 12,
+  "pilot_count": 6,
+  "dataset_manifest": "results/round7-challenge-marked/20261011T-round7-challenge-marked/challenge_dataset.jsonl",
+  "round5_run": "results/round7-challenge-marked/20261011T-round7-challenge-marked",
+  "profiles": {
+    "v1": "watermark-v1",
+    "v2": "watermark-v2-residual",
+    "feedback": "watermark-v2-feedback"
+  },
+  "decoder": {
+    "profile": "decoder-v3-sync",
+    "max_candidates": 128,
+    "max_decode_attempts": 128,
+    "max_search_ms": 1000,
+    "max_memory_mb": 256,
+    "max_return_candidates": 8,
+    "crop_area_ratios": [
+      1.0,
+      0.98,
+      0.96,
+      0.95,
+      0.94,
+      0.92,
+      0.9
+    ],
+    "offset_fractions": [
+      0.0,
+      -0.03,
+      0.03
+    ]
+  },
+  "transforms": [
+    {
+      "name": "exact",
+      "operation": "identity",
+      "range": "in_scope"
+    }
+  ],
+  "negative": {
+    "enabled": false,
+    "max_base_samples": 60,
+    "transforms": [
+      "exact",
+      "crop_center_area_0.95",
+      "crop_resize_0.95_to_0.75",
+      "crop_jpeg_0.95_q75"
+    ],
+    "mixed_ids_pairs": 6,
+    "include_malformed": true,
+    "include_overlimit": true,
+    "max_bytes": 20971520
+  },
+  "retain_artifacts": {
+    "pair_rows": true,
+    "negative_rows": true,
+    "diagnostics": true
+  },
+  "config_path": "configs/round7-external-marked-exact.json"
+}

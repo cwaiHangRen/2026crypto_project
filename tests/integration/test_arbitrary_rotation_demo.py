@@ -26,6 +26,7 @@ def demo_published(tmp_path_factory):
     private, public = root / "private.pem", root / "public.pem"
     password = "arbitrary-demo-test-pass-2026"
     service.keygen(private, public, password)
+    service.trust_key(public, "publisher-demo-001")
     registered = service.register(source, private, password)
     private.unlink()
     return service, registered, Path(registered["media_path"]).read_bytes()
@@ -60,8 +61,9 @@ def test_api_arbitrary_rotation_and_unhinted_upload(demo_published, monkeypatch,
     service, registered, original = demo_published
     monkeypatch.setattr(api, "service", service)
     client = TestClient(api.app)
+    auth = {"Authorization": f"Bearer {service.initialize_admin()}"}
     response = client.post("/api/transform-preview", params={"operation": "rotate", "angle": angle, "mirror": str(mirror).lower()},
-                           files={"file": ("opaque.bin", original, "image/png")})
+                           files={"file": ("opaque.bin", original, "image/png")}, headers=auth)
     assert response.status_code == 200
     result = response.json()
     assert result["transform"]["angle"] == angle
@@ -70,6 +72,8 @@ def test_api_arbitrary_rotation_and_unhinted_upload(demo_published, monkeypatch,
     assert result["verification"]["recovered_content_ids"] == [registered["content_id"]]
     assert result["verification"]["content_hash_match"] == "FAIL"
     assert result["verification"]["conclusion"] == "ORIGIN_HINT_ONLY"
+    assert result["verification"]["verification_mode"] == "full"
+    assert result["verification"]["state_freshness"] == "UNKNOWN"
     for key in ("before_image", "after_image"):
         assert result[key].startswith("data:image/png;base64,")
         preview = Image.open(io.BytesIO(base64.b64decode(result[key].split(",", 1)[1])))
@@ -80,6 +84,8 @@ def test_api_arbitrary_rotation_and_unhinted_upload(demo_published, monkeypatch,
     assert upload.status_code == 200
     assert upload.json()["recovered_content_ids"] == [registered["content_id"]]
     assert upload.json()["conclusion"] == "ORIGIN_HINT_ONLY"
+    assert upload.json()["verification_mode"] == "full"
+    assert upload.json()["state_freshness"] == "UNKNOWN"
     assert Path(registered["media_path"]).read_bytes() == original
     (tmp_path / "preview-result.json").write_text(json.dumps({k: v for k, v in result.items() if not k.endswith("_image")}, indent=2), encoding="utf-8")
 
@@ -88,14 +94,27 @@ def test_unmarked_rotation_demo_does_not_invent_provenance(demo_published, monke
     service, _, _ = demo_published
     monkeypatch.setattr(api, "service", service)
     client = TestClient(api.app)
+    auth = {"Authorization": f"Bearer {service.initialize_admin()}"}
     out = io.BytesIO()
     Image.new("RGB", (896, 640), (90, 140, 180)).save(out, "PNG")
     response = client.post("/api/transform-preview", params={"operation": "rotate", "angle": 72.375, "mirror": "true"},
-                           files={"file": ("input.bin", out.getvalue(), "image/png")})
+                           files={"file": ("input.bin", out.getvalue(), "image/png")}, headers=auth)
     assert response.status_code == 200
     assert response.json()["verification"]["watermark_status"] == "NOT_FOUND"
     assert response.json()["verification"]["recovered_content_ids"] == []
     assert response.json()["verification"]["conclusion"] == "NO_PROVENANCE"
+
+
+def test_arbitrary_rotation_preview_requires_admin(demo_published, monkeypatch):
+    service, _, original = demo_published
+    monkeypatch.setattr(api, "service", service)
+    service.initialize_admin()
+    client = TestClient(api.app)
+    files = {"file": ("input.bin", original, "image/png")}
+    params = {"operation": "rotate", "angle": 37.5, "mirror": "true"}
+    assert client.post("/api/transform-preview", params=params, files=files).status_code == 401
+    assert client.post("/api/transform-preview", params=params, files=files,
+                       headers={"Authorization": "Bearer incorrect-test-token"}).status_code == 401
 
 
 @pytest.mark.parametrize("angle", [True, False, float("nan"), float("inf"), float("-inf"), "37.5"])
@@ -111,8 +130,9 @@ def test_service_rejects_invalid_angle_without_writing(demo_published, tmp_path,
 def test_api_rejects_invalid_angle(demo_published, monkeypatch, angle):
     service, _, original = demo_published
     monkeypatch.setattr(api, "service", service)
+    auth = {"Authorization": f"Bearer {service.initialize_admin()}"}
     response = TestClient(api.app).post("/api/transform-preview", params={"operation": "rotate", "angle": angle},
-                                         files={"file": ("input.bin", original, "image/png")})
+                                         files={"file": ("input.bin", original, "image/png")}, headers=auth)
     assert response.status_code in (400, 422)
 
 
@@ -135,7 +155,7 @@ def test_transform_cannot_overwrite_published_bytes_or_hardlink(demo_published, 
     assert published.read_bytes() == alias.read_bytes() == original
     hard = service.verify(published, registered["manifest_path"], "hard")
     assert hard["content_hash_match"] == "PASS"
-    assert hard["conclusion"] == "VERIFIED_EXACT"
+    assert hard["conclusion"] == "VERIFIED_BINDING_ONLY"
 
 
 def test_rotation_preserves_alpha_and_expands_complete_canvas(demo_published, tmp_path):
@@ -164,8 +184,9 @@ def test_rotation_size_and_byte_limits(demo_published, tmp_path, monkeypatch):
         service.transform(registered["media_path"], tmp_path / "too-big.bin", "rotate", angle=45.25)
     response = TestClient(api.app)
     monkeypatch.setattr(api, "service", service)
+    auth = {"Authorization": f"Bearer {service.initialize_admin()}"}
     assert response.post("/api/transform-preview", params={"operation": "rotate", "angle": 45.25},
-                         files={"file": ("input.bin", original, "image/png")}).status_code == 413
+                         files={"file": ("input.bin", original, "image/png")}, headers=auth).status_code == 413
 
 
 def test_existing_jpeg_and_resize_encoding_is_preserved(demo_published, tmp_path):

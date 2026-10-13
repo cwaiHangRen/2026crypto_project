@@ -1,0 +1,12 @@
+{
+  "schema_version": "round3-development-3",
+  "purpose": "diagnostic development set; not a frozen test set",
+  "output": "data/round3-development-v3",
+  "target_count": 100,
+  "strata": {"image": 60, "pdf": 40, "existing_pilot": 6, "synthetic": 94},
+  "sampling": "retain six existing pilot records, then deterministic synthetic fixtures; no transformed duplicates",
+  "license_policy": "pilot records remain review and synthetic records are internal-test-only",
+  "generator_policy": "generator_claim separates source generator from credential generator",
+  "run_policy": {"stages": [6, 20, 100], "evaluation": "caller runs evaluator; this config only prepares data"},
+  "boundary_samples": "none in ordinary split; add separately if discovered"
+}

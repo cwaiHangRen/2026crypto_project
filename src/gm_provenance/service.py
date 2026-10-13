@@ -4,6 +4,8 @@ from __future__ import annotations
 import json
 import secrets
 import time
+import os
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -35,26 +37,40 @@ class ProvenanceService:
             result["image_backend_error"] = str(exc)
         return result
 
+    def initialize_admin(self) -> str:
+        """Create a local admin token; the caller is responsible for storing it."""
+        token = secrets.token_urlsafe(32)
+        path = self.root / "admin-token"
+        path.write_text(token, encoding="utf-8")
+        return token
+
     def keygen(self, private_path: str | Path, public_path: str | Path, passphrase: str) -> dict[str, str]:
         key_id = self.crypto.generate_key(private_path, public_path, passphrase)
-        public = Path(public_path).read_bytes()
-        self.registry.add_key(public, "publisher-demo-001", True, self.crypto)
         return {"key_id": key_id, "private_path": str(Path(private_path).resolve()), "public_path": str(Path(public_path).resolve())}
+
+    def trust_key(self, public_path: str | Path | bytes, publisher_id: str, trusted: bool = True) -> str:
+        """Explicit administrative binding; key generation never grants trust."""
+        public = bytes(public_path) if isinstance(public_path, (bytes, bytearray)) else Path(public_path).read_bytes()
+        return self.registry.add_key(public, publisher_id, trusted, self.crypto)
 
     def register(self, source_path: str | Path, private_path: str | Path, passphrase: str,
                  publisher_id: str = "publisher-demo-001", asset_id: str | None = None,
-                 parent_content_id: str | None = None) -> dict[str, Any]:
+                 parent_content_id: str | None = None,
+                 watermark_profile: str = "watermark-v1") -> dict[str, Any]:
         source = Path(source_path)
         original = source.read_bytes()
         media_type = media.sniff(original)
-        content_id = secrets.token_hex(16)
-        asset_id = asset_id or secrets.token_hex(16)
-        final_bytes, profile = media.embed(original, content_id, media_type)
         public = self._public_from_private(private_path, passphrase)
         key_id = self.crypto.key_id(public)
         if key_id in self.registry.status().get("revoked_keys", []):
             raise PermissionError("签名密钥已撤销，不能继续登记")
-        self.registry.add_key(public, publisher_id, True, self.crypto)
+        existing = self.registry.get_key(key_id)
+        if not existing:
+            raise PermissionError("签名密钥尚未由管理员登记和信任")
+        if existing["publisher_id"] != publisher_id or not existing["trusted"]:
+            raise PermissionError("签名密钥不属于该发布者或未受信任")
+        content_id = secrets.token_hex(16)
+        asset_id = asset_id or secrets.token_hex(16)
         version = 1
         parent_hash = None
         if parent_content_id:
@@ -64,6 +80,9 @@ class ProvenanceService:
             pbody = parent["body"]
             asset_id, version = pbody["asset_id"], pbody["version"] + 1
             parent_hash = manifest.manifest_hash(pbody, self.crypto)
+        final_bytes, profile = media.embed(original, content_id, media_type, watermark_profile)
+        self_check = media.assert_publishable(final_bytes, content_id, media_type)
+        profile = {**profile, "publish_self_check": self_check}
         metadata = {"source_name": source.name, "source_size": len(original), "watermark_media_profile": profile}
         metadata_hash = self.crypto.sm3(manifest._canonical(metadata))
         body = {
@@ -172,8 +191,13 @@ class ProvenanceService:
         return transformed, operation
 
     def derive(self, source: str | Path, private_path: str | Path, passphrase: str,
-               operation: str, quality: int = 75) -> dict[str, Any]:
+               operation: str, quality: int = 75,
+               watermark_profile: str = "watermark-v1") -> dict[str, Any]:
         """Create the authorized next version from a registered parent."""
+        if operation not in ("jpeg-reencode", "resize"):
+            raise ValueError("不支持的变换操作")
+        if not isinstance(quality, int) or isinstance(quality, bool) or not 1 <= quality <= 100:
+            raise ValueError("quality 必须是 1 到 100 的整数")
         parent_id, parent_env, parent_bytes = self._resolve_parent(source)
         if parent_id in self.registry.status().get("revoked_content", []):
             raise PermissionError("父版本已撤销，不能继续派生")
@@ -182,10 +206,6 @@ class ProvenanceService:
             raise PermissionError(f"父版本未授权变换: {operation}")
         if self.crypto.sm3(parent_bytes) != parent_body["content_hash"]:
             raise ValueError("父文件摘要与父 Manifest 不一致")
-        transformed, _ = self._transform_bytes(parent_bytes, operation, quality)
-        content_id = secrets.token_hex(16)
-        media_type = media.sniff(transformed)
-        final_bytes, profile = media.embed(transformed, content_id, media_type)
         public = self._public_from_private(private_path, passphrase)
         key_id = self.crypto.key_id(public)
         if key_id in self.registry.status().get("revoked_keys", []):
@@ -194,7 +214,16 @@ class ProvenanceService:
         publisher_id = parent_body["publisher_id"]
         if existing and existing["publisher_id"] != publisher_id:
             raise PermissionError("派生签名密钥不属于父版本发布者")
-        self.registry.add_key(public, publisher_id, existing["trusted"] if existing else True, self.crypto)
+        if not existing:
+            raise PermissionError("派生签名密钥尚未由管理员登记")
+        if not existing["trusted"]:
+            raise PermissionError("派生签名密钥未受信任")
+        transformed, _ = self._transform_bytes(parent_bytes, operation, quality)
+        content_id = secrets.token_hex(16)
+        media_type = media.sniff(transformed)
+        final_bytes, profile = media.embed(transformed, content_id, media_type, watermark_profile)
+        self_check = media.assert_publishable(final_bytes, content_id, media_type)
+        profile = {**profile, "publish_self_check": self_check}
         metadata = {"source_name": f"parent:{parent_id}", "source_size": len(parent_bytes), "watermark_media_profile": profile}
         body = {
             "schema_version": "1.0", "asset_id": parent_body["asset_id"], "content_id": content_id,
@@ -222,9 +251,30 @@ class ProvenanceService:
         """Sign current registry state with an independent state key."""
         output = Path(output_path) if output_path else self.root / "state-snapshot.json"
         public_path = Path(state_public_path) if state_public_path else self.root / "state-public.pem"
-        public_path.write_bytes(self._public_from_private(private_path, passphrase))
+        derived_public = self._public_from_private(private_path, passphrase)
+        # The state public key is trust configuration.  Once provisioned it
+        # must not silently change because a caller supplied another key.
+        if public_path.exists() and public_path.read_bytes() != derived_public:
+            raise PermissionError("状态公钥配置与状态私钥不匹配")
+        if not public_path.exists():
+            with tempfile.NamedTemporaryFile(dir=public_path.parent, prefix=public_path.name + ".", suffix=".tmp", delete=False) as fh:
+                fh.write(derived_public)
+                public_tmp = Path(fh.name)
+            os.replace(public_tmp, public_path)
         snapshot = state.sign_snapshot(self.registry.status(), self.crypto, str(private_path), passphrase, ttl_seconds)
-        output.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
+        # Never let a delayed writer replace a newer snapshot.
+        if output.exists():
+            try:
+                old = json.loads(output.read_text(encoding="utf-8"))
+                old_seq = int(old.get("body", {}).get("sequence", -1))
+                if old_seq > snapshot["body"]["sequence"]:
+                    raise ValueError("拒绝用旧状态快照覆盖新快照")
+            except json.JSONDecodeError:
+                pass
+        with tempfile.NamedTemporaryFile(dir=output.parent, prefix=output.name + ".", suffix=".tmp", mode="w", encoding="utf-8", delete=False) as fh:
+            json.dump(snapshot, fh, ensure_ascii=False, indent=2)
+            snapshot_tmp = Path(fh.name)
+        os.replace(snapshot_tmp, output)
         return {"snapshot_path": str(output.resolve()), "state_public_path": str(public_path.resolve()),
                 "sequence": snapshot["body"]["sequence"], "expires_at": snapshot["body"]["expires_at"], "snapshot": snapshot}
 
@@ -236,6 +286,10 @@ class ProvenanceService:
         except Exception as exc:
             return {"status": "UNKNOWN", "reasons": [f"state_unavailable:{exc}"]}
         result = state.verify_snapshot(snapshot, self.crypto, public, now=now)
+        if result.get("status") == "PASS":
+            current_sequence = self.registry.status().get("sequence", 0)
+            if isinstance(result.get("sequence"), int) and result["sequence"] < current_sequence:
+                result = {**result, "status": "UNKNOWN", "reasons": list(result.get("reasons", [])) + ["snapshot stale relative to registry"]}
         if result.get("status") in ("PASS", "UNKNOWN") and isinstance(result.get("sequence"), int):
             if not self.registry.accept_sequence(result["sequence"]):
                 result = {**result, "status": "FAIL", "reasons": list(result.get("reasons", [])) + ["sequence rollback"]}
@@ -259,26 +313,33 @@ class ProvenanceService:
 
     def verify(self, media_path: str | Path, manifest_path: str | Path | None = None,
                mode: str = "full", state_snapshot_path: str | Path | None = None,
-               state_public_path: str | Path | None = None) -> dict[str, Any]:
+               state_public_path: str | Path | None = None,
+               decoder_profile: str = "dct-difference-v1") -> dict[str, Any]:
         if mode not in ("hard", "recover", "full"):
             raise ValueError("mode must be hard, recover or full")
         started = time.perf_counter(); media_bytes = Path(media_path).read_bytes()
         if len(media_bytes) > media.MAX_BYTES:
             raise ValueError("文件超过 20MB 限制")
-        result: dict[str, Any] = {"manifest_presence": "NOT_CHECKED", "manifest_schema": "NOT_CHECKED",
+        result: dict[str, Any] = {"verification_mode": mode, "manifest_presence": "NOT_CHECKED", "manifest_schema": "NOT_CHECKED",
             "signature_valid": "NOT_CHECKED", "issuer_trusted": "NOT_CHECKED", "content_hash_match": "NOT_CHECKED",
             "watermark_status": "NOT_CHECKED", "recovered_content_ids": [], "parent_chain_status": "NOT_CHECKED",
             "authorization_status": "NOT_CHECKED", "content_revocation_status": "NOT_CHECKED", "key_revocation_status": "NOT_CHECKED",
             "state_freshness": "NOT_CHECKED", "latest_version_status": "NOT_CHECKED", "checked_scope": "file",
-            "reasons": [], "timings": {}}
+            "decoder_profile": decoder_profile, "search_complete": "NOT_CHECKED", "search_stop_reason": "NOT_CHECKED",
+            "watermark_details": {}, "reasons": [], "timings": {}}
         media_type = media.sniff(media_bytes)
         # hard is deliberately limited to an identified credential and its
         # exact byte binding.  Watermark recovery is a separate operation.
         wm = {"status": "NOT_CHECKED", "content_ids": []}
         if mode in ("recover", "full"):
-            wm = media.detect(media_bytes, media_type)
+            wm = media.detect(media_bytes, media_type, decoder_profile=decoder_profile)
             result["watermark_status"] = wm.get("status", "NOT_FOUND")
             result["recovered_content_ids"] = wm.get("content_ids", [])
+            result["watermark_details"] = wm.get("details", {})
+            result["search_complete"] = wm.get("details", {}).get("search_complete", "NOT_CHECKED")
+            result["search_stop_reason"] = wm.get("details", {}).get("stop_reason", "NOT_CHECKED")
+            if wm.get("details", {}).get("checked_scope"):
+                result["checked_scope"] = wm["details"]["checked_scope"]
             if wm.get("status") == "CONFLICT":
                 result["reasons"].append("watermark_conflict")
         envelope = None
@@ -298,6 +359,9 @@ class ProvenanceService:
             else:
                 if wm.get("status") == "CONFLICT":
                     result["conclusion"] = "REJECTED"
+                elif wm.get("status") in ("TIME_BUDGET_EXHAUSTED", "CANDIDATE_BUDGET_EXHAUSTED", "DECODE_BUDGET_EXHAUSTED", "ERROR", "UNSUPPORTED"):
+                    result["reasons"].append("watermark_search_incomplete")
+                    result["conclusion"] = "INDETERMINATE"
                 else:
                     result["conclusion"] = "ORIGIN_HINT_ONLY" if result["recovered_content_ids"] else "NO_PROVENANCE"
             result["timings"]["total_ms"] = round((time.perf_counter() - started) * 1000, 3)
@@ -309,6 +373,8 @@ class ProvenanceService:
             result["manifest_schema"] = "FAIL"; result["reasons"].append(f"manifest_schema:{exc}")
             result["conclusion"] = "REJECTED"; return result
         body = envelope["body"]; key = self.registry.get_key(body["signer_key_id"])
+        if wm.get("status") == "FOUND" and result["recovered_content_ids"] and body.get("content_id") not in result["recovered_content_ids"]:
+            result["reasons"].append("sidecar_watermark_conflict")
         if not key:
             result["issuer_trusted"] = "FAIL"; result["signature_valid"] = "UNKNOWN"; result["reasons"].append("signer_key_not_registered")
         else:
@@ -345,10 +411,13 @@ class ProvenanceService:
         hard_failure = result["manifest_schema"] == "FAIL" or result["signature_valid"] == "FAIL" or result["parent_chain_status"] == "FAIL" or result["authorization_status"] == "FAIL"
         revoked = result["content_revocation_status"] == "FAIL" or result["key_revocation_status"] == "FAIL"
         state_complete = mode != "full" or all(result[k] == "PASS" for k in ("state_freshness", "content_revocation_status", "key_revocation_status", "latest_version_status"))
-        if hard_failure or revoked or wm.get("status") == "CONFLICT":
+        if hard_failure or revoked or wm.get("status") == "CONFLICT" or "sidecar_watermark_conflict" in result["reasons"]:
             result["conclusion"] = "REJECTED"
         elif result["content_hash_match"] == "PASS" and result["issuer_trusted"] == "PASS" and result["parent_chain_status"] == "PASS" and result["authorization_status"] == "PASS" and state_complete:
-            result["conclusion"] = "VERIFIED_DERIVATIVE" if body["parent_content_id"] is not None else "VERIFIED_EXACT"
+            if mode != "full":
+                result["conclusion"] = "VERIFIED_BINDING_ONLY"
+            else:
+                result["conclusion"] = "VERIFIED_DERIVATIVE" if body["parent_content_id"] is not None else "VERIFIED_EXACT"
         elif result["content_hash_match"] == "FAIL" and result["watermark_status"] == "FOUND":
             # A valid old credential plus a recovered ID is a source hint after a propagation transform.
             result["conclusion"] = "ORIGIN_HINT_ONLY"

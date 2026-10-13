@@ -45,3 +45,21 @@ def test_crc_only_backend_does_not_claim_erasure_correction(monkeypatch):
     mask = erase_blocks(gray, range(8 * 4))
     monkeypatch.setattr(watermark, "_ECC_BACKEND", "crc-only-fallback")
     assert watermark._candidate_gray(gray, mask) is None
+
+
+def test_masked_votes_respect_dct_mode_and_match_decisions(monkeypatch):
+    gray = evidence()
+    mask = erase_blocks(gray, range(16 * 8 * 4))
+    original_dct = watermark._dct_blocks
+    calls = []
+
+    def observed_dct(blocks):
+        calls.append(blocks.ndim)
+        return original_dct(blocks)
+
+    monkeypatch.setattr(watermark, "_dct_blocks", observed_dct)
+    for mode, expected_ndim, expected_calls in (("scalar", 2, 424 * 4), ("batch", 3, 1)):
+        calls.clear()
+        with watermark.dct_backend(mode):
+            assert watermark._candidate_gray(gray, mask) == CID
+        assert calls == [expected_ndim] * expected_calls

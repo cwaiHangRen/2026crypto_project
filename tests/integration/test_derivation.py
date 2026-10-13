@@ -4,6 +4,7 @@ import pytest
 from PIL import Image
 
 from gm_provenance.service import ProvenanceService
+from tests.helpers import provision_publisher
 
 
 def _image(path: Path) -> None:
@@ -15,14 +16,16 @@ def test_authorized_derivation_builds_parent_chain(tmp_path: Path):
     _image(source)
     service = ProvenanceService(tmp_path / "registry")
     private, public = tmp_path / "publisher.pem", tmp_path / "publisher.pub"
-    service.keygen(private, public, "derive-pass")
+    provision_publisher(service, private, public, "derive-pass")
     root = service.register(source, private, "derive-pass")
 
     child = service.derive(root["content_id"], private, "derive-pass", "resize")
     assert child["version"] == 2
     assert child["parent_content_id"] == root["content_id"]
     checked = service.verify(child["media_path"], child["manifest_path"], mode="hard")
-    assert checked["conclusion"] == "VERIFIED_DERIVATIVE"
+    # hard mode checks byte/signature binding but does not claim a full state
+    # decision; the parent-chain dimensions remain visible separately.
+    assert checked["conclusion"] == "VERIFIED_BINDING_ONLY"
     assert checked["parent_chain_status"] == "PASS"
     assert checked["authorization_status"] == "PASS"
 
@@ -32,9 +35,9 @@ def test_derivation_rejects_unauthorized_operation(tmp_path: Path):
     _image(source)
     service = ProvenanceService(tmp_path / "registry")
     private, public = tmp_path / "publisher.pem", tmp_path / "publisher.pub"
-    service.keygen(private, public, "derive-pass")
+    provision_publisher(service, private, public, "derive-pass")
     root = service.register(source, private, "derive-pass")
-    with pytest.raises(PermissionError):
+    with pytest.raises(ValueError):
         service.derive(root["content_id"], private, "derive-pass", "unsupported")
 
 
@@ -43,7 +46,7 @@ def test_state_snapshot_drives_revocation_and_latest_status(tmp_path: Path):
     _image(source)
     service = ProvenanceService(tmp_path / "registry")
     private, public = tmp_path / "publisher.pem", tmp_path / "publisher.pub"
-    service.keygen(private, public, "derive-pass")
+    provision_publisher(service, private, public, "derive-pass")
     root = service.register(source, private, "derive-pass")
     state_private, state_public = tmp_path / "state.pem", tmp_path / "state.pub"
     service.crypto.generate_key(state_private, state_public, "state-pass")

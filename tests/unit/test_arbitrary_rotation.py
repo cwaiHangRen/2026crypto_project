@@ -74,3 +74,41 @@ def test_arbitrary_rotation_preserves_real_two_id_conflict():
     assert result["status"] == "CONFLICT"
     assert result["content_ids"] == sorted([ARBITRARY_CID_A, ARBITRARY_CID_B])
     assert {match["content_id"] for match in result["details"]["matches"]} == {ARBITRARY_CID_A, ARBITRARY_CID_B}
+
+
+@pytest.mark.parametrize("dct_mode", ["scalar", "batch"])
+@pytest.mark.parametrize("angle,mirror,border", [(37.5, False, "white"), (213.25, True, "transparent")])
+def test_upstream_residual_publishing_and_dct_modes_support_blind_rotation(dct_mode, angle, mirror, border):
+    raw = arbitrary_source()
+    with watermark.dct_backend(dct_mode):
+        marked, profile = watermark.embed_image_residual(raw, ARBITRARY_CID_A, "PNG")
+        assert profile["embed_profile"] == "watermark-v2-residual"
+        assert profile["dct_mode"] == dct_mode
+        # Feedback and synchronization callers retain the single-image decoder.
+        assert watermark._candidate(Image.open(io.BytesIO(marked))) == ARBITRARY_CID_A
+        result = watermark.detect_image(arbitrary_rotated(marked, angle, mirror, border))
+        assert result["status"] == "FOUND"
+        assert result["content_ids"] == [ARBITRARY_CID_A]
+        assert result["details"]["dct_mode"] == dct_mode
+        assert result["details"]["rotation_recovery"]["candidates_checked"]
+    assert watermark.get_dct_backend() == "scalar"
+
+
+def test_direct_detection_preserves_strict_decoder_and_restores_full_search():
+    marked, _ = watermark.embed_image(arbitrary_source(), ARBITRARY_CID_A, "PNG")
+    rotated = arbitrary_rotated(marked, 37.5, border="white")
+    with watermark.dct_backend("batch"):
+        with watermark.direct_detection():
+            assert watermark.detect_image(marked)["content_ids"] == [ARBITRARY_CID_A]
+            with watermark.direct_detection():
+                direct = watermark.detect_image(rotated)
+                assert direct["status"] == "NOT_FOUND"
+                assert direct["content_ids"] == []
+                assert direct["details"]["dct_mode"] == "batch"
+                assert "rotation_recovery" not in direct["details"]
+            assert watermark.detect_image(rotated)["status"] == "NOT_FOUND"
+        assert watermark.detect_image(rotated)["content_ids"] == [ARBITRARY_CID_A]
+        with pytest.raises(RuntimeError, match="scope reset"):
+            with watermark.direct_detection():
+                raise RuntimeError("scope reset")
+        assert watermark.detect_image(rotated)["content_ids"] == [ARBITRARY_CID_A]

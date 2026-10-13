@@ -1,0 +1,286 @@
+{
+  "schema_version": "round7-external-marked-1",
+  "output_category": "round7-external-marked",
+  "report_title": "Round 7 外部挑战标记样本配对评测",
+  "seed": 20261007,
+  "sample_count": 12,
+  "pilot_count": 6,
+  "dataset_manifest": "results/round7-challenge-marked/20261011T-round7-challenge-marked/challenge_dataset.jsonl",
+  "round5_run": "results/round7-challenge-marked/20261011T-round7-challenge-marked",
+  "profiles": {
+    "v1": "watermark-v1",
+    "v2": "watermark-v2-residual",
+    "feedback": "watermark-v2-feedback"
+  },
+  "decoder": {
+    "profile": "decoder-v3-sync",
+    "max_candidates": 128,
+    "max_decode_attempts": 128,
+    "max_search_ms": 1000,
+    "max_memory_mb": 256,
+    "max_return_candidates": 8,
+    "crop_area_ratios": [
+      1.0,
+      0.98,
+      0.96,
+      0.95,
+      0.94,
+      0.92,
+      0.9
+    ],
+    "offset_fractions": [
+      0.0,
+      -0.03,
+      0.03
+    ]
+  },
+  "transforms": [
+    {
+      "name": "exact",
+      "operation": "identity",
+      "range": "in_scope"
+    },
+    {
+      "name": "jpeg_q90",
+      "operation": "jpeg",
+      "quality": 90,
+      "range": "in_scope"
+    },
+    {
+      "name": "jpeg_q75",
+      "operation": "jpeg",
+      "quality": 75,
+      "range": "in_scope"
+    },
+    {
+      "name": "jpeg_q50",
+      "operation": "jpeg",
+      "quality": 50,
+      "range": "boundary"
+    },
+    {
+      "name": "resize_0.75",
+      "operation": "resize",
+      "ratio": 0.75,
+      "range": "in_scope"
+    },
+    {
+      "name": "resize_jpeg_0.75_q75",
+      "operation": "resize_jpeg",
+      "ratio": 0.75,
+      "quality": 75,
+      "range": "in_scope"
+    },
+    {
+      "name": "metadata_clear",
+      "operation": "metadata_clear",
+      "range": "in_scope"
+    },
+    {
+      "name": "format_convert",
+      "operation": "format_convert",
+      "quality": 90,
+      "range": "in_scope"
+    },
+    {
+      "name": "screenshot_simulated",
+      "operation": "screenshot_simulated",
+      "simulated": true,
+      "range": "boundary"
+    },
+    {
+      "name": "crop_center_area_0.90",
+      "operation": "crop",
+      "keep": 0.9,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope"
+    },
+    {
+      "name": "crop_center_area_0.95",
+      "operation": "crop",
+      "keep": 0.95,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope"
+    },
+    {
+      "name": "crop_center_area_0.98",
+      "operation": "crop",
+      "keep": 0.98,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope"
+    },
+    {
+      "name": "crop_nongrid_area_0.943",
+      "operation": "crop",
+      "keep": 0.943,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope_unseen_grid"
+    },
+    {
+      "name": "crop_nongrid_area_0.957",
+      "operation": "crop",
+      "keep": 0.957,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope_unseen_grid"
+    },
+    {
+      "name": "crop_nongrid_area_0.981",
+      "operation": "crop",
+      "keep": 0.981,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope_unseen_grid"
+    },
+    {
+      "name": "crop_offset_h_pos",
+      "operation": "crop",
+      "keep": 0.95,
+      "offset": [
+        0.02,
+        0.0
+      ],
+      "range": "in_scope_offset"
+    },
+    {
+      "name": "crop_offset_h_neg",
+      "operation": "crop",
+      "keep": 0.95,
+      "offset": [
+        -0.02,
+        0.0
+      ],
+      "range": "in_scope_offset"
+    },
+    {
+      "name": "crop_offset_v_pos",
+      "operation": "crop",
+      "keep": 0.95,
+      "offset": [
+        0.0,
+        0.02
+      ],
+      "range": "in_scope_offset"
+    },
+    {
+      "name": "crop_offset_v_neg",
+      "operation": "crop",
+      "keep": 0.95,
+      "offset": [
+        0.0,
+        -0.02
+      ],
+      "range": "in_scope_offset"
+    },
+    {
+      "name": "crop_resize_0.95_to_0.75",
+      "operation": "crop_resize",
+      "keep": 0.95,
+      "ratio": 0.75,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope_combo"
+    },
+    {
+      "name": "crop_jpeg_0.95_q75",
+      "operation": "crop_jpeg",
+      "keep": 0.95,
+      "quality": 75,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "in_scope_combo"
+    },
+    {
+      "name": "crop_resize_jpeg_0.957",
+      "operation": "crop_resize_jpeg",
+      "keep": 0.957,
+      "ratio": 0.75,
+      "quality": 75,
+      "offset": [
+        0.01,
+        -0.01
+      ],
+      "range": "in_scope_combo_unseen_grid"
+    },
+    {
+      "name": "crop_boundary_area_0.99",
+      "operation": "crop",
+      "keep": 0.99,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "boundary"
+    },
+    {
+      "name": "crop_boundary_area_0.80",
+      "operation": "crop",
+      "keep": 0.8,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "boundary"
+    },
+    {
+      "name": "crop_out_of_range_negative",
+      "operation": "crop",
+      "keep": -0.1,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "out_of_scope"
+    },
+    {
+      "name": "crop_out_of_range_over_one",
+      "operation": "crop",
+      "keep": 1.1,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "range": "out_of_scope"
+    }
+  ],
+  "negative": {
+    "enabled": true,
+    "max_base_samples": 60,
+    "transforms": [
+      "exact",
+      "crop_center_area_0.95",
+      "crop_resize_0.95_to_0.75",
+      "crop_jpeg_0.95_q75"
+    ],
+    "mixed_ids_pairs": 6,
+    "include_malformed": true,
+    "include_overlimit": true,
+    "max_bytes": 20971520
+  },
+  "retain_artifacts": {
+    "pair_rows": true,
+    "negative_rows": true,
+    "diagnostics": true
+  },
+  "config_path": "configs/round7-external-marked.json"
+}

@@ -2,10 +2,12 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.pytest-tmp-*/
 *.egg-info/
 build/
 dist/
 data/
+**/admin-token
 data/**
 !data/.gitkeep
 *.zip

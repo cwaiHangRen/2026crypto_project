@@ -20,6 +20,7 @@ def published(request, tmp_path_factory):
     service = ProvenanceService(tmp_path / "registry")
     private, public = tmp_path / "private.pem", tmp_path / "public.pem"
     service.keygen(private, public, "rotation-test-pass-123")
+    service.trust_key(public, "publisher-demo-001")
     return service, service.register(source, private, "rotation-test-pass-123")
 
 
@@ -45,7 +46,7 @@ def test_service_recovers_without_sidecar_and_preserves_hash_semantics(published
     assert result["recovered_content_ids"] == [registered["content_id"]]
     assert result["signature_valid"] == result["issuer_trusted"] == "PASS"
     assert result["content_hash_match"] == ("PASS" if exact else "FAIL")
-    assert result["conclusion"] == ("VERIFIED_EXACT" if exact else "ORIGIN_HINT_ONLY")
+    assert result["conclusion"] == ("VERIFIED_BINDING_ONLY" if exact else "ORIGIN_HINT_ONLY")
     assert result["state_freshness"] == "NOT_CHECKED"
     if not exact:
         hard = service.verify(path, registered["manifest_path"], "hard")
@@ -64,10 +65,12 @@ def test_api_upload_recovers_mirrored_rotated_image(published, monkeypatch):
     response = client.post("/api/verify", files={"file": ("opaque.bin", out.getvalue(), "image/png")})
     assert response.status_code == 200
     result = response.json()
+    assert result["verification_mode"] == "full"
     assert result["recovered_content_ids"] == [registered["content_id"]]
     assert result["signature_valid"] == "PASS"
     assert result["content_hash_match"] == "FAIL"
     assert result["conclusion"] == "ORIGIN_HINT_ONLY"
+    assert result["state_freshness"] == "UNKNOWN"
 
 
 def test_service_rejects_real_conflicting_orientation_ids(published, tmp_path):

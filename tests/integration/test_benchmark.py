@@ -49,10 +49,10 @@ def test_geometry_config_is_read_without_pyyaml(tmp_path, monkeypatch):
 
 def test_unchanged_metadata_clear_is_exact_but_still_requires_correct_recovery_id():
     expected = "0123456789abcdef0123456789abcdef"
-    observed = {"conclusion": "VERIFIED_EXACT", "watermark_status": "FOUND", "recovered_content_ids": [expected]}
+    observed = {"conclusion": "VERIFIED_BINDING_ONLY", "watermark_status": "FOUND", "recovered_content_ids": [expected]}
     for group in ("G1", "G3"):
         outcome, handled = _transform_outcome(group, "metadata_clear", observed, expected, bytes_changed=False)
-        assert outcome == "VERIFIED_EXACT"
+        assert outcome == "VERIFIED_BINDING_ONLY"
         assert handled
     observed["recovered_content_ids"] = ["fedcba9876543210fedcba9876543210"]
     assert not _transform_outcome("G3", "metadata_clear", observed, expected, bytes_changed=False)[1]

@@ -54,9 +54,10 @@ def main() -> int:
 
     def publish_verify():
         service.keygen(private, public, passphrase)
+        service.trust_key(public, "publisher-demo-001")
         published = service.register(source, private, passphrase)
         exact = service.verify(published["media_path"], published["manifest_path"], "hard")
-        assert exact["conclusion"] == "VERIFIED_EXACT"
+        assert exact["conclusion"] == "VERIFIED_BINDING_ONLY"
         full = service.verify(published["media_path"], published["manifest_path"], "full")
         assert full["state_freshness"] == "UNKNOWN" and full["conclusion"] == "INDETERMINATE"
         return {"content_id": published["content_id"], "exact": exact, "full_without_state": full}

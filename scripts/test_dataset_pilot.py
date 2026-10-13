@@ -67,6 +67,7 @@ def main() -> int:
     atexit.register(lambda: public.unlink(missing_ok=True))
     password = "dataset-pilot-" + secrets.token_urlsafe(18)
     service.keygen(private, public, password)
+    service.trust_key(public, "dataset-pilot-publisher")
     rows: list[dict] = []
 
     for dataset, path in FILES:
@@ -96,14 +97,14 @@ def main() -> int:
                     f"published bytes={published.get('media_bytes')} exceeds MAX_BYTES={media.MAX_BYTES}")
             exact = service.verify(published["media_path"], published["manifest_path"], "hard")
             recovered = service.verify(published["media_path"], None, "recover")
-            _assert(exact.get("conclusion") == "VERIFIED_EXACT",
-                    f"hard conclusion={exact.get('conclusion')!r}, expected 'VERIFIED_EXACT'")
+            _assert(exact.get("conclusion") == "VERIFIED_BINDING_ONLY",
+                    f"hard conclusion={exact.get('conclusion')!r}, expected 'VERIFIED_BINDING_ONLY'")
             _assert(exact.get("content_hash_match") == "PASS",
                     f"hard content_hash_match={exact.get('content_hash_match')!r}, expected 'PASS'")
             _assert(recovered.get("watermark_status") == "FOUND",
                     f"recover watermark_status={recovered.get('watermark_status')!r}, expected 'FOUND'")
-            _assert(recovered.get("conclusion") == "VERIFIED_EXACT",
-                    f"recover conclusion={recovered.get('conclusion')!r}, expected 'VERIFIED_EXACT'")
+            _assert(recovered.get("conclusion") == "VERIFIED_BINDING_ONLY",
+                    f"recover conclusion={recovered.get('conclusion')!r}, expected 'VERIFIED_BINDING_ONLY'")
             row.update(
                 {
                     "status": "PASS",
@@ -117,9 +118,9 @@ def main() -> int:
                     "assertions": {
                         "source_media_type": True,
                         "size_within_limit": True,
-                        "hard_verified_exact": True,
+                        "hard_verified_binding_only": True,
                         "hard_content_hash_pass": True,
-                        "recover_verified_exact": True,
+                        "recover_verified_binding_only": True,
                         "recover_watermark_found": True,
                     },
                 }
@@ -200,7 +201,7 @@ def main() -> int:
         "expectations": {
             "media_types": EXPECTED_MEDIA_TYPES,
             "pdf_page_count": EXPECTED_PDF_PAGE_COUNT,
-            "hard_conclusion": "VERIFIED_EXACT",
+            "hard_conclusion": "VERIFIED_BINDING_ONLY",
             "recover_watermark_status": "FOUND",
             "image_transform_conclusion": "ORIGIN_HINT_ONLY",
         },

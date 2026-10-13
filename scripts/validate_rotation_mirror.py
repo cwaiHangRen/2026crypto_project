@@ -102,6 +102,7 @@ def service_checks(output: Path) -> list[dict]:
         private, public = Path(temporary) / "private.pem", Path(temporary) / "public.pem"
         password = secrets.token_urlsafe(24)
         service.keygen(private, public, password)
+        service.trust_key(public, "publisher-demo-001")
         for index in (1, 2):
             raw, info = fixture(index)
             source = output / f"service-source-{index}.bin"
@@ -119,7 +120,7 @@ def service_checks(output: Path) -> list[dict]:
                           and observed["signature_valid"] == "PASS"
                           and observed["issuer_trusted"] == "PASS"
                           and observed["content_hash_match"] == ("PASS" if exact else "FAIL")
-                          and observed["conclusion"] == ("VERIFIED_EXACT" if exact else "ORIGIN_HINT_ONLY")
+                          and observed["conclusion"] == ("VERIFIED_BINDING_ONLY" if exact else "ORIGIN_HINT_ONLY")
                           and observed["state_freshness"] == "NOT_CHECKED")
                 records.append({"kind": "service", "format": info["format"], "mirror": mirror,
                                 "angle": angle, "manifest_supplied": False,
