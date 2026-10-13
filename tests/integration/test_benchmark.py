@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from gm_provenance.benchmark import GROUPS, load_attack_config, run_benchmark, _transform_cases, _transform_outcome
+from gm_provenance.benchmark import GROUPS, load_attack_config, run_benchmark, _bytes_image, _fixture_bytes, _transform_cases, _transform_outcome
 
 
 def test_small_benchmark_writes_four_groups_and_separates_truth(tmp_path: Path):
@@ -56,3 +56,32 @@ def test_unchanged_metadata_clear_is_exact_but_still_requires_correct_recovery_i
         assert handled
     observed["recovered_content_ids"] = ["fedcba9876543210fedcba9876543210"]
     assert not _transform_outcome("G3", "metadata_clear", observed, expected, bytes_changed=False)[1]
+
+
+def test_decimal_rotation_config_and_four_group_recovery(tmp_path):
+    config = tmp_path / "decimal-attacks.yaml"
+    config.write_text("images:\n  jpeg_reencode: []\n  resize: []\n  crop_keep_area: []\n  rotation_degrees: [37.5]\n  mirror_rotation_degrees: [213.25]\n  metadata_clear: false\n", encoding="utf-8")
+    loaded = load_attack_config(config)
+    geometry = [case for case in _transform_cases(loaded) if case["operation"] in ("rotate", "mirror_rotate")]
+    assert [case["value"] for case in geometry] == [37.5, 213.25]
+    output = tmp_path / "decimal-benchmark"
+    run_benchmark(output, config, sample_count=1)
+    rows = [json.loads(line) for line in (output / "samples.jsonl").read_text(encoding="utf-8").splitlines()]
+    rotated = [row for row in rows if row["transform"] in {"rotate_37.5", "mirror_rotate_213.25"}]
+    assert len(rotated) == 2 * len(GROUPS)
+    assert all(row["handled"] for row in rotated)
+    assert all(row["detector_input"] == {"manifest_supplied": row["group"] == "G1"} for row in rotated)
+    assert all(row["truth"]["bytes_changed"] for row in rotated)
+    for row in rotated:
+        if row["group"] in ("G2", "G3"):
+            assert row["observed"]["recovered_content_ids"] == [row["truth"]["expected_content_id"]]
+            assert row["observed"]["conclusion"] == "ORIGIN_HINT_ONLY"
+
+
+def test_benchmark_rotation_rejects_nonfinite_and_boolean_angles():
+    import pytest
+    source = _fixture_bytes(0)
+    for operation in ("rotate", "mirror_rotate"):
+        for value in (True, False, float("inf"), float("-inf"), float("nan"), "37.5", None):
+            with pytest.raises(ValueError, match="有限数值"):
+                _bytes_image(source, operation, value)

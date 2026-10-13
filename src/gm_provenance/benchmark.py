@@ -12,6 +12,7 @@ import random
 import statistics
 import time
 import base64
+import math
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -63,7 +64,7 @@ def load_attack_config(path: str | Path | None = None) -> dict[str, Any]:
     # 仅用于离线 bundled runtime：提取 seed、布尔开关和数值数组。
     import re
     text = path.read_text(encoding="utf-8")
-    for key, raw in re.findall(r"^\s{2,}([A-Za-z_]+):\s*(\[[^\n]+\]|true|false|simulated_only)\s*$", text, re.M):
+    for key, raw in re.findall(r"^\s{2,}([A-Za-z_]+):\s*(\[[^\n]*\]|true|false|simulated_only)\s*$", text, re.M):
         if key == "seed":
             continue
         if raw.startswith("["):
@@ -123,14 +124,11 @@ def _bytes_image(data: bytes, operation: str, value: Any = None) -> bytes:
         # Re-encoding without copying info removes EXIF/text metadata.
         im.save(out, "PNG")
     elif operation in ("rotate", "mirror_rotate"):
-        rotations = {0: None, 90: Image.Transpose.ROTATE_90,
-                     180: Image.Transpose.ROTATE_180, 270: Image.Transpose.ROTATE_270}
-        if type(value) is not int or value not in rotations:
-            raise ValueError("旋转角度仅支持 0/90/180/270")
+        if type(value) not in (int, float) or (type(value) is float and not math.isfinite(value)):
+            raise ValueError("旋转角度必须是有限数值")
         if operation == "mirror_rotate":
             im = im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-        if rotations[value] is not None:
-            im = im.transpose(rotations[value])
+        im = im.rotate(float(value % 360), resample=Image.Resampling.BICUBIC, expand=True, fillcolor=(255, 255, 255))
         im.save(out, "PNG")
     elif operation == "screenshot_simulated":
         # A deterministic render/scale/encode approximation; never labelled real screenshot.
