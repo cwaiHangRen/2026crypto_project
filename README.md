@@ -13,7 +13,7 @@
 - 发布安全：登记和派生会对最终编码字节做盲恢复自检，只有恢复本次 ContentID 才进入摘要、签名和 Registry。
 - 服务与演示：FastAPI 本地服务、中文演示页面、登记、验证、变换预览、历史和撤销接口。
 - 验证与安全：单元、集成和攻击测试，以及 PDF 安全检查和离线数据集 pilot 验证。
-- 数据集：项目内保留小型可复现实验样本；完整 COCO/DocLayNet 归档默认放在 D 盘，不进入 Git 仓库。
+- 数据集：数据集、图片/PDF 样本及评测结果均留在本地，不随 Git 仓库上传；clone 后需另行下载或导入并审核许可。
 
 系统验证的是签名、摘要、状态和媒体处理结果，不证明事实真实性、版权归属或内容一定由 AI 生成。
 
@@ -27,6 +27,8 @@ python -m venv .venv
 # 也可以使用：.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
+需要可执行的 OpenSSL（支持 SM2/SM3），通过 PATH 或 `GM_OPENSSL` 指定；Windows 也会探测 `C:/msys64/ucrt64/bin/openssl.exe`。先运行下方环境检查和 `doctor`，确认实际后端。
+
 运行快速演示：
 
 ```powershell
@@ -38,10 +40,13 @@ python -m venv .venv
 运行测试：
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q --basetemp results\validation-installed\tmp
+$testTemp = ".pytest-tmp-" + [guid]::NewGuid().ToString("N")
+.\.venv\Scripts\python.exe -m pytest -q --basetemp $testTemp
 ```
 
-运行 Round 3 开发基线（默认串行处理 PDF，避免长批量 PDFium 原生资源问题）：
+`--basetemp` 会清空目标目录：每次使用新的专用目录，不指向已有数据、密钥或结果。
+
+Round 3 准备脚本依赖 `data/external-pilot-20261006/` 的六个本地 pilot 文件，clone 不包含它们。先按 `scripts/download_dataset_pilot.py` 和数据集文档准备并核验来源与许可，再运行开发基线（默认串行 PDF）：
 
 ```powershell
   .\.venv\Scripts\python.exe scripts\prepare_round3_dataset.py --output data\round3-development-v3
@@ -59,7 +64,7 @@ python -m venv .venv
 启动本地 API：
 
 ```powershell
-python -m uvicorn gm_provenance.api:app --host 127.0.0.1 --port 8000
+.\.venv\Scripts\python.exe -m uvicorn gm_provenance.api:app --host 127.0.0.1 --port 8000
 ```
 
 浏览器访问 `http://127.0.0.1:8000/`。服务默认只监听本机回环地址。
@@ -111,7 +116,7 @@ scripts/                 演示、测试、数据集检查和下载入口
 tests/                   单元、集成和安全测试
 docs/                    协议、威胁模型、数据集和验证记录
 configs/                 benchmark 和攻击配置
-data/                    小型样本及运行时清单；完整数据默认在 D 盘
+data/                    本地样本、密钥、数据库和清单；不随仓库上传
 results/                 本地验证结果；不作为源代码发布
 ```
 
@@ -129,3 +134,20 @@ results/                 本地验证结果；不作为源代码发布
 `keygen` 只生成密钥，不授予信任；需显式运行 `python -m gm_provenance.cli --root data trust --public <公钥> --publisher <发布者>`。API 写操作需要先运行 `init-admin` 并通过 `Authorization: Bearer` 传入令牌。`/api/verify` 默认使用 `full` 模式，也可显式传 `hard`、`recover`。
 
 Round 2 隔离验收：`python scripts/run_round2_acceptance.py --output results/round2-acceptance`。脚本使用临时登记库和测试密钥，输出 `summary.json`、`report.md`，不修改项目 `data/`。
+
+## 本地初始化与图片/PDF 操作
+
+以下命令按当前 CLI 参数提供；密钥口令交互输入，不放入命令行。管理员初始化会输出一次令牌，请保存在本地，勿录入日志或提交。API 使用同一默认 `data` 根目录，网页写操作需提供该管理员令牌。
+
+```powershell
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data keygen --private data\publisher-private.pem --public data\publisher-public.pem
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data trust --public data\publisher-public.pem --publisher publisher-demo-001
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data init-admin
+# input.png 换为本地有权使用的 PNG/JPEG 或 PDF；记录输出的 media_path 与 manifest_path
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data register input.png --private data\publisher-private.pem --publisher publisher-demo-001
+# 以下尖括号为上一步实际输出，执行前替换
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data verify "<media_path>" --manifest "<manifest_path>" --mode hard
+.\.venv\Scripts\python.exe -m gm_provenance.cli --root data verify "<media_path>" --mode recover
+```
+
+`hard` 检查凭证与实际字节绑定；`recover` 恢复来源线索；`full` 的当前状态结论还需要新鲜的签名状态快照，参见协议文档。图片受限裁剪恢复需显式增加 `--decoder-profile decoder-v2-sync`，默认关闭，不保证任意裁剪、旋转或镜像恢复；PDF 固定 v1。`decoder-v3-sync` 和 Round7 文件属于显式实验材料，不表示旋转镜像、完整外部矩阵或队友后续 PDF 截图工作已经完成。
