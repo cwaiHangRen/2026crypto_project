@@ -161,9 +161,10 @@ def detect(data: bytes, media_type: str | None = None,
            decoder_profile: str = "dct-difference-v1") -> dict[str, Any]:
     """盲检测媒体水印。
 
-    ``dct-difference-v1`` 是历史 D0 默认路径；``decoder-v2-sync`` 与
-    ``decoder-v3-sync`` 只对图片启用有界几何同步。发布 gate 始终调用默认
-    D0，不接受同步搜索结果作为最终文件自检依据。
+    ``dct-difference-v1`` 的普通验证包含旋转/镜像与边框几何恢复；
+    ``decoder-v2-sync`` 与 ``decoder-v3-sync`` 只对图片启用有界裁剪同步。
+    发布 gate 在 direct_detection 上下文中保持历史单方向 D0，
+    不接受传播校正或同步搜索结果作为最终文件自检依据。
     """
     if not isinstance(data, (bytes, bytearray)) or len(data) > MAX_BYTES:
         return {"status": "NOT_FOUND", "content_ids": [], "pages": [],
@@ -237,7 +238,10 @@ def assert_publishable(data: bytes, content_id: str, media_type: str | None = No
         detected_type = sniff(data)
         if media_type is not None and media_type != detected_type:
             raise ValueError(f"media_type 与文件头不一致: {media_type} != {detected_type}")
-        observed = detect(data, detected_type)
+        # Publishing must keep the legacy direct D0 gate. Rotation recovery
+        # is for propagation copies, not a way to relax final-byte self-check.
+        with watermark.direct_detection():
+            observed = detect(data, detected_type)
     except Exception as exc:
         diagnostics = {
             "stage": "final_media_decode_or_detect",

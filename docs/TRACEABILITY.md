@@ -6,6 +6,8 @@
 | JCS Manifest 与最终字节摘要 | `manifest.py`、`service.py` | `tests/unit/test_manifest.py` |
 | 随机 ContentID 与原子登记 | `service.py`、`registry.py` | `tests/unit/test_registry.py` |
 | 图片盲水印 | `watermark.py` | `tests/unit/test_watermark.py`、`results/smoke-test/report.json`（scipy + RS(53,21)） |
+| 图片旋转镜像恢复与真实候选冲突 | `watermark.py` | `tests/unit/test_rotation_mirror.py`、`tests/integration/test_rotation_mirror_service.py`、`scripts/validate_rotation_mirror.py`；实测记录见 `docs/ROTATION_MIRROR.md` |
+| 任意角度盲校正、裁切擦除与随机旋转演示 | `rotation.py`、`watermark.py`、`service.py`、`api.py`、`ui/` | `tests/unit/test_arbitrary_rotation.py`、`tests/unit/test_rotation_geometry.py`、`tests/integration/test_arbitrary_rotation_demo.py`、`scripts/validate_arbitrary_rotation.py`；实测见 `docs/ARBITRARY_ROTATION.md` |
 | PDF 页面范围语义 | `media.py` | `tests/integration/test_pdf.py` |
 | 授权派生与父链 | `service.py`、`registry.py` | `tests/integration/test_derivation.py` |
 | 状态快照、撤销与最新版本 | `state.py`、`service.py` | `tests/integration/test_derivation.py`、`tests/security/test_state.py` |

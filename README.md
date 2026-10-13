@@ -17,6 +17,8 @@
 
 系统验证的是签名、摘要、状态和媒体处理结果，不证明事实真实性、版权归属或内容一定由 AI 生成。
 
+图片检测支持正交旋转、镜像及任意小数角度的自动校正和来源恢复。演示页可输入角度或随机旋转后验证；不同有效编号仍报告冲突。任意角度的适用边界、实测和复现见 [任意角度旋转恢复](docs/ARBITRARY_ROTATION.md)，原八方向验证见 [旋转镜像恢复](docs/ROTATION_MIRROR.md)。
+
 ## 快速开始
 
 建议使用 Python 3.12（最低支持 Python 3.11）。项目依赖的唯一来源是 `pyproject.toml`；`requirements.txt` 只是兼容入口：
@@ -73,7 +75,7 @@ Round 3 准备脚本依赖 `data/external-pilot-20261006/` 的六个本地 pilot
 
 - `POST /api/register-demo`：登记并发布演示内容。
 - `POST /api/verify`：验证文件和内容凭证。
-- `POST /api/transform-preview`：比较 JPEG、缩放等传播变换。
+- `POST /api/transform-preview`：比较 JPEG、缩放及任意角度/镜像旋转，可返回前后缩略图。
 - `GET /api/history/{content_id}`：查看版本链和状态。
 - `POST /api/revoke`：显式确认后撤销内容。
 - `GET /api/benchmark`：运行真实 benchmark。

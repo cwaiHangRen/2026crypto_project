@@ -396,7 +396,10 @@ def detect_image_sync(data: bytes, config: SyncConfig | dict[str, Any] | None = 
     # D0 is always the first decoder operation. A successful quick path is
     # deliberately incomplete: it has not searched alternative geometries.
     d0_started = time.perf_counter()
-    d0 = _wm.detect_image(data)
+    # Keep the unbudgeted D0 stage direct, as before; arbitrary-angle recovery
+    # remains available in the normal detector without extending sync budgets.
+    with _wm.direct_detection():
+        d0 = _wm.detect_image(data)
     details["timing_ms"] = {"d0": round((time.perf_counter() - d0_started) * 1000, 3)}
     if d0.get("status") == "FOUND" and d0.get("content_ids"):
         details.update({"search_complete": False, "stop_reason": "d0_found",

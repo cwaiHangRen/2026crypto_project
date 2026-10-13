@@ -139,7 +139,10 @@ def _observe(encoded_bytes: bytes, target_bits: np.ndarray, target_encoded: byte
                 })
         bit_values.append(int(sum(repeats) >= (_wm._REPEAT / 2)))
     ecc = _decode_bits(np.asarray(bit_values, dtype=np.uint8), target_encoded, cid)
-    observed = _wm.detect_image(encoded_bytes)
+    # Feedback observes its uncorrected final encoding, as before; a rotation
+    # hypothesis must not end an embedding iteration or relax publication.
+    with _wm.direct_detection():
+        observed = _wm.detect_image(encoded_bytes)
     return {
         "output_format": fmt,
         "bit_values": bit_values,

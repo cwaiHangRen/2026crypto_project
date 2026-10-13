@@ -14,6 +14,7 @@ from typing import Any
 
 import numpy as np
 from PIL import Image
+from .rotation import GEOMETRY_BACKEND, MAX_ROTATION_CANDIDATES, rotation_candidates
 try:
     from scipy.fft import dctn, idctn
     _DCT_BACKEND = "scipy"
@@ -57,6 +58,23 @@ _CODEWORD_BYTES = 21 + 32
 _HEADER_BITS = _CODEWORD_BYTES * 8
 _V2_PROFILE = "watermark-v2-residual"
 _DCT_MODE = contextvars.ContextVar("gm_provenance_dct_mode", default="scalar")
+_DIRECT_DETECTION = contextvars.ContextVar("gm_provenance_direct_detection", default=False)
+
+
+@contextmanager
+def direct_detection():
+    """Keep publishing self-checks and sync D0 on their original direct decoder.
+
+    Ordinary verification searches every supported direction and geometric
+    candidate. Internal callers can retain a strict single-direction check
+    without changing the detector signature or bypassing its existing hook.
+    The setting is scoped to this context and is restored even on failure.
+    """
+    token = _DIRECT_DETECTION.set(True)
+    try:
+        yield
+    finally:
+        _DIRECT_DETECTION.reset(token)
 
 
 @contextmanager
@@ -118,7 +136,10 @@ def _load(data: bytes) -> tuple[Image.Image, str]:
     if im.width * im.height > MAX_PIXELS:
         raise ValueError("图片像素数超过 16MP 限制")
     mode = "L" if im.mode in ("1", "L", "I", "F") else "RGB"
-    return im.convert(mode), mode
+    # Preserve alpha for geometric detection while v1 publishing still emits
+    # its historical RGB/L bytes through _make_image.
+    has_alpha = "A" in im.getbands() or "transparency" in im.info
+    return im.convert("RGBA" if has_alpha else mode), mode
 
 
 def _payload(cid: str) -> bytes:
@@ -489,7 +510,7 @@ embed_image_without_watermark = encode_without_watermark
 embed_image_no_watermark = encode_without_watermark
 
 
-def _detect_bits(gray: np.ndarray) -> np.ndarray:
+def _block_votes(gray: np.ndarray) -> np.ndarray:
     positions = [(r, c) for r in range(1, WORK_SIZE // 8 - 1) for c in range(1, WORK_SIZE // 8 - 1)]
     selected = positions[: _HEADER_BITS * _REPEAT]
     if _DCT_MODE.get() == "batch":
@@ -502,16 +523,39 @@ def _detect_bits(gray: np.ndarray) -> np.ndarray:
             block = gray[br * 8 : br * 8 + 8, bc * 8 : bc * 8 + 8]
             coeff = _dct_blocks(block)
             vals.append(1 if coeff[2, 3] - coeff[3, 2] >= 0 else 0)
-    return np.asarray(vals, dtype=np.uint8).reshape(_HEADER_BITS, _REPEAT).sum(axis=1) >= (_REPEAT / 2)
+    return np.asarray(vals, dtype=np.uint8).reshape(_HEADER_BITS, _REPEAT).astype(bool)
+
+
+def _detect_bits(gray: np.ndarray) -> np.ndarray:
+    return _block_votes(gray).sum(axis=1) >= (_REPEAT / 2)
 
 
 def _candidate(im: Image.Image) -> str | None:
     gray, _ = _work_gray(im)
-    bits = _detect_bits(gray)
+    return _candidate_gray(gray)
+
+
+def _candidate_gray(gray: np.ndarray, valid_mask: np.ndarray | None = None) -> str | None:
+    erased = []
+    if valid_mask is None:
+        bits = _detect_bits(gray)
+    else:
+        # A cut-off repeated block contains invented fill pixels. Do not count
+        # those as votes; fully missing bits mark their RS byte as an erasure.
+        positions = [(r, c) for r in range(1, WORK_SIZE // 8 - 1)
+                     for c in range(1, WORK_SIZE // 8 - 1)]
+        rows, columns = np.asarray(positions[: _HEADER_BITS * _REPEAT]).T
+        blocks = valid_mask.reshape(64, 8, 64, 8).transpose(0, 2, 1, 3)
+        visible = (blocks[rows, columns].min(axis=(-2, -1)) >= 0.999).reshape(_HEADER_BITS, _REPEAT)
+        counts = visible.sum(axis=1)
+        bits = (_block_votes(gray) & visible).sum(axis=1) >= (counts / 2)
+        erased = np.flatnonzero((counts == 0).reshape(_CODEWORD_BYTES, 8).any(axis=1)).tolist()
+        if erased and (_ECC_BACKEND != "reedsolo" or len(erased) > 32):
+            return None
     raw = np.packbits(bits).tobytes()
     # Majority bits can produce 53 bytes; RS decoder expects exactly that.
     try:
-        decoded = _RS.decode(raw)[0]
+        decoded = (_RS.decode(raw, erase_pos=erased) if erased else _RS.decode(raw))[0]
         if len(decoded) != 21 or decoded[0] != VERSION:
             return None
         body, crc = decoded[:17], decoded[17:]
@@ -523,12 +567,57 @@ def _candidate(im: Image.Image) -> str | None:
 
 
 def detect_image(data: bytes) -> dict[str, Any]:
-    """盲检测图片水印；返回 FOUND/NOT_FOUND/CONFLICT。"""
+    """盲检测正交方向与任意角度边界校正；汇总所有有效编号。
+
+    方向名称表示检测时尝试的校正操作，不证明图片实际经历的变换。
+    不改变嵌入格式，不需要原图、ContentID、真实角度或登记库。
+    """
     try:
         im, _ = _load(data)
     except ValueError as exc:
         return {"status": "NOT_FOUND", "content_ids": [], "details": {"error": str(exc)}}
-    cid = _candidate(im)
-    if cid is None:
-        return {"status": "NOT_FOUND", "content_ids": [], "details": {"profile": "dct-difference-v1", "dct_mode": _DCT_MODE.get()}}
-    return {"status": "FOUND", "content_ids": [cid], "details": {"profile": "dct-difference-v1", "dct_mode": _DCT_MODE.get(), "work_size": WORK_SIZE}}
+    if _DIRECT_DETECTION.get():
+        cid = _candidate(im)
+        if cid is None:
+            return {"status": "NOT_FOUND", "content_ids": [],
+                    "details": {"profile": "dct-difference-v1", "dct_mode": _DCT_MODE.get()}}
+        return {"status": "FOUND", "content_ids": [cid],
+                "details": {"profile": "dct-difference-v1", "dct_mode": _DCT_MODE.get(), "work_size": WORK_SIZE}}
+    gray, _ = _work_gray(im)
+    checked = []
+    matches = []
+    geometry_checked = []
+
+    def inspect(matrix, mask=None, geometry=None):
+        for mirrored in (False, True):
+            base = np.fliplr(matrix) if mirrored else matrix
+            valid = np.fliplr(mask) if mirrored and mask is not None else mask
+            for quarter_turns in range(4):
+                name = f"{'mirror_' if mirrored else ''}rotate_{quarter_turns * 90}"
+                if geometry is None:
+                    checked.append(name)
+                rotated_mask = np.rot90(valid, quarter_turns) if valid is not None else None
+                cid = _candidate_gray(np.rot90(base, quarter_turns), rotated_mask)
+                if cid is not None:
+                    match = {"orientation": name, "content_id": cid}
+                    if geometry is not None:
+                        match["geometry"] = geometry
+                    matches.append(match)
+
+    inspect(gray)
+    # Do not short-circuit after a match: a second valid payload must still
+    # produce CONFLICT, including across geometric hypotheses.
+    for corrected, valid_mask, geometry in rotation_candidates(im):
+        geometry_checked.append(geometry)
+        normalized, _ = _work_gray(corrected)
+        mask = (np.asarray(valid_mask.resize((WORK_SIZE, WORK_SIZE), Image.Resampling.BOX), dtype=np.float32) / 255
+                if valid_mask is not None else None)
+        inspect(normalized, mask, geometry)
+    ids = sorted({match["content_id"] for match in matches})
+    status = "FOUND" if len(ids) == 1 else ("CONFLICT" if len(ids) > 1 else "NOT_FOUND")
+    return {"status": status, "content_ids": ids,
+            "details": {"profile": "dct-difference-v1", "dct_mode": _DCT_MODE.get(), "work_size": WORK_SIZE,
+                        "orientations_checked": checked, "matches": matches,
+                        "rotation_recovery": {"backend": GEOMETRY_BACKEND,
+                                              "candidate_limit": MAX_ROTATION_CANDIDATES,
+                                              "candidates_checked": geometry_checked}}}

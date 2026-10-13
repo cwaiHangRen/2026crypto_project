@@ -86,7 +86,9 @@ try:
             except (ValueError, FileNotFoundError) as exc: raise HTTPException(400, str(exc)) from exc
 
     @app.post("/api/transform-preview")
-    async def transform_preview(file: UploadFile = File(...), operation: str = "jpeg-reencode", authorization: str | None = Header(default=None)):
+    async def transform_preview(file: UploadFile = File(...), operation: str = "jpeg-reencode",
+                                angle: float = 0.0, mirror: bool = False,
+                                authorization: str | None = Header(default=None)):
         _require_admin(authorization)
         data = await _read_limited(file, media.MAX_BYTES)
         with tempfile.TemporaryDirectory(dir=service.root) as tmp:
@@ -95,13 +97,24 @@ try:
             transformed = tmp_path / "transformed.bin"
             source.write_bytes(data)
             try:
-                transform = service.transform(source, transformed, operation)
+                transform = service.transform(source, transformed, operation, angle=angle, mirror=mirror)
                 verified = service.verify(transformed, None, "full")
                 after_bytes = len(transformed.read_bytes())
-            except (ValueError, FileNotFoundError) as exc:
+                previews = {}
+                if operation in ("rotate", "mirror_rotate"):
+                    import base64
+                    import io
+                    from PIL import Image
+                    for label, path in (("before_image", source), ("after_image", transformed)):
+                        with Image.open(path) as image:
+                            image.thumbnail((512, 512), Image.Resampling.LANCZOS)
+                            preview = io.BytesIO()
+                            image.save(preview, "PNG")
+                        previews[label] = "data:image/png;base64," + base64.b64encode(preview.getvalue()).decode("ascii")
+            except (ValueError, OSError) as exc:
                 raise HTTPException(400, str(exc)) from exc
         return {"transform": transform, "verification": verified,
-                "before_bytes": len(data), "after_bytes": after_bytes}
+                "before_bytes": len(data), "after_bytes": after_bytes, **previews}
 
     @app.post("/api/revoke")
     def revoke(payload: dict = Body(...), authorization: str | None = Header(default=None)):

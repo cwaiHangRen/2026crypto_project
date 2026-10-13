@@ -73,3 +73,22 @@ def test_feedback_failure_preserves_diagnostics_and_final_bytes(monkeypatch):
 def test_feedback_rejects_invalid_content_id_before_encoding():
     with pytest.raises(ValueError, match="32 位小写十六进制"):
         embed_image_feedback(_raw(), "not-a-content-id")
+
+
+def test_feedback_observation_keeps_direct_geometry_and_restores_detector():
+    from gm_provenance.watermark_feedback import _observe
+
+    source = io.BytesIO()
+    Image.new("L", (768, 768), 140).save(source, "PNG")
+    marked, _ = wm.embed_image(source.getvalue(), CID)
+    rotated = Image.open(io.BytesIO(marked)).rotate(
+        33.3, Image.Resampling.BICUBIC, expand=True, fillcolor=0)
+    stream = io.BytesIO()
+    rotated.save(stream, "PNG")
+    transformed = stream.getvalue()
+
+    codeword = bytes(wm._RS.encode(wm._payload(CID)))
+    observed = _observe(transformed, wm._bits(codeword), codeword, CID, "PNG",
+                        include_coefficients=False)
+    assert observed["detector"]["status"] == "NOT_FOUND"
+    assert wm.detect_image(transformed)["content_ids"] == [CID]

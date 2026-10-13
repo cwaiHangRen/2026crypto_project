@@ -142,21 +142,53 @@ class ProvenanceService:
                 return True
         return False
 
-    def _transform_bytes(self, data: bytes, operation: str, quality: int = 75) -> tuple[bytes, str]:
+    def _transform_bytes(self, data: bytes, operation: str, quality: int = 75,
+                         *, angle: float = 0.0, mirror: bool = False) -> tuple[bytes, str]:
         from PIL import Image
         import io
+        import math
+        if len(data) > media.MAX_BYTES:
+            raise ValueError("文件超过 20MB 限制")
         mt = media.sniff(data)
         if mt not in ("image/png", "image/jpeg"):
-            raise ValueError("derive 当前支持 PNG/JPEG 图片")
-        im = Image.open(io.BytesIO(data)).convert("RGB")
+            raise ValueError("变换当前支持 PNG/JPEG 图片")
+        with Image.open(io.BytesIO(data)) as source:
+            if source.width * source.height > media.MAX_PIXELS:
+                raise ValueError("图片像素数超过 16MP 限制")
+            # Rotation preserves alpha; the existing JPEG/resize path retains its RGB encoding.
+            has_alpha = "A" in source.getbands() or "transparency" in source.info
+            im = source.convert("RGBA" if operation in ("rotate", "mirror_rotate") and has_alpha else "RGB")
         out = io.BytesIO()
         if operation == "jpeg-reencode":
             im.save(out, "JPEG", quality=max(1, min(100, quality)))
         elif operation == "resize":
             im.resize((max(1, im.width // 2), max(1, im.height // 2))).save(out, "PNG")
+        elif operation in ("rotate", "mirror_rotate"):
+            if type(angle) not in (int, float) or (type(angle) is float and not math.isfinite(angle)):
+                raise ValueError("旋转角度必须是有限数值")
+            if type(mirror) is not bool:
+                raise ValueError("镜像选项必须是布尔值")
+            normalized = float(angle % 360)
+            if normalized % 90.0:
+                radians = math.radians(normalized)
+                # Pillow expands to integer bounds; reserve two pixels for its rounding.
+                width = math.ceil(im.width * abs(math.cos(radians)) + im.height * abs(math.sin(radians))) + 2
+                height = math.ceil(im.width * abs(math.sin(radians)) + im.height * abs(math.cos(radians))) + 2
+                if width * height > media.MAX_PIXELS:
+                    raise ValueError("旋转展开后图片像素数超过 16MP 限制")
+            if mirror or operation == "mirror_rotate":
+                im = im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+            fill = (255, 255, 255, 0) if im.mode == "RGBA" else (255, 255, 255)
+            im = im.rotate(normalized, resample=Image.Resampling.BICUBIC, expand=True, fillcolor=fill)
+            if im.width * im.height > media.MAX_PIXELS:
+                raise ValueError("旋转展开后图片像素数超过 16MP 限制")
+            im.save(out, "PNG")
         else:
             raise ValueError(f"不支持的变换: {operation}")
-        return out.getvalue(), operation
+        transformed = out.getvalue()
+        if len(transformed) > media.MAX_BYTES:
+            raise ValueError("变换后文件超过 20MB 限制")
+        return transformed, operation
 
     def derive(self, source: str | Path, private_path: str | Path, passphrase: str,
                operation: str, quality: int = 75,
@@ -449,8 +481,19 @@ class ProvenanceService:
             return "FAIL"
         return "PASS" if isinstance(operation, str) and self._operation_allowed(pbody, operation) else "FAIL"
 
-    def transform(self, source_path: str | Path, output_path: str | Path, operation: str = "jpeg-reencode", quality: int = 75) -> dict[str, Any]:
+    def transform(self, source_path: str | Path, output_path: str | Path, operation: str = "jpeg-reencode", quality: int = 75,
+                  *, angle: float = 0.0, mirror: bool = False) -> dict[str, Any]:
         from PIL import Image
         import io
-        data = Path(source_path).read_bytes(); transformed, _ = self._transform_bytes(data, operation, quality)
-        Path(output_path).write_bytes(transformed); return {"operation": operation, "input": str(source_path), "output": str(output_path), "bytes": len(transformed)}
+        source, output = Path(source_path), Path(output_path)
+        if source.resolve() == output.resolve() or (output.exists() and source.samefile(output)):
+            raise ValueError("变换输出必须使用独立文件，不能覆盖来源文件")
+        data = source.read_bytes()
+        transformed, _ = self._transform_bytes(data, operation, quality, angle=angle, mirror=mirror)
+        output.write_bytes(transformed)
+        result = {"operation": operation, "input": str(source_path), "output": str(output_path), "bytes": len(transformed)}
+        if operation in ("rotate", "mirror_rotate"):
+            with Image.open(io.BytesIO(transformed)) as image:
+                result.update({"angle": float(angle % 360), "mirror": mirror or operation == "mirror_rotate",
+                               "expand": True, "width": image.width, "height": image.height})
+        return result

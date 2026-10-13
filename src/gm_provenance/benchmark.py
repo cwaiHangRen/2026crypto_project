@@ -12,6 +12,7 @@ import random
 import statistics
 import time
 import base64
+import math
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -31,6 +32,8 @@ def _default_config() -> dict[str, Any]:
             "jpeg_reencode": [90, 75, 50],
             "resize": [0.5, 0.75, 1.5],
             "crop_keep_area": [0.95, 0.90],
+            "rotation_degrees": [90, 180, 270],
+            "mirror_rotation_degrees": [0, 90, 180, 270],
             "metadata_clear": True,
             "screenshot": {"viewport": [768, 768], "simulated": True},
         },
@@ -61,7 +64,7 @@ def load_attack_config(path: str | Path | None = None) -> dict[str, Any]:
     # 仅用于离线 bundled runtime：提取 seed、布尔开关和数值数组。
     import re
     text = path.read_text(encoding="utf-8")
-    for key, raw in re.findall(r"^\s{2,}([A-Za-z_]+):\s*(\[[^\n]+\]|true|false|simulated_only)\s*$", text, re.M):
+    for key, raw in re.findall(r"^\s{2,}([A-Za-z_]+):\s*(\[[^\n]*\]|true|false|simulated_only)\s*$", text, re.M):
         if key == "seed":
             continue
         if raw.startswith("["):
@@ -119,6 +122,13 @@ def _bytes_image(data: bytes, operation: str, value: Any = None) -> bytes:
         im.crop((left, top, left + side, top + side)).save(out, "PNG")
     elif operation == "metadata_clear":
         # Re-encoding without copying info removes EXIF/text metadata.
+        im.save(out, "PNG")
+    elif operation in ("rotate", "mirror_rotate"):
+        if type(value) not in (int, float) or (type(value) is float and not math.isfinite(value)):
+            raise ValueError("旋转角度必须是有限数值")
+        if operation == "mirror_rotate":
+            im = im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        im = im.rotate(float(value % 360), resample=Image.Resampling.BICUBIC, expand=True, fillcolor=(255, 255, 255))
         im.save(out, "PNG")
     elif operation == "screenshot_simulated":
         # A deterministic render/scale/encode approximation; never labelled real screenshot.
@@ -200,9 +210,26 @@ def _transform_cases(config: dict[str, Any]) -> list[dict[str, Any]]:
     for quality in images.get("jpeg_reencode", []): cases.append({"name": f"jpeg_q{quality}", "operation": "jpeg_reencode", "value": quality, "simulated": False})
     for ratio in images.get("resize", []): cases.append({"name": f"resize_{ratio}", "operation": "resize", "value": ratio, "simulated": False})
     for keep in images.get("crop_keep_area", []): cases.append({"name": f"crop_{keep}", "operation": "crop", "value": keep, "simulated": False})
+    for angle in images.get("rotation_degrees", []): cases.append({"name": f"rotate_{angle}", "operation": "rotate", "value": angle, "simulated": False})
+    for angle in images.get("mirror_rotation_degrees", []): cases.append({"name": f"mirror_rotate_{angle}", "operation": "mirror_rotate", "value": angle, "simulated": False})
     if images.get("metadata_clear"): cases.append({"name": "metadata_clear", "operation": "metadata_clear", "value": True, "simulated": False})
     cases.append({"name": "screenshot_simulated", "operation": "screenshot_simulated", "value": None, "simulated": True})
     return cases
+
+
+def _transform_outcome(group: str, operation: str, observed: dict, expected: str | None,
+                       *, bytes_changed: bool | None = None) -> tuple[str, bool]:
+    """评测真值比较；仅在检测完成后调用，绝不把真值传给验证器。"""
+    if group == "G0":
+        outcome = "NO_PROVENANCE"
+    elif operation == "identity" or bytes_changed is False:
+        outcome = "VERIFIED_BINDING_ONLY" if group in ("G1", "G3") else "ORIGIN_HINT_ONLY"
+    else:
+        outcome = "INDETERMINATE" if group == "G1" else "ORIGIN_HINT_ONLY"
+    needs_id = group == "G2" or (group == "G3" and operation != "identity")
+    correct_id = (observed.get("watermark_status") == "FOUND"
+                  and observed.get("recovered_content_ids") == [expected])
+    return outcome, observed.get("conclusion") == outcome and (not needs_id or correct_id)
 
 
 def run_benchmark(output_dir: str | Path = "results/benchmark", config_path: str | Path | None = None,
@@ -248,10 +275,9 @@ def run_benchmark(output_dir: str | Path = "results/benchmark", config_path: str
                 elapsed = round((time.perf_counter() - started) * 1000, 3)
                 recovered = observed.get("recovered_content_ids", [])
                 expected = base["content_id"]
-                if group == "G0": expected_outcome = "NO_PROVENANCE"; handled = observed.get("conclusion") == expected_outcome
-                elif case["operation"] == "identity": expected_outcome = "VERIFIED_BINDING_ONLY" if group in ("G1", "G3") else ("ORIGIN_HINT_ONLY" if group == "G2" else "NO_PROVENANCE"); handled = (observed.get("conclusion") == expected_outcome and (group != "G2" or expected in recovered))
-                else: expected_outcome = "ORIGIN_HINT_ONLY" if group == "G3" else ("INDETERMINATE" if group == "G1" else ("ORIGIN_HINT_ONLY" if group == "G2" else "NO_PROVENANCE")); handled = (observed.get("conclusion") == expected_outcome and (group != "G2" or expected in recovered))
-                records.append({"sample_id": f"fixture-{index:02d}", "group": group, "transform": case["name"], "simulated": case["simulated"], "media_type": media.sniff(transformed), "detector_input": {"manifest_supplied": bool(supplied_manifest)}, "observed": {"conclusion": observed.get("conclusion"), "watermark_status": observed.get("watermark_status"), "recovered_content_ids": recovered, "elapsed_ms": elapsed}, "truth": {"expected_content_id": expected, "expected_outcome": expected_outcome}, "handled": bool(handled), "media_path": str(media_path)})
+                bytes_changed = transformed != data
+                expected_outcome, handled = _transform_outcome(group, case["operation"], observed, expected, bytes_changed=bytes_changed)
+                records.append({"sample_id": f"fixture-{index:02d}", "group": group, "transform": case["name"], "simulated": case["simulated"], "media_type": media.sniff(transformed), "detector_input": {"manifest_supplied": bool(supplied_manifest)}, "observed": {"conclusion": observed.get("conclusion"), "watermark_status": observed.get("watermark_status"), "recovered_content_ids": recovered, "elapsed_ms": elapsed}, "truth": {"expected_content_id": expected, "expected_outcome": expected_outcome, "bytes_changed": bytes_changed}, "handled": bool(handled), "media_path": str(media_path)})
         records.extend(_attack_records(service, source, g3, root, f"fixture-{index:02d}"))
     sample_records = [item for item in records if item.get("kind") != "attack"]
     attack_records = [item for item in records if item.get("kind") == "attack"]

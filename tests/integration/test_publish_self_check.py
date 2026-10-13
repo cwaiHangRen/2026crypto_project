@@ -102,3 +102,21 @@ def test_pdf_self_check_uses_current_page_scope(tmp_path: Path):
     result = media.assert_publishable(marked, CID, "application/pdf")
     assert result["status"] == "PASS"
     assert result["page_count"] == 1
+
+
+def test_rotation_recovery_does_not_relax_the_direct_publication_gate():
+    from gm_provenance import watermark
+
+    source = io.BytesIO()
+    Image.new("L", (768, 768), 140).save(source, "PNG")
+    marked, _ = watermark.embed_image(source.getvalue(), CID)
+    rotated = Image.open(io.BytesIO(marked)).rotate(
+        33.3, Image.Resampling.BICUBIC, expand=True, fillcolor=0)
+    output = io.BytesIO()
+    rotated.save(output, "PNG")
+    changed = output.getvalue()
+
+    assert watermark.detect_image(changed)["content_ids"] == [CID]
+    with pytest.raises(media.WatermarkSelfCheckError):
+        media.assert_publishable(changed, CID, "image/png")
+    assert watermark.detect_image(changed)["content_ids"] == [CID]
