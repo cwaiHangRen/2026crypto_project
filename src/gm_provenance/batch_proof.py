@@ -61,6 +61,14 @@ def node_hash(left: str, right: str, crypto: Any | None = None) -> str:
     return _digest(NODE_DOMAIN + _hex_bytes(left) + _hex_bytes(right), crypto)
 
 
+def batch_signing_descriptor(batch: dict[str, Any]) -> dict[str, Any]:
+    """Return the exact stable fields covered by a batch signature."""
+    return {"leaf_count": int(batch["leaf_count"]), "merkle_root": str(batch["merkle_root"]),
+            "created_at": str(batch["created_at"]), "publisher_id": str(batch["publisher_id"]),
+            "signer_key_id": batch.get("signer_key_id"),
+            "protocol": batch.get("protocol", "GM-PROVENANCE-BATCH-v2")}
+
+
 @dataclass(frozen=True)
 class MerkleProof:
     batch_id: str
@@ -175,7 +183,7 @@ class BatchProofService:
                     created_at: str | None = None) -> dict[str, Any]:
         tree = MerkleTree(leaves, self.crypto)
         created = created_at or _utc_now()
-        descriptor = {"leaf_count": len(tree.leaves), "merkle_root": tree.root, "created_at": created, "publisher_id": publisher_id, "signer_key_id": signer_key_id, "protocol": "GM-PROVENANCE-BATCH-v2"}
+        descriptor = batch_signing_descriptor({"leaf_count": len(tree.leaves), "merkle_root": tree.root, "created_at": created, "publisher_id": publisher_id, "signer_key_id": signer_key_id, "protocol": "GM-PROVENANCE-BATCH-v2"})
         batch_id = _digest(BATCH_DOMAIN + canonical_bytes(descriptor), self.crypto)[:32]
         signature = None
         if private_path is not None:
@@ -187,6 +195,16 @@ class BatchProofService:
         if self.store:
             self.store.save_batch(result)
         return result
+
+    def verify_batch_signature(self, batch: dict[str, Any] | BatchCredential, public_pem: bytes) -> bool:
+        data = batch.as_dict() if isinstance(batch, BatchCredential) else dict(batch)
+        signature = data.get("signature")
+        if not signature or self.crypto is None:
+            return False
+        try:
+            return bool(self.crypto.verify(BATCH_DOMAIN + canonical_bytes(batch_signing_descriptor(data)), base64.b64decode(signature, validate=True), public_pem))
+        except Exception:
+            return False
 
     def proof(self, batch: dict[str, Any] | BatchCredential, leaf: str) -> dict[str, Any]:
         data = batch.as_dict() if isinstance(batch, BatchCredential) else dict(batch)
