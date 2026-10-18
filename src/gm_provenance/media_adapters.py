@@ -394,6 +394,30 @@ class WavAdapter(MediaAdapter):
         return out.getvalue()
 
 
+class AudioAdapter(WavAdapter):
+    """Offline audio adapter; PCM16 WAV is enabled, codec formats are explicit flags."""
+    media_type = "audio"
+
+
+class VideoAdapter(MediaAdapter):
+    """Safe MP4 boundary. External FFmpeg/GStreamer is opt-in and not assumed."""
+    media_type = "video/mp4"
+    capability = "unavailable"
+
+    def inspect(self, data: bytes) -> MediaInfo:
+        return MediaInfo(self.media_type, False, len(data), _sha256(data), {},
+                         "MP4 需要可选系统编解码器；离线安全模式未启用外部组件")
+
+    def embed(self, data: bytes, content_id: str, **kwargs: Any) -> MediaOperation:
+        raise MediaUnavailableError(self.inspect(data).reason or "MP4 unavailable")
+
+    def detect(self, data: bytes, content_id: str | None = None, **kwargs: Any) -> MediaOperation:
+        raise MediaUnavailableError(self.inspect(data).reason or "MP4 unavailable")
+
+    def attack(self, data: bytes, attack_type: str, params: dict[str, Any] | None = None) -> bytes:
+        raise MediaUnavailableError(self.inspect(data).reason or "MP4 unavailable")
+
+
 class UnavailableAdapter(MediaAdapter):
     def __init__(self, media_type: str, reason: str): self.media_type, self.reason = media_type, reason; self.capability = "unavailable"
     def inspect(self, data: bytes) -> MediaInfo: return MediaInfo(self.media_type, False, len(data), _sha256(data), {}, self.reason)
@@ -412,9 +436,11 @@ def adapter_for(data: bytes, media_type: str | None = None) -> MediaAdapter:
         elif len(data) >= 12 and data[4:8] == b"ftyp": mt = "video/mp4"
     if mt in ("image/png", "image/jpeg", "image"): return ImageAdapter()
     if mt in ("application/pdf", "pdf"): return PdfAdapter()
-    if mt in ("audio/wav", "audio/x-wav", "wav"): return WavAdapter()
-    if mt in ("audio/mpeg", "audio/mp3", "audio/flac", "video/mp4", "video"):
+    if mt in ("audio/wav", "audio/x-wav", "wav", "audio"): return AudioAdapter()
+    if mt in ("audio/mpeg", "audio/mp3", "audio/flac"):
         return UnavailableAdapter(mt, "该格式需要可选系统编解码器；离线安全模式未启用外部组件")
+    if mt in ("video/mp4", "video"):
+        return VideoAdapter()
     raise MediaAdapterError("无法识别媒体类型")
 
 
@@ -422,4 +448,4 @@ def inspect_media(data: bytes, media_type: str | None = None) -> MediaInfo:
     return adapter_for(data, media_type).inspect(data)
 
 
-__all__ = ["MediaAdapter", "MediaAdapterError", "MediaUnavailableError", "MediaInfo", "MediaOperation", "ImageAdapter", "PdfAdapter", "WavAdapter", "UnavailableAdapter", "adapter_for", "inspect_media"]
+__all__ = ["MediaAdapter", "MediaAdapterError", "MediaUnavailableError", "MediaInfo", "MediaOperation", "ImageAdapter", "PdfAdapter", "WavAdapter", "AudioAdapter", "VideoAdapter", "UnavailableAdapter", "adapter_for", "inspect_media"]
