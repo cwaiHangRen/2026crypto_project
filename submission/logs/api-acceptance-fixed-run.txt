@@ -1,0 +1,1 @@
+API acceptance rerun: BLOCKED/HUNG at FastAPI TestClient loopback startup in this sandbox. Historical 9/9 PASS summary is in api-acceptance-historical-summary.json; full unsanitized diagnostics are preserved outside the submission package.

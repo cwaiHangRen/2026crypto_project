@@ -1,0 +1,28 @@
+usage: gm-provenance [-h] [--root ROOT]
+                     {doctor,init-admin,keygen,trust,register,derive,verify,transform,history,revoke,state-snapshot,demo,benchmark,export,screenshot-batch,pdf-raster}
+                     ...
+
+��������ƾ֤��ý��ˮӡ��ʾ
+
+positional arguments:
+  {doctor,init-admin,keygen,trust,register,derive,verify,transform,history,revoke,state-snapshot,demo,benchmark,export,screenshot-batch,pdf-raster}
+    doctor              ��� OpenSSL��SM3/SM2 ��ý����
+    init-admin          ��ʽ��ʼ������ API �������ƣ������һ�Σ�
+    keygen              ���ɼ�����ʾ˽Կ�͹�Կ
+    trust               ��ʽ�Ǽǲ����ι�Կ
+    register            Ƕ��ˮӡ�������ļ�
+    derive              �����汾��Ȩ������һ�汾
+    verify              �ֲ���֤�ļ�
+    transform           ִ�пɸ��ִ����任
+    history             �鿴�����汾��
+    revoke              �Ǽ����ݻ���Կ����
+    state-snapshot      �ö���״̬��Կǩ���Ǽ�״̬����
+    demo                ���б���ͼƬ�˵�����ʾ
+    benchmark           ���е�ǰ�̶�С�ͻ�׼
+    export              ���������Ǽ�״̬
+    screenshot-batch    �����ύ�û�����Ȩ�Ľ�ͼ����������
+    pdf-raster          ���̶� DPI ��Ⱦ PDF ҳ�桢Ƕ��ˮӡ��ִ�������ֽ�ä�ָ� gate
+
+options:
+  -h, --help            show this help message and exit
+  --root ROOT           ���صǼ������Ŀ¼

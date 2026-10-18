@@ -49,7 +49,7 @@ def sha256(path: Path) -> str:
 
 def run_text(args: list[str]) -> str:
     try:
-        p = subprocess.run(args, cwd=ROOT, capture_output=True, text=True, timeout=20)
+        p = subprocess.run(args, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=20)
     except Exception as exc:
         return f"UNAVAILABLE: {type(exc).__name__}: {exc}"
     text = (p.stdout or p.stderr or "").strip()
@@ -126,8 +126,8 @@ def select_rows(rows: list[dict[str, Any]], stage: int) -> list[dict[str, Any]]:
 
 def load_dataset(path: Path, stage: int) -> tuple[list[dict[str, Any]], str]:
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
-    if len(rows) != 100:
-        raise ValueError(f"development manifest must contain 100 rows, got {len(rows)}")
+    if len(rows) < stage:
+        raise ValueError(f"development manifest has {len(rows)} rows, cannot run stage {stage}")
     seen: set[str] = set()
     for row in rows:
         sid = str(row.get("sample_id", ""))
@@ -271,7 +271,7 @@ def report_text(manifest: dict[str, Any], summary: dict[str, Any]) -> str:
 
 ## G. 结论与限制
 
-- 这是开发基线和协议回归证据，不是 100 条真实数据的鲁棒性证明。
+- 这是开发基线和协议回归证据；样本来源、许可和合成占比必须结合清单解释，不能自动当作真实世界分布鲁棒性证明。
 - 截图攻击为明确标注的模拟变换；未连接浏览器或真实阅读器截图链路。
 - PDF 水印发布会栅格化并丢弃原文字层，质量报告会单独显示该语义损失。
 - `failures.jsonl` 为空才表示该阶段没有记录到执行错误；业务处理率和攻击处理率仍需结合 truth 与分母解释。
@@ -288,7 +288,7 @@ def report_text(manifest: dict[str, Any], summary: dict[str, Any]) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", type=int, choices=(6, 20, 100), default=6)
+    ap.add_argument("--stage", type=int, choices=(6, 20, 100, 200, 800, 1000), default=6)
     ap.add_argument("--dataset-manifest", default="data/round3-development-v3/dataset_manifest.jsonl")
     ap.add_argument("--config", default="configs/round3-evaluation.json")
     ap.add_argument("--run-id", default=None)
@@ -320,7 +320,7 @@ def main() -> int:
                 sample_rows.extend(result.get("samples", [])); attack_rows.extend(result.get("attacks", [])); timing_rows.extend(result.get("timings", [])); failure_rows.extend(result.get("failures", [])); storage_rows.append(result.get("storage", {}))
                 append_jsonl(out / "samples.jsonl", result.get("samples", [])); append_jsonl(out / "attacks.jsonl", result.get("attacks", [])); append_jsonl(out / "timings.jsonl", result.get("timings", [])); append_jsonl(out / "failures.jsonl", result.get("failures", []))
                 exact = next((r for r in result.get("samples", []) if r.get("group") == "G3" and r.get("transform") == "exact" and r.get("sidecar") == "retained"), None)
-                if exact:
+                if exact and cfg.get("scale_evaluation", {}).get("quality_enabled", True):
                     try:
                         source = ROOT / str(sample["local_path"])
                         published = Path(str(exact["media_path"]))

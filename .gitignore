@@ -36,6 +36,7 @@ results/**/k.pem
 results/**/download*
 results/**/benchmark*/
 results/
+handoff/
 .coverage
 coverage.xml
 

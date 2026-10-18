@@ -1,0 +1,8 @@
+command=['C:\\Users\\23292\\Desktop\\crypto\\project\\gm-provenance\\.venv\\Scripts\\python.exe', '-m', 'pytest', '--basetemp', 'C:\\Users\\23292\\Desktop\\crypto\\project\\gm-provenance-integration-20261015\\submission\\geometry-tmp', '-q', 'tests/unit/test_rotation_geometry.py']
+status=completed
+return_code=0
+elapsed_ms=17260.456
+error=
+....................................                                     [100%]
+36 passed in 15.40s
+

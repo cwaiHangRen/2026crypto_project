@@ -1,0 +1,1 @@
+Targeted PDF rasterization and screenshot regression: 9 passed. Full pytest was attempted but did not complete in the constrained sandbox; partial raw evidence is preserved under the baseline results directory outside the submission package. Historical API acceptance summary: 9/9 PASS; current TestClient rerun is blocked by loopback/temp-directory behavior.

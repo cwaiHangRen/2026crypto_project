@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "passed": 9,
+  "failed": 0,
+  "status": "PASS",
+  "scenarios": [
+    {
+      "name": "unauthorized writes have no side effects",
+      "status": "PASS",
+      "details": {
+        "missing_token": 401,
+        "wrong_token": 401,
+        "confirm_without_token": 401
+      }
+    },
+    {
+      "name": "authorized register",
+      "status": "PASS",
+      "details": {
+        "status_code": 200,
+        "content_id": "f84aa92feb5ea1a134d38a39bafc7427"
+      }
+    },
+    {
+      "name": "full verify after state refresh",
+      "status": "PASS",
+      "details": {
+        "status_code": 200,
+        "conclusion": "VERIFIED_EXACT",
+        "state_freshness": "PASS"
+      }
+    },
+    {
+      "name": "authorized derive and parent-chain verify",
+      "status": "PASS",
+      "details": {
+        "content_id": "3105e9b74e9e4c365fa0f32ea924509e",
+        "parent_content_id": "f84aa92feb5ea1a134d38a39bafc7427",
+        "conclusion": "VERIFIED_DERIVATIVE",
+        "parent_chain_status": "PASS"
+      }
+    },
+    {
+      "name": "state refresh failure leaves old snapshot non-current",
+      "status": "PASS",
+      "details": {
+        "state_freshness": "UNKNOWN",
+        "key_revocation_status": "UNKNOWN",
+        "conclusion": "INDETERMINATE"
+      }
+    },
+    {
+      "name": "hard recover full expose distinct scope",
+      "status": "PASS",
+      "details": {
+        "hard": {
+          "conclusion": "NO_PROVENANCE",
+          "state_freshness": "NOT_CHECKED",
+          "watermark_status": "NOT_CHECKED"
+        },
+        "recover": {
+          "conclusion": "VERIFIED_BINDING_ONLY",
+          "state_freshness": "NOT_CHECKED",
+          "watermark_status": "FOUND"
+        },
+        "full": {
+          "conclusion": "INDETERMINATE",
+          "state_freshness": "UNKNOWN",
+          "watermark_status": "FOUND"
+        }
+      }
+    },
+    {
+      "name": "content revoke then full verify",
+      "status": "PASS",
+      "details": {
+        "revoke_status": 200,
+        "conclusion": "REJECTED",
+        "content_revocation_status": "FAIL"
+      }
+    },
+    {
+      "name": "key revoke then full verify",
+      "status": "PASS",
+      "details": {
+        "revoke_status": 200,
+        "key_revocation_status": "FAIL",
+        "conclusion": "REJECTED"
+      }
+    },
+    {
+      "name": "missing state cannot produce full success",
+      "status": "PASS",
+      "details": {
+        "state_freshness": "UNKNOWN",
+        "conclusion": "INDETERMINATE"
+      }
+    }
+  ]
+}

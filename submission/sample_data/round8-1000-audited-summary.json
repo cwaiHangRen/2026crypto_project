@@ -1,0 +1,20 @@
+{
+  "schema_version": "round8-audit-1",
+  "target_count": 1000,
+  "actual_count": 1000,
+  "images": 800,
+  "pdfs": 200,
+  "previously_used": 112,
+  "new_rows": 888,
+  "license_pending": 18,
+  "license_internal_test_only": 982,
+  "compatibility": {
+    "in_scope": 997,
+    "out_of_scope": 3
+  },
+  "support_status_aligned": true,
+  "template_family_rows": 982,
+  "independent_real_world_sources_upper_bound": 18,
+  "limitations": "1000 rows are protocol scale fixtures, not 1000 independent sources; template variants share generators/families. AI-generated rows=0 and real external PDF rows=1 remain unmet. Natural photo target is unmet; small-text/chart count is a format count, not independent-source count.",
+  "original_files_preserved": true
+}

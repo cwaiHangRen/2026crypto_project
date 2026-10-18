@@ -116,6 +116,8 @@ def execution_snapshot(config: dict[str, Any]) -> dict[str, Any]:
     # Bind the complete frozen evaluation inventory, not only the decoder
     # budget.  A changed transform list, profile map, negative corpus, or
     # Round7 output schema must produce a new execution fingerprint.
+    attempts_path = ROOT / str(config["round5_run"]) / "attempts.jsonl"
+    files["round5_attempts.jsonl"] = sha256_file(attempts_path) if attempts_path.exists() else None
     body = {"files": files, "environment": environment_snapshot(), "config": config}
     return {"files": files, "environment": body["environment"], "execution_fingerprint": sha256_bytes(json.dumps(body, sort_keys=True, ensure_ascii=False).encode("utf-8"))}
 
@@ -538,7 +540,17 @@ def _run_locked(config: dict[str, Any], *, pilot: bool = False, limit: int | Non
         for profile in profiles:
             key_art = r5.get((sid, profile))
             if key_art is None: continue
-            final_path = ROOT / str(config["round5_run"]) / "samples" / sid / f"{profile}-final.bin"
+            # Round 6 keeps the historical Round 5 layout as a fallback, but
+            # a frozen external index may point at an already published
+            # artifact. This reuses its bytes and credential without
+            # re-embedding or re-registering the sample.
+            artifact_ref = key_art.get("final_path")
+            if artifact_ref:
+                final_path = Path(str(artifact_ref))
+                if not final_path.is_absolute():
+                    final_path = ROOT / final_path
+            else:
+                final_path = ROOT / str(config["round5_run"]) / "samples" / sid / f"{profile}-final.bin"
             if not final_path.exists(): continue
             final = final_path.read_bytes()
             if key_art.get("final_sha256") and sha256_bytes(final) != key_art["final_sha256"]:

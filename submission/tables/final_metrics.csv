@@ -1,0 +1,4 @@
+﻿media,attempts,gate_pass,gate_rate,correct_recovery,recovery_denominator,recovery_rate,gate_failed,false_positive
+image,800,792,0.99,792,792,1.0,8,0
+pdf,200,200,1.0,200,200,1.0,0,0
+total,1000,992,0.992,992,992,1.0,8,0

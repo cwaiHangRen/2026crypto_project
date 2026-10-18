@@ -1,0 +1,1322 @@
+{
+  "schema_version": 1,
+  "scope": "submission",
+  "excluded": [
+    ".venv",
+    "cache",
+    "private keys",
+    "runtime databases",
+    "SUBMISSION_MANIFEST.txt",
+    "file_manifest.sha256.json"
+  ],
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 1000,
+      "sha256": "eabb551dda11942eade01eee04fd035617444e156233ebc918c07817abba6653",
+      "purpose": "提交说明或依赖文件"
+    },
+    {
+      "path": "approval_page_separate/approval_page_placeholder.docx",
+      "bytes": 36724,
+      "sha256": "4e7f2fb5c38a13ffd3513d87f361ecbc17e7854a0aaae7ba419045a0bb26f410",
+      "purpose": "人工审批签字占位"
+    },
+    {
+      "path": "approval_page_separate/README.txt",
+      "bytes": 76,
+      "sha256": "f342db31628ec8c48d21f05cf5d7cb5a19bee2da1fcaac88413a87094ece8877",
+      "purpose": "人工审批签字占位"
+    },
+    {
+      "path": "configs/attacks.yaml",
+      "bytes": 712,
+      "sha256": "14b5a51a61dc60790f8d28d7bed963e5f1c903ba3ebd8ecc9c57a4e12b2f3043",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/decoder-v2-sync.json",
+      "bytes": 309,
+      "sha256": "ae674f945d145973bae78f9b3d30bc19307b14850e8245b346d5c6c49fdc1559",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round3-dataset-strata.jsonl",
+      "bytes": 672,
+      "sha256": "84008023f900e73e12f3e70b211be1822bff76cf458173a61f32228128c51a5d",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round3-dataset.json",
+      "bytes": 752,
+      "sha256": "5142d4dd03c0cbf34d47dd5171e5ca4404664af1d6adb45c715075176265a23b",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round3-evaluation.json",
+      "bytes": 869,
+      "sha256": "539e05ad57b3dcbfee78b3c82725f4509ea1595c9212f0a0155f6a8e88bd4d7c",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round4-watermark-evaluation.json",
+      "bytes": 1436,
+      "sha256": "33df1e7cde46e88728234b3e72c7c09ecc403ff666bbacc9b848a7e083bbafac",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round5-watermark-evaluation.json",
+      "bytes": 1664,
+      "sha256": "fb888409b531428a531cacf66e7556f85f3f8a44754d68e30764c445a8599791",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round6-sync-evaluation.json",
+      "bytes": 4107,
+      "sha256": "3c5eb412290c50d716d8e84f7b4dd710f7fe553d5a7dd6e74d1314bd6158e2af",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round7-development.json",
+      "bytes": 5632,
+      "sha256": "a96d5c3cf21916e39dc4dfe91d6d01e5f723a896a7ee745d135a4ea49aee3975",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round7-external-marked-exact.json",
+      "bytes": 1533,
+      "sha256": "86a65b08a6b0c42abe4504aaed2fd6c5ae199187b6046e811f8150cc00142a38",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round7-external-marked.json",
+      "bytes": 5745,
+      "sha256": "d3b8c2b34d45630ed8134fa249c1ba3dd078e6fdd59ff8606defeae68885916a",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round9-crop-subset.json",
+      "bytes": 1213,
+      "sha256": "aea7403744bf3b45788bc63561ea8068e060fcc88e0fc48ad0c1edfc38019004",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "configs/round9-default-scale.json",
+      "bytes": 1054,
+      "sha256": "3a6a93fe3ff7d87fe3048b9697f62ba2f372b87739924c656a3cf60676c8803d",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1273,
+      "sha256": "75ef9e807ca3324282ce45d9ac8132cf90afb6de1b238917d19a5cb41b0f95a7",
+      "purpose": "提交说明或依赖文件"
+    },
+    {
+      "path": "design_report.docx",
+      "bytes": 1922609,
+      "sha256": "d78d9f4fb1472c0173ba78dcb15e4025f70ebe37422fbb07b2fcf83e31a120c3",
+      "purpose": "正式报告交付物"
+    },
+    {
+      "path": "design_report.pdf",
+      "bytes": 2819853,
+      "sha256": "67fc17e2a536448a1740d1de39721a3f23e29c36de516e3ad6fec2fa5ce6ddc8",
+      "purpose": "正式报告交付物"
+    },
+    {
+      "path": "design_report_content.md",
+      "bytes": 5133,
+      "sha256": "7b43f528a69633c8612247827ea36d0b885190d03a489f35c373dd92480f3143",
+      "purpose": "正式报告交付物"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 748,
+      "sha256": "2d153f04957931fdb4412934797d26d4a480f14c59ffd2e44e33b253c918c0b9",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/PDF_RASTER_FINAL.md",
+      "bytes": 1708,
+      "sha256": "7ff3a0b97ff4d215e2211b2018967a8e9b6189d5a244bbe11be56f80abb40dbc",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/PDF_SECURITY.md",
+      "bytes": 4357,
+      "sha256": "dae117d82a66acf526f2077da46f746fc7ebb93ed80e2ab04fa2d899739d3731",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/PROGRESS.md",
+      "bytes": 22619,
+      "sha256": "a7c2fa940ca2150b5fe6e70097fdd827a73c9c786393b2e737d01872e535e172",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/PROTOCOL.md",
+      "bytes": 1084,
+      "sha256": "90f2c6c56b085aaaadcaef743a4821a5848322068d9a68d080f657c55d6da0c5",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/REPORT_MATERIALS.md",
+      "bytes": 7754,
+      "sha256": "043cf831f7153250fff120a5534ea31e6a57aba21a2950aaaf76b0d2f73df4f2",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/REQUIREMENTS.md",
+      "bytes": 489,
+      "sha256": "e2478146281c78ede7951914aa1709a70209f695a367f532758633b3d811c895",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/ROUND6_SYNC_FINAL_REPORT.md",
+      "bytes": 9224,
+      "sha256": "7c711b59aefb8cd1f43b60c99a6aed6a1d80faff86de0b75d31a0dbe956aec1d",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/ROUND8_FINAL_REPORT.md",
+      "bytes": 9069,
+      "sha256": "5916f098fd4c7a8f46cee9ed310c7cefc77e7f356a52e4fceeaac4bf6a6af240",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/ROUND8_HANDOFF.md",
+      "bytes": 12925,
+      "sha256": "3c57a6e2a5705a667c3a99f3e744700f453d5309b30ea69a306e7cacf4880faf",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/ROUND9_SCALE_REPORT.md",
+      "bytes": 17713,
+      "sha256": "bd6b056cdcf266cdc028b7da6f8f3096b2a7ab7249f8f7d55900e817ec7618fa",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/THREAT_MODEL.md",
+      "bytes": 642,
+      "sha256": "108fe8075398077c416e2cacd2b3acdda124b8d33b1a6b870d9401979f011bce",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "docs/TRACEABILITY.md",
+      "bytes": 1952,
+      "sha256": "f70771654ff4bf0755e306579e994b7be27d74d00162f0792c8a61dce2de6177",
+      "purpose": "源代码/测试/配置/文档"
+    },
+    {
+      "path": "figures/architecture.png",
+      "bytes": 74958,
+      "sha256": "c477b60777ccf58e11095386856a388425752dc98826adea68b613bca01346bc",
+      "purpose": "报告图件"
+    },
+    {
+      "path": "figures/pdf-page-001-final.png",
+      "bytes": 772415,
+      "sha256": "7ae1bf9414209cfdc90cfbcabf939d31c735eaca3fda033b109c66857ed5e6ec",
+      "purpose": "报告图件"
+    },
+    {
+      "path": "figures/pdf-page-001-rendered.png",
+      "bytes": 753629,
+      "sha256": "bddf85272ad5269214c7e80e4297631d28dd807bd72a18d7c320bdd8b22156c0",
+      "purpose": "报告图件"
+    },
+    {
+      "path": "figures/pdf-page-001-screenshot.jpg",
+      "bytes": 260176,
+      "sha256": "e051bc45f83e997cba3b7eb807511baec1c24f286b790ee8afbe3826f949e7a8",
+      "purpose": "报告图件"
+    },
+    {
+      "path": "figures/verification-flow.png",
+      "bytes": 61338,
+      "sha256": "50a8379362f677b9461834bd5428b4463045edc2e5b1ddbf9ade46f1ace82779",
+      "purpose": "报告图件"
+    },
+    {
+      "path": "logs/api-acceptance-fixed-run.txt",
+      "bytes": 240,
+      "sha256": "bceb81f47c815a575cacc860f55dc1c6e2a7a504f117183c6b824642955e1274",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/api-acceptance-historical-summary.json",
+      "bytes": 2520,
+      "sha256": "573e6c5eef8bd62171131e45850ca4c79c4c2e1013e1f0588918ab7a54e0453e",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/api-acceptance-run.txt",
+      "bytes": 192,
+      "sha256": "71c5fcf3409c16297c7f9176d50b29ac11b2cf01c4d2ad90498139ad370c322b",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/api-asgi-offline.txt",
+      "bytes": 265,
+      "sha256": "728fcc6cfa46930b4651edd84b4ff08b039d88d1daefb61f5bad007434077b04",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/api-import-startup.txt",
+      "bytes": 19,
+      "sha256": "a1dbbe24a70fddd53462233c495349a2dc8afd148f2fa9e6c7d0d2a8c2568e91",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/build-report-pdf.txt",
+      "bytes": 62,
+      "sha256": "5c77e54029c2c3a8fe4e75c4b39f0bd6873923f0ef45d43ec6db0daaf9d027d3",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/build-report.txt",
+      "bytes": 64,
+      "sha256": "4a529c8ae603496fbe7e4fef5690488e8d36f136e31ecfe87f0b8475d16604d8",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/cli-help-final.txt",
+      "bytes": 1805,
+      "sha256": "661e81bcea3a5b02b1ef7e28588a8707b2bfed74c6d7771a10f67a44d9298a64",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/cli-help.txt",
+      "bytes": 1777,
+      "sha256": "e4b1cd1fe73ec9df019ad2013cd6926d98f176f75de88ffc2f91e8930bbb2672",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/cli-pdf-raster.txt",
+      "bytes": 110,
+      "sha256": "78219eef1476b85e184fde7542ce81b7dec1678728bb601d3f5695d0e470288f",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/docx-render-status.txt",
+      "bytes": 173,
+      "sha256": "a606b9955548d973f979af1032a6f63f9c4218c6c482b3929a134e8a318eeae2",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/docx-xml-audit.json",
+      "bytes": 1070,
+      "sha256": "13330d9714fe8c2dbf46852da7bf779f7a4be001b8d62225c8a2490e19c43a75",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/environment-check.txt",
+      "bytes": 485,
+      "sha256": "952e7399714b8bb7667a42f6746bb11d7a780aaca81c65868eca521c0325f0e8",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/final-acceptance-report.md",
+      "bytes": 5862,
+      "sha256": "c344e63df401b7d0d775a8384af8743361c4860f543efa3b158ac067c105cf7e",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/geometry-pressure-bounded.txt",
+      "bytes": 450,
+      "sha256": "38e802fd3c38c012df85485e256eb163f488662418a6782e695a4e3d0ae32e01",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/pdf-raster/pages/page-001-final.png",
+      "bytes": 772415,
+      "sha256": "7ae1bf9414209cfdc90cfbcabf939d31c735eaca3fda033b109c66857ed5e6ec",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/pdf-raster/pages/page-001-rendered.png",
+      "bytes": 753629,
+      "sha256": "bddf85272ad5269214c7e80e4297631d28dd807bd72a18d7c320bdd8b22156c0",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/pdf-raster/pdf-raster-log.json",
+      "bytes": 2108,
+      "sha256": "4c509baf2a9909ca9063ee77ed9cc7a4db0477b6c00948e4bca3c3f6733ab492",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/pdf-raster/source.pdf",
+      "bytes": 1007258,
+      "sha256": "b50f181faf6d90d95ba13b5ddc0a5d27ee3846ad536558d438d1eb7db348d29a",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/pdf-raster-acceptance.json",
+      "bytes": 3394,
+      "sha256": "43eef744ccb56cf62016353d26f6c1d3b182607293b0e9fcf6a9952119e49f0c",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster/source-original.pdf",
+      "bytes": 899269,
+      "sha256": "230eb419eeca45b4d643981ec206acac50382eed82b8b97bae2fa11cd911bf73",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pdf-raster-run.txt",
+      "bytes": 170,
+      "sha256": "fe94c567f7dd687efb5beab28e67ad385a7832ce9bb11d2e1d5e1423475c1c25",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-collect-final.txt",
+      "bytes": 30163,
+      "sha256": "58a1acc1e721080538301eea206b49fbf8619ab59d15d9b6c155589e5f68ebd0",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-status.txt",
+      "bytes": 361,
+      "sha256": "c5318d540557038b810f94e63af731d6c0de7bd656d14562a2ceaa7ac0e31f38",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-targeted-final-closeout.txt",
+      "bytes": 34184,
+      "sha256": "659822a326ee8d3985a86058693bec303aac358dbde2e87c80325c4b1336171c",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-targeted-final-project-local.txt",
+      "bytes": 100,
+      "sha256": "a81287d269bdd0ca97f9dac10a64491d201c41d63fe03ce4fb90802ee93acfb3",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-targeted-final.txt",
+      "bytes": 98,
+      "sha256": "62d88be3b1a5673d24087ab5845e9ca7eb036e57fe4573ea83a66370bb1cbb39",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/pytest-targeted-final2.txt",
+      "bytes": 98,
+      "sha256": "24ed1cd52fa9f0796a6be8a9a1fab716095047ceec0df32e2fdf5c8f964a02a8",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/render-docx.txt",
+      "bytes": 188,
+      "sha256": "25f7ce8bfda7f252cb505df8928f8cbbf0df0cce6c656e9e6f1f8eb0c861472f",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/render-report-pdf.txt",
+      "bytes": 8,
+      "sha256": "e0bf653ad271370ad2dc54dd201b1c8c4407b04f37ff52d8fd3ad4a7195aac71",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-01.png",
+      "bytes": 254969,
+      "sha256": "9bf08915f64e605dedd27bd0a0b10852035bd500b7f94a17d5461e24fd393c64",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-02.png",
+      "bytes": 201165,
+      "sha256": "cce150b5033404e4215952a26d0d220b41e58ee67b419cf8057e172f0ae55352",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-03.png",
+      "bytes": 316911,
+      "sha256": "af5ff53f40ab0cbac8f35a2d2621a49c8bfc623c6b3024f1d4f1855b6b968b3d",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-04.png",
+      "bytes": 300967,
+      "sha256": "44b5600236aead37fb3598cceec484efd58e6d24b857bdf66ceac469428a4ed3",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-05.png",
+      "bytes": 305299,
+      "sha256": "138ab513b991804697ecfb739f8d12005b76a2a239030db1692241af7f2bc4b0",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-06.png",
+      "bytes": 112372,
+      "sha256": "6c594c99fcc962a169afc4cbfa809d314ffe893ed0786da7faee3672c898a800",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/report-render-final/page-07.png",
+      "bytes": 55213,
+      "sha256": "fa6e790f590e8ee012c0032e0d9322ba5f01c4a8b26b4838a75da9352e2d5524",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/crop-260-summary.json",
+      "bytes": 138876,
+      "sha256": "28aeefea70a9f9fc42f59812cfc59107eef5c44b751201e8ce58402c9e936cc4",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/crop-80-inspect.txt",
+      "bytes": 8381,
+      "sha256": "206a2c0abdc4cbad01dc8ed486e0ab4df395765ace3ced33202f9e54fee75d6a",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/crop-80-summary.json",
+      "bytes": 60100,
+      "sha256": "22055102144340a9215ec4f5aaa8aa65f45587ed17f45334f7098b5128e336b6",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/gate-failure-diagnostics.json",
+      "bytes": 82726,
+      "sha256": "bcf25610704de203a014ccf2e1c26e0b731b0ce3bf290f0f21e60fe88ebade6b",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/gate-failure-diagnostics.md",
+      "bytes": 3665,
+      "sha256": "7a7ffb579b7546347c236b94af7702ba42dbf0dbb9d9c11bb58be88bf093c5b0",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/gate-failures-summary.json",
+      "bytes": 2545,
+      "sha256": "ac36ee783634c9a392797d39611421a5ece8571b9b329ad94d54d6f0e00d5186",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/gate-failures.jsonl",
+      "bytes": 1123,
+      "sha256": "83487856a1f60f6f83b308bf7b395cf7b3c6ed7d8bfbf5af5cfd8c8c1a3b4313",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/images-800-summary.json",
+      "bytes": 2003,
+      "sha256": "699bc25743683c79c735612127d13624f224848c2112f7423cadebce0669cf4c",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/pdfs-200-summary.json",
+      "bytes": 1972,
+      "sha256": "d6319e386fa3f17db7667f9c89c3ee4f780963b767ea11630cd76ed12ee02157",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/quality-summary.json",
+      "bytes": 6907,
+      "sha256": "caaaa20a52bfa14b2b170f84c3fec62645438723763b73f30ce8bc5437ad4791",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/round9-crop-subset.json",
+      "bytes": 1213,
+      "sha256": "aea7403744bf3b45788bc63561ea8068e060fcc88e0fc48ad0c1edfc38019004",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/round9-default-scale.json",
+      "bytes": 1054,
+      "sha256": "3a6a93fe3ff7d87fe3048b9697f62ba2f372b87739924c656a3cf60676c8803d",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/round9/scale-audit-summary.json",
+      "bytes": 1042,
+      "sha256": "4b62fb1bcf2cf87fadc5c2e8174546d5adcf0619a7a440471cddae7b2ad41c2d",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/smoke-test.txt",
+      "bytes": 6659,
+      "sha256": "c1477754312e9a0bde78363ab79924cbb16869753018e22d5029539eab9b5d62",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "logs/test-ledger.json",
+      "bytes": 2601,
+      "sha256": "22ed115bd7b8a69ed16ee7c1b91d29ffb0f6c18dc55e06f0268c1edb9a028d2e",
+      "purpose": "可审计运行日志"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 833,
+      "sha256": "a4c45dabe6a245f416863f6b23785cf738524766fdaa0b3b2679c6d5cc1aef87",
+      "purpose": "提交说明或依赖文件"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11971,
+      "sha256": "26fd673a9e8306adf3808d0a86ad4c4042947cb19d39e56aef3e5cdfdfc5225e",
+      "purpose": "提交说明或依赖文件"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 134,
+      "sha256": "711c9a8009cd77bb3b51a82a8330c59258410b46fea52cfac1ff917412932d70",
+      "purpose": "提交说明或依赖文件"
+    },
+    {
+      "path": "sample_data/round8-1000-audited-summary.json",
+      "bytes": 750,
+      "sha256": "55d13e9e188a2b9697de6272cd0c593b241c48bc8a035366e6219e9176847390",
+      "purpose": "样本清单与 PDF 样本"
+    },
+    {
+      "path": "sample_data/round8-1000-dataset-manifest.jsonl",
+      "bytes": 1210457,
+      "sha256": "c8b34b0b4a235006a4218049e2030e7a722cdc530f1ade6c0e4379e3e900d144",
+      "purpose": "样本清单与 PDF 样本"
+    },
+    {
+      "path": "scripts/attribute_round6_failures.py",
+      "bytes": 3375,
+      "sha256": "241d3cb2f9cd7a0954dd89b782d2fa8287b01841243283c772201e8a3beb5b89",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round3_baseline.py",
+      "bytes": 5781,
+      "sha256": "52405ad240f8658b0f556ce870326c64f57e01a5e6be7ed949a023544b6ac5b8",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round4_g2_g3_pair.py",
+      "bytes": 5575,
+      "sha256": "d57c88177ffb3e599cbb469d360cd3b0fe536b0a2255b18203bb1cc0759ced6c",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round6_baseline.py",
+      "bytes": 19507,
+      "sha256": "0282f6bd948aa2847fa34e7c24a8df8b58e77d21ecbcc4578aec70f768760bd0",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round6_checkpoint.py",
+      "bytes": 8179,
+      "sha256": "1bac32dbd86b8f491c752701b7bd7e5ce30e63f901e0c70dec5e16b17b2c0fd1",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round8_external.py",
+      "bytes": 9153,
+      "sha256": "0e00b664a96b5278f141dd91a1f49662e050750b1cb023e6815d8c33d0ed22b6",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round9_default_outputs.py",
+      "bytes": 7144,
+      "sha256": "9c963dd654f6c7cdeda1a56cc0a41b67368ee2263cd7f64e3176b94e5a4c1902",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round9_gate_failures.py",
+      "bytes": 6959,
+      "sha256": "80e4a23fa92e54bfa746ca6bd0f6e3eedc34bd39854f4255617d7eb585b53c93",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/audit_round9_quality_metrics.py",
+      "bytes": 8897,
+      "sha256": "91f4a3610161d3c33e3cc26473bfdf572df092945dc8d477dee80afb0487bd4d",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/build_design_report.py",
+      "bytes": 18873,
+      "sha256": "e256b16f893f61e497afebe5e378251f87bece0b8ed207520156185c5a101122",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/build_design_report_pdf.py",
+      "bytes": 15157,
+      "sha256": "82bad313768b3283dafe365e7651185cfdc9b89393d477aa39d9c7a93ac99dfa",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/build_submission_metrics.py",
+      "bytes": 7456,
+      "sha256": "9cd935ccfba58706ae8c1932f56d931504d0e054596100ba2a35690af768b5bf",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/check_environment.py",
+      "bytes": 1418,
+      "sha256": "641477e4de4674851153ad21777ab133a27c74b4dca671acde7b84bf9c4f27b4",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/dataset_pilot_quality.py",
+      "bytes": 14997,
+      "sha256": "f0c782c65a6c0cb23c568b28e5dd46e2d715c7d8750a4a0c9bc365395d4e5d09",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/diagnose_round7_geometry.py",
+      "bytes": 10638,
+      "sha256": "fda5e5deaf7bea8c13e64ad607bb56c38269b0636a9b7bae9c28db08d79b9327",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/diagnose_round8_mixed_ids.py",
+      "bytes": 9233,
+      "sha256": "f9f2642116b21e786cf86879d82e21bcd119b2430188634e057766492dca85d4",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/diagnose_round8_regressions.py",
+      "bytes": 5797,
+      "sha256": "258b7a7beb2db6358d2876a32b00ae7f5dcce33f51f9c6887d89203cbdecc43e",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/download_all_datasets.py",
+      "bytes": 25892,
+      "sha256": "4c1064dd3f2b84eb5039b4cdfebb5d77d10c85ae196290a0fb825e90a0d926e8",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/download_dataset_pilot.py",
+      "bytes": 17155,
+      "sha256": "4105baa61b30068c28bfb483e37bf5bc55ddc75786c73152fba25788282b42ce",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/download_full_selected.py",
+      "bytes": 10131,
+      "sha256": "9d06a2eb7862ea2f9c909ad8179cddee2ceff9239565ce6e6d01cdf8d885042e",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/finalize_round4_failure_audit.py",
+      "bytes": 2412,
+      "sha256": "2587650d84ffad62f4f54f06e8dac74b1858d88187026bceb007f8bd14af5f7e",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/finalize_round7_report.py",
+      "bytes": 14042,
+      "sha256": "9abcb7c6fce74b3077d861c4ba484c77f88122767a359a037373bdf1e01a3835",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/import_external_materials.py",
+      "bytes": 10890,
+      "sha256": "b87cf60c66fab65dc077da4082fccfba8d42e0aa8774a276fa9ef9a48728f553",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/pdf_qa.py",
+      "bytes": 8090,
+      "sha256": "03f8f2985afea7cd4e25a39cb1635e6c63f5b8a142d3552131c5bf6ba53508d3",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/prepare_round3_dataset.py",
+      "bytes": 9042,
+      "sha256": "cdad319e56559f090be8436c8e6ea941b877c43cc283f0acb86185922e02e46f",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/prepare_round7_challenge.py",
+      "bytes": 6703,
+      "sha256": "6cbf98852ea3b67a033c5da13d92ae07f6a23795f41f4d16406ef4c4838a248d",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/prepare_round7_marked_challenge.py",
+      "bytes": 7246,
+      "sha256": "776fdc287f01955c4cfbde76a4d8d1002bda19f4e1d0816951e415ea82110131",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/prepare_round8_scale_dataset.py",
+      "bytes": 14997,
+      "sha256": "b653a871a8588154baf6d2d68f6d0aa09d206aea9d73ee017823f53e5d72ec7c",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/prepare_round9_crop_index.py",
+      "bytes": 3074,
+      "sha256": "15d174e0e75d7e920068b1e13f8c2fde73e4fd01817cf5cd49cc6e9837682268",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/probe_round5_feedback.py",
+      "bytes": 4904,
+      "sha256": "6b750a09d54e0522ca8a1bac6beffc24ef3ecdd7d8c15edc4016dd2e95995284",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/probe_round6_sync.py",
+      "bytes": 1297,
+      "sha256": "7902c481a6870178438bc1ca5298f25e33f109a24c68362c8b99cd74cb8ec86e",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/reclassify_invalid_transforms.py",
+      "bytes": 8639,
+      "sha256": "a7536fe5f07007c1d4afd503342dc6c979795706f133435f606780ab94f17a8d",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/round6_records.py",
+      "bytes": 7137,
+      "sha256": "1223733a83bf94d5718a82ad5a74306e90f84fed42ebaa80a36fb2bdf392420b",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/round7_sets.py",
+      "bytes": 8855,
+      "sha256": "5b25b99d636a8ab082b919e8c8cee7d17da691a86797b6bd44a1cda43100b342",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run.py",
+      "bytes": 230,
+      "sha256": "44fec7d0d433528badffe2d666d40517fcc0fe7bad526ff2ca4bcb21ca318002",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_pdf_raster_acceptance.py",
+      "bytes": 6302,
+      "sha256": "eccf61bd0a6c23c098a2e6f176b39654f27389453169f966df7d22a03710d689",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round2_acceptance.py",
+      "bytes": 18750,
+      "sha256": "f85de4b856f1bfe04cd136bb84d7ad586c847a3b66fd9dc165eba5f4b4e557b3",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round3_evaluation.py",
+      "bytes": 21835,
+      "sha256": "7113fcbbacbd1f11499a14f8a3ea2360bb000dc92c5064b8ccd012a4fb6abd0f",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round4_performance.py",
+      "bytes": 24652,
+      "sha256": "e29d150199a56ebfafb2ecc4820a50fc2d49e2d99db8a9a2c2fd6e058b1eaf78",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round4_watermark_eval.py",
+      "bytes": 39853,
+      "sha256": "77d0007676f70596958f398f2dcb98921ca28408b7ec1bdf9ab0942fb02fa6c6",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round5_performance.py",
+      "bytes": 9761,
+      "sha256": "4bcc8868c5df0aea8af06213158d092e8457689097c3ef650c6ba8f1603c9044",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round5_watermark_eval.py",
+      "bytes": 41212,
+      "sha256": "49fd0b8babd27b6a4049d2ddd66d291fa13a8bc58493df7004e9c480d35162d6",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round6_recover_performance.py",
+      "bytes": 9016,
+      "sha256": "01ac03ca54c6cf02be828a958289b0590f8cd90fe3cb5da2f5cdbaba3d929150",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round6_sync_eval.py",
+      "bytes": 42999,
+      "sha256": "2df4306c96551ff35117e5d375839cf328ecc9404671517e6b86fc3e02732213",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round7_development.py",
+      "bytes": 42131,
+      "sha256": "9f11b8ca0012b7819f40c62ae73ff4b290f3c9c0624c0ee68621003aabbc45a9",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round7_external_challenge.py",
+      "bytes": 5724,
+      "sha256": "44d7dc6ff55dc63c381c0660a2d224fdfca674523969da8aeb8e96dbe96ba102",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/run_round7_performance.py",
+      "bytes": 14177,
+      "sha256": "b3c4ebb0a5c663df9a5793c53acb2bcb1055d8759ce99eaf1c93ed78e9fdae12",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/smoke_test.py",
+      "bytes": 3318,
+      "sha256": "da58afdfafce5188f74517f56dce84268c58be89e0c8405d74a0164cf744b21e",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/test_dataset_pilot.py",
+      "bytes": 11852,
+      "sha256": "e35b62776711a81fc51100ef555d1e02ec17a490634bb001a06b4b988c369c96",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/validate_arbitrary_rotation.py",
+      "bytes": 22508,
+      "sha256": "1a06b7112ca0d4d87df4611ef9b69f217f9c20748788d5c642a95b8aa6ccd6b6",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "scripts/validate_rotation_mirror.py",
+      "bytes": 14605,
+      "sha256": "0ddbaa3a6f3da7d7ea83b228d7a435ef10d2f7eeebfa761456db8f63003ddf5a",
+      "purpose": "复现与验收脚本"
+    },
+    {
+      "path": "src/gm_provenance/__init__.py",
+      "bytes": 71,
+      "sha256": "92edaf2da70185dea93bc35548429fdd8de6039cec8cdbf9895b028b9f6cb549",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/__main__.py",
+      "bytes": 47,
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/api.py",
+      "bytes": 9344,
+      "sha256": "ad79b2d5ba0c2dc1182cadaba331b818fc71868b54d2af3845e0b4b2fa78fc58",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/benchmark.py",
+      "bytes": 21566,
+      "sha256": "baebe50c9af268f50395a91a3a1e487a8d8005f44d0eaa1e5d05afcf72f8f378",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/cli.py",
+      "bytes": 10340,
+      "sha256": "6253d09580aa6c7a443ea790b5148de51ab392add62e069a7764694842000488",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/crypto.py",
+      "bytes": 10803,
+      "sha256": "f6d49ce648e553f0a86a7dee6dd42e2588ffb8c025562eb317a0ac049b3ccc78",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/development_eval.py",
+      "bytes": 41606,
+      "sha256": "1c6764cee68422bab271cd7f5ecd95ad9d91c861e315d71085c782c954b9aba8",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/index.html",
+      "bytes": 11642,
+      "sha256": "cc2f5f7afbbb44532d2a9b5fb27b1b16eef3071ec683d3024655ec72e8be25ad",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/manifest.py",
+      "bytes": 11128,
+      "sha256": "b213221ff58d0e73dedaaf6f63e9c5375f16ffdd1ac8520240122f5c69fa15ca",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/media.py",
+      "bytes": 12430,
+      "sha256": "d64725b1ed7514e40d0863c494d7eaad66bb47f25a63d9108ea959cd1c614534",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/pdf_raster.py",
+      "bytes": 15988,
+      "sha256": "d7ce009193d9b86a71ca4430f8fcc3306eb6b0571bd54a626491012d781a0857",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/quality.py",
+      "bytes": 16129,
+      "sha256": "c42f99216829c2a5005fdcec908680b40477efd2f960a02a1e342b9fa7779679",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/registry.py",
+      "bytes": 15411,
+      "sha256": "240de1f323472c4f6870be148a53e7f0e3d5d327b1efea87051677163b302302",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/rotation.py",
+      "bytes": 7775,
+      "sha256": "e73da35dd439a30fe3d6672777a45f65e1a21aa4b67be19b04a1770dada9b4e4",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/screenshot.py",
+      "bytes": 12195,
+      "sha256": "a30210001051f906a4dedc30ce6180e2852cfc932581a2ca8970a6446d0a4626",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/screenshot_tasks.py",
+      "bytes": 3511,
+      "sha256": "a56a7ff6171c9c7821dcddeaba31a289544694a7209dcbb844dcb02964fe27d3",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/service.py",
+      "bytes": 31354,
+      "sha256": "bab4fb34851569ee1b4ca4a1c2e2431ae0024be9db0df65af57579cb63b8d58b",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/state.py",
+      "bytes": 5546,
+      "sha256": "735e1254ae693a0f10a4a30de5237a3188cd25d72f4b98511f8a8d8dee05a2b0",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/ui/index.html",
+      "bytes": 11643,
+      "sha256": "4b8f70283146e5aea8a194b16e934c5cb29d598b4bfd3098b0c344ea02aa1216",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark.py",
+      "bytes": 28989,
+      "sha256": "3d46a8f72137ab6d18061e199088ec51c5a158997f0ec70440cf1e08472b2d39",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark_feedback.py",
+      "bytes": 15144,
+      "sha256": "a6298fcb9b351ad09a95f1c921bef310064c8881bb942dff7137e2048bfc4e91",
+      "purpose": "源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark_sync.py",
+      "bytes": 26546,
+      "sha256": "29d6989bafc61cfc6ef94e3f9f6b4ae0fe18275077cb7b30e0dd8b3e88b3f3b3",
+      "purpose": "源代码"
+    },
+    {
+      "path": "SUBMISSION_MANIFEST.md",
+      "bytes": 1740,
+      "sha256": "12e7230174d3ea53de531ede41206ae04beca0d0a08009c7c8d553dd5ee85307",
+      "purpose": "提交文件"
+    },
+    {
+      "path": "tables/final_metrics.csv",
+      "bytes": 225,
+      "sha256": "685785033317d08e464c7ec28b31501d54cace9cdc15813db8322d07e05cb420",
+      "purpose": "结构化指标表"
+    },
+    {
+      "path": "tables/final_metrics.json",
+      "bytes": 11513,
+      "sha256": "b76be8892df0d76cd584a0ffbee2029b8af1782491a18c7874800f79b9857a8b",
+      "purpose": "结构化指标表"
+    },
+    {
+      "path": "tables/final_metrics.md",
+      "bytes": 1573,
+      "sha256": "217ca7626e777fd0f18f68385b0bcc92181ef2e88ad60b95928b8cc018d6b095",
+      "purpose": "结构化指标表"
+    },
+    {
+      "path": "tests/conftest.py",
+      "bytes": 105,
+      "sha256": "207b42852b9dedb120ae1c032d4be11100ddb8b12d7d508563def778298d05d5",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/helpers.py",
+      "bytes": 670,
+      "sha256": "8beeb380fad7afc0e64a102494e496fcad05d89634711442a64a810da87c1b93",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_api.py",
+      "bytes": 2729,
+      "sha256": "e3401f91fd61b7bcd16fbc0699b1f94f43122d2a0357310b7e191bf08f2b99d1",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_api_security.py",
+      "bytes": 4254,
+      "sha256": "acb6a8134f567976286affaf6c75af5a64dc8cc1a5d75d8b7a957939c6a0ca1e",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_arbitrary_rotation_demo.py",
+      "bytes": 10835,
+      "sha256": "73a60e194bc9f9cd258eb27176e56f52ff6896c62dcc2e11ff3340aa9ce49592",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_benchmark.py",
+      "bytes": 4944,
+      "sha256": "a9eca187284609dcffb069c4fa1d1db443c26f9deadb73bc6f29be32380b6711",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_derivation.py",
+      "bytes": 2711,
+      "sha256": "6afab01084a5e5187f39ea7896fdc9e72bb0c2ff320ecda5cd105e5a8c891d22",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_development_eval.py",
+      "bytes": 4935,
+      "sha256": "903f1baa212ecd440b2c7b058f850c35b82b27e74d720e906188d21300d9710d",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_pdf.py",
+      "bytes": 1477,
+      "sha256": "83189df9dc6a0855a675c2e9da287763bb61e0c1b038f86186fbc2e3aaa7798c",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_publish_self_check.py",
+      "bytes": 4512,
+      "sha256": "4c4766cf79d4feb3981ac3a52b2b1f115b6f215d2bf5090dd023381ed48536c4",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_rotation_mirror_service.py",
+      "bytes": 4213,
+      "sha256": "8e6b1029f425ecb10a71e667fc3a252fc32b9d9c6cd2bca175e7197441d9650e",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_round7_sync_boundaries.py",
+      "bytes": 4394,
+      "sha256": "970dcc923c97e9e0111d9dc03157d40f9233317914f106a8f7cdcc9fc23d091a",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_service.py",
+      "bytes": 1042,
+      "sha256": "a8a665827ef93c96a1497ca7140afd60a9d5a66dde66859a4a6ec9de53ec04bc",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_watermark_profiles.py",
+      "bytes": 2018,
+      "sha256": "39ba3517c28f260789f2c5dbab76d690687f7d2a88e70bf02d5a1dc5503fd9ed",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/integration/test_watermark_sync_api.py",
+      "bytes": 7859,
+      "sha256": "42f153ba1d68b1e2a918b49fbb0107d9e2af94d8d1932ae3d759b31074d1be7d",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/security/test_attacks.py",
+      "bytes": 1097,
+      "sha256": "063bbc9d5d40232f58c3c6f7d738bed377a6932395e2453261b6c5c6a27a27bb",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/security/test_key_trust_boundary.py",
+      "bytes": 2614,
+      "sha256": "775fee0d0be484473fca198387772328962f954f816594793a95f622774f816c",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/security/test_pdf_attacks.py",
+      "bytes": 6464,
+      "sha256": "e709b8ca610d27f4d8b73233958cfd7a94923c41f73b2f54015e67f08c3942bd",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/security/test_service_protocol.py",
+      "bytes": 3287,
+      "sha256": "750d8b9e2331c62ace245e3608e291eaaa3baa82b7574e810416fc3fec01e2d8",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/security/test_state.py",
+      "bytes": 2907,
+      "sha256": "41739298a02f5cf18e825b9a5de64160309f8b9ae9eb7495c2d8edb04f8849c6",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_arbitrary_rotation.py",
+      "bytes": 5417,
+      "sha256": "b90d0a94d8b28e0b54eaef53a8979f2bda95b7c4430b409b6634aa678655fd38",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_crypto.py",
+      "bytes": 957,
+      "sha256": "bcc059926b0549e42894c54843261455162588117104cc7757a73d88b9aa1c51",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_crypto_backends.py",
+      "bytes": 785,
+      "sha256": "51b1745b23f093ca3e297f9fe3af848468d685cd2c77469d02cc6753350a72b5",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_dataset_downloader.py",
+      "bytes": 3783,
+      "sha256": "84b1c1ba90bff9e4b4d9466bfbc68ea7d1b24df783e5af1101feb7567b96bf2f",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_dct_backends.py",
+      "bytes": 1649,
+      "sha256": "2ee801f384f2ac3cfe39550add257d58a780c113cac1a54a0ec5e8dc669e1214",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_import_external_materials.py",
+      "bytes": 1672,
+      "sha256": "9a27e6156a8e4cfeded132973736215d21ed711a552843f20228131560471f02",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_manifest.py",
+      "bytes": 1224,
+      "sha256": "fbe3407ed33fe11f4000a2c529050c656313296b2d91cfe3d45fbb713520587d",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_pdf_raster.py",
+      "bytes": 3736,
+      "sha256": "e68c32fa5bc84f7cf45a4d3e35271c99f93c8ac4c92a3d3177dbf1bcb5ec2ea3",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_quality_metrics.py",
+      "bytes": 1920,
+      "sha256": "cde3f82d5dc6bb2a7bc570c0b79a0f0809bb5d1370c6d730f0eedcfbfa975d20",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_reclassify_invalid_transforms.py",
+      "bytes": 844,
+      "sha256": "a7be538bdf052fc3157c4c641911ccb4932ea3a3fe97c13bd956c0fdc04281cb",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_registry.py",
+      "bytes": 1974,
+      "sha256": "acfcfe8f487bf89956758cbf90280ae03b6359396205cb5ff2bff09213239f05",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_erasure.py",
+      "bytes": 2155,
+      "sha256": "6b7424891c036a280793abb266979b54075085a4f43ec8d4eec43c9338e09803",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_geometry.py",
+      "bytes": 4762,
+      "sha256": "65069ee74d8dc9b6a7e7ffcd549457b83dbe57c6d45f32f75e01221024434d5e",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_mirror.py",
+      "bytes": 4348,
+      "sha256": "5574f082a1e19ea13762730b588c44ec707f472ee3b5cf7ecefd835d80b117f0",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round3_dataset.py",
+      "bytes": 556,
+      "sha256": "a8e318f3e7303c1ce1ea9a721fd4f4833f6c66083c5553b5552442d40a4532f4",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round3_quality.py",
+      "bytes": 4296,
+      "sha256": "ab5283763195c4f4b139f056ffd5ffd80df5c7808e34f1ef6642cc0f9fe1f071",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round5_runner.py",
+      "bytes": 1578,
+      "sha256": "5fc761dc0d4e458e6a23d60ad90dc673635404c86abc685cbb795a3782332a50",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round6_eval.py",
+      "bytes": 5304,
+      "sha256": "488c329fe0716142cf004881e4f7aebb1e2f5b2ca8fd84ff61937547c6558f4e",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round7_geometry.py",
+      "bytes": 1482,
+      "sha256": "f0727dd7b6277d75099c845014a9c96740eed5bf43fcb24a92bd9a81dc75af49",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round7_geometry_analytic.py",
+      "bytes": 6704,
+      "sha256": "c624adc8f1b9a3e6cd7efc67f93a6b900d99ef3b4cb88a938ecb164605b4ba09",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_round7_sets.py",
+      "bytes": 2476,
+      "sha256": "c7c04bf6902e54cfbefe88fcb0e0a35419ffc27e433bd4abbe4e4108bdf1cd3a",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_screenshot.py",
+      "bytes": 1587,
+      "sha256": "d6f1e4023d31f72a89bf5639dd297aa35becf48f7af89c39dd6d91d7c2b9b781",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_watermark.py",
+      "bytes": 1526,
+      "sha256": "ae3126c83c3910722f4f51f214eabcc9d46952d68bd1de33af47037ba1688888",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_feedback.py",
+      "bytes": 3673,
+      "sha256": "2d9b4c27523a041bd01cbbdd1cb75687e42e2ec402ec323c7c70781a818b99e4",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_residual.py",
+      "bytes": 7039,
+      "sha256": "6ad85de3cf6eb76670f9059b092a38bbad2ee2c5f23a9267747fe8f892f48114",
+      "purpose": "自动化测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_sync.py",
+      "bytes": 7115,
+      "sha256": "9d0603e102de29538ce123d042dcef33d72f2256a6de750b620a08b583169418",
+      "purpose": "自动化测试"
+    }
+  ]
+}

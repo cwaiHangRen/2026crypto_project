@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+from gm_provenance import media
 from gm_provenance.development_eval import evaluate_sample, load_config
 
 
@@ -21,6 +22,34 @@ def test_development_eval_real_groups_and_truth_is_separate(tmp_path: Path):
     assert result["metadata"]["truth_is_evaluator_only"] is True
     assert all(row["sidecar"] == "not_applicable" for row in result["samples"] if row["group"] in ("G0", "G2"))
     assert {a["attack"] for a in result["attacks"]} >= {"signature_tamper", "untrusted_key", "copied_watermark_unrelated", "state_expired", "state_mismatch"}
+    sample_dir = tmp_path / "run" / "samples" / "dev-01"
+    g1_manifest = next((sample_dir / "g1-registry" / "manifests").glob("*.json"))
+    g3_manifest = next((sample_dir / "registry" / "manifests").glob("*.json"))
+    assert json.loads(g1_manifest.read_text(encoding="utf-8"))["body"]["watermark_profile"]["algorithm"] == "none"
+    assert json.loads(g3_manifest.read_text(encoding="utf-8"))["body"]["watermark_profile"]["algorithm"] == "dct-difference"
+
+
+def test_round9_g3_gate_failure_does_not_create_g1_artifact(monkeypatch, tmp_path: Path):
+    source = tmp_path / "input.png"
+    Image.new("RGB", (768, 768), (90, 120, 160)).save(source, "PNG")
+
+    def reject(*_args, **_kwargs):
+        raise media.WatermarkSelfCheckError("injected gate failure", {"stage": "test"})
+
+    monkeypatch.setattr(media, "assert_publishable", reject)
+    result = evaluate_sample(
+        {"sample_id": "g3-fail", "local_path": str(source)},
+        tmp_path / "round9",
+        {
+            "groups": ["G0", "G3"],
+            "images": {"jpeg_quality": [], "resize": [], "crop_keep": [], "metadata_clear": False, "format_convert": False, "screenshot_simulated": False},
+            "scale_evaluation": {"attacks_enabled": False, "derive_enabled": False, "quality_enabled": False},
+        },
+    )
+    assert result["failures"] and result["failures"][0]["stage"] == "publish"
+    sample_dir = tmp_path / "round9" / "samples" / "g3-fail"
+    assert not (sample_dir / "g1-registry" / "manifests").exists()
+    assert not list((sample_dir / "registry" / "manifests").glob("*.json"))
 
 
 def test_config_has_fixed_matrix_and_performance_section():

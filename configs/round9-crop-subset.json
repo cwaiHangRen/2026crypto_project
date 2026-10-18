@@ -1,0 +1,27 @@
+{
+  "schema_version": "round9-crop-subset-1",
+  "seed": 20261014,
+  "sample_count": 80,
+  "dataset_manifest": "data/round8-scale-1000-final2/images_manifest.jsonl",
+  "round5_run": "results/round9-scale-audit/retained-publications",
+  "profiles": {"v1": "watermark-v1"},
+  "decoder": {
+    "profile": "decoder-v2-sync",
+    "max_candidates": 128,
+    "max_decode_attempts": 128,
+    "max_search_ms": 1000,
+    "max_memory_mb": 256,
+    "max_return_candidates": 8,
+    "crop_area_ratios": [1.0, 0.98, 0.96, 0.95, 0.94, 0.92, 0.90],
+    "offset_fractions": [0.0, -0.03, 0.03],
+    "fill_mode": "fixed-gray-128"
+  },
+  "transforms": [
+    {"name": "exact", "operation": "identity", "range": "in_scope"},
+    {"name": "crop_center_area_0.95", "operation": "crop", "keep": 0.95, "offset": [0.0, 0.0], "range": "in_scope"}
+  ],
+  "negative": {"enabled": false},
+  "output_category": "round9-scale-crop",
+  "report_title": "Round 9 固定 80 张图片裁剪传播子集",
+  "notes": "固定选择冻结图片清单按 sample_id 排序后的前80条；只复用 Round9 已发布 watermark-v1 字节与凭证，不重新嵌入、不重新登记。D0 与 S0 只对这两个变换执行；PDF 不进入图片同步器。"
+}
