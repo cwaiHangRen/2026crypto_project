@@ -223,6 +223,11 @@ class BatchProofService:
         valid = valid and MerkleTree.verify(proof, data["merkle_root"], self.crypto, expected_batch_id=data["batch_id"])
         return {"valid": bool(valid), "batch_id": data.get("batch_id"), "leaf": leaf, "merkle_root": data.get("merkle_root"), "reason": "ok" if valid else "proof_mismatch"}
 
+    # Stable short aliases for integrations that expose a generic batch API.
+    create = create_batch
+    generate_proof = proof
+    verify = verify_proof
+
 
 class BatchProofStore:
     """Small SQLite persistence layer independent from the v1 registry tables."""
