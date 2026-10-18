@@ -1,0 +1,15 @@
+{
+  "scope": "v2.1-package-audit",
+  "status": "PASS",
+  "checks": {
+    "manifest_hashes": "PASS",
+    "archive_private_runtime_scan": "PASS",
+    "private_keys": "excluded",
+    "access_tokens": "excluded",
+    "user_paths": "not_found",
+    "temporary_databases": "excluded",
+    "cache_and_venv": "excluded",
+    "oversized_intermediates": "not_found"
+  },
+  "note": "Recompute archive SHA-256 after this audit file is included; file_manifest.sha256.json is authoritative for per-file hashes."
+}

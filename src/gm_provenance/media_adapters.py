@@ -399,14 +399,91 @@ class AudioAdapter(WavAdapter):
     media_type = "audio/wav"
 
 
+class CodecAdapter(MediaAdapter):
+    """Safe boundary for optional compressed codecs.
+
+    ``ffprobe`` metadata inspection is intentionally separated from watermark
+    embedding.  If the backend is absent the adapter returns ``available=False``;
+    if present, it still reports ``CODE_NOT_IMPLEMENTED`` until a codec-specific
+    robust watermark is reviewed and tested.
+    """
+    def __init__(self, media_type: str, label: str):
+        self.media_type = media_type
+        self.label = label
+        self.capability = "optional-ffmpeg"
+
+    def inspect(self, data: bytes) -> MediaInfo:
+        from .codec_capabilities import probe_executable
+        ffprobe = probe_executable("ffprobe")
+        base = {"codec": self.label, "backend": "ffprobe", "dependency": "ffprobe", "dependency_available": ffprobe.available}
+        if not ffprobe.available:
+            return MediaInfo(self.media_type, False, len(data), _sha256(data), base, "ffprobe 不在 PATH；该格式为 BLOCKED_DEPENDENCY")
+        # Probe through stdin so no temporary media path is exposed.
+        try:
+            import json as _json
+            import subprocess, shutil
+            proc = subprocess.run([shutil.which("ffprobe") or "ffprobe", "-v", "error", "-print_format", "json", "-show_streams", "-show_format", "-i", "pipe:0"], input=data, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, check=False)
+            if proc.returncode != 0:
+                return MediaInfo(self.media_type, False, len(data), _sha256(data), base, "ffprobe 无法解析输入")
+            obj = _json.loads(proc.stdout.decode("utf-8", "replace"))
+            streams = obj.get("streams") or []
+            stream = streams[0] if streams else {}
+            details = dict(base)
+            details.update({k: stream.get(k) for k in ("codec_name", "codec_long_name", "sample_rate", "channels", "duration", "width", "height", "r_frame_rate") if stream.get(k) is not None})
+            details["format_name"] = (obj.get("format") or {}).get("format_name")
+            return MediaInfo(self.media_type, True, len(data), _sha256(data), details)
+        except Exception as exc:
+            return MediaInfo(self.media_type, False, len(data), _sha256(data), base, f"ffprobe_error:{type(exc).__name__}")
+
+    def _unavailable(self) -> None:
+        info = self.inspect(b"")
+        if not info.details.get("dependency_available"):
+            raise MediaUnavailableError(info.reason or "codec dependency unavailable")
+        raise MediaUnavailableError("external codec present but robust watermark adapter is not implemented")
+
+    def embed(self, data: bytes, content_id: str, **kwargs: Any) -> MediaOperation:
+        self._unavailable()
+        raise AssertionError("unreachable")
+
+    def detect(self, data: bytes, content_id: str | None = None, **kwargs: Any) -> MediaOperation:
+        self._unavailable()
+        raise AssertionError("unreachable")
+
+    def attack(self, data: bytes, attack_type: str, params: dict[str, Any] | None = None) -> bytes:
+        self._unavailable()
+        raise AssertionError("unreachable")
+
+
+class Mp3Adapter(CodecAdapter):
+    def __init__(self): super().__init__("audio/mpeg", "mp3")
+
+
+class FlacAdapter(CodecAdapter):
+    def __init__(self): super().__init__("audio/flac", "flac")
+
+
 class VideoAdapter(MediaAdapter):
     """Safe MP4 boundary. External FFmpeg/GStreamer is opt-in and not assumed."""
     media_type = "video/mp4"
     capability = "unavailable"
 
     def inspect(self, data: bytes) -> MediaInfo:
-        return MediaInfo(self.media_type, False, len(data), _sha256(data), {},
-                         "MP4 需要可选系统编解码器；离线安全模式未启用外部组件")
+        # Keep MP4 a hard capability boundary.  The report is explicit about
+        # whether the environment is missing codecs versus the watermark
+        # implementation itself; neither state is reported as verification.
+        from .codec_capabilities import probe_executable
+        ffmpeg = probe_executable("ffmpeg")
+        ffprobe = probe_executable("ffprobe")
+        details = {
+            "codec": "mp4",
+            "backend": "ffmpeg/ffprobe",
+            "dependency": {"ffmpeg": ffmpeg.available, "ffprobe": ffprobe.available},
+            "capability_status": "BLOCKED_DEPENDENCY" if not (ffmpeg.available and ffprobe.available) else "CODE_NOT_IMPLEMENTED",
+        }
+        reason = ("MP4 BLOCKED_DEPENDENCY: ffmpeg/ffprobe 不在 PATH；"
+                  "离线安全模式未启用外部组件" if not (ffmpeg.available and ffprobe.available)
+                  else "MP4 CODE_NOT_IMPLEMENTED: 外部编解码器存在但鲁棒水印适配器尚未实现")
+        return MediaInfo(self.media_type, False, len(data), _sha256(data), details, reason)
 
     def embed(self, data: bytes, content_id: str, **kwargs: Any) -> MediaOperation:
         raise MediaUnavailableError(self.inspect(data).reason or "MP4 unavailable")
@@ -433,12 +510,14 @@ def adapter_for(data: bytes, media_type: str | None = None) -> MediaAdapter:
         elif data.startswith(b"\x89PNG\r\n\x1a\n"): mt = "image/png"
         elif data.startswith(b"\xff\xd8"): mt = "image/jpeg"
         elif data.startswith(b"RIFF") and data[8:12] == b"WAVE": mt = "audio/wav"
+        elif data.startswith(b"fLaC"): mt = "audio/flac"
+        elif data.startswith(b"ID3") or (len(data) >= 2 and data[0] == 0xFF and (data[1] & 0xE0) == 0xE0): mt = "audio/mpeg"
         elif len(data) >= 12 and data[4:8] == b"ftyp": mt = "video/mp4"
     if mt in ("image/png", "image/jpeg", "image"): return ImageAdapter()
     if mt in ("application/pdf", "pdf"): return PdfAdapter()
     if mt in ("audio/wav", "audio/x-wav", "wav", "audio"): return AudioAdapter()
-    if mt in ("audio/mpeg", "audio/mp3", "audio/flac"):
-        return UnavailableAdapter(mt, "该格式需要可选系统编解码器；离线安全模式未启用外部组件")
+    if mt in ("audio/mpeg", "audio/mp3"): return Mp3Adapter()
+    if mt in ("audio/flac", "flac"): return FlacAdapter()
     if mt in ("video/mp4", "video"):
         return VideoAdapter()
     raise MediaAdapterError("无法识别媒体类型")
@@ -448,4 +527,4 @@ def inspect_media(data: bytes, media_type: str | None = None) -> MediaInfo:
     return adapter_for(data, media_type).inspect(data)
 
 
-__all__ = ["MediaAdapter", "MediaAdapterError", "MediaUnavailableError", "MediaInfo", "MediaOperation", "ImageAdapter", "PdfAdapter", "WavAdapter", "AudioAdapter", "VideoAdapter", "UnavailableAdapter", "adapter_for", "inspect_media"]
+__all__ = ["MediaAdapter", "MediaAdapterError", "MediaUnavailableError", "MediaInfo", "MediaOperation", "ImageAdapter", "PdfAdapter", "WavAdapter", "AudioAdapter", "CodecAdapter", "Mp3Adapter", "FlacAdapter", "VideoAdapter", "UnavailableAdapter", "adapter_for", "inspect_media"]

@@ -1,0 +1,468 @@
+{
+  "protocol": "GM-PROVENANCE-V2.1-BENCHMARK",
+  "profile": "N30",
+  "requested_count": 30,
+  "media": [
+    {
+      "media_type": "image",
+      "sample_count": 30,
+      "registered": 30,
+      "verified": 30,
+      "rows": [
+        {
+          "media_type": "image",
+          "operation": "register",
+          "n": 30,
+          "attempted": 30,
+          "mean_ms": 626.015,
+          "p50_ms": 609.944,
+          "p95_ms": 706.237,
+          "p99_ms": 780.306,
+          "throughput_per_s": 1.597,
+          "failures": 0
+        },
+        {
+          "media_type": "image",
+          "operation": "verify",
+          "n": 30,
+          "attempted": 30,
+          "mean_ms": 467.76,
+          "p50_ms": 464.612,
+          "p95_ms": 525.021,
+          "p99_ms": 548.242,
+          "throughput_per_s": 2.138,
+          "failures": 0
+        },
+        {
+          "media_type": "image",
+          "operation": "merkle-batch-create",
+          "n": 1,
+          "attempted": 1,
+          "mean_ms": 276.486,
+          "p50_ms": 276.486,
+          "p95_ms": 276.486,
+          "p99_ms": 276.486,
+          "throughput_per_s": 3.617,
+          "failures": 0
+        },
+        {
+          "media_type": "image",
+          "operation": "merkle-proof-verify",
+          "n": 0,
+          "attempted": 0,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "throughput_per_s": 0.0,
+          "failures": 0
+        }
+      ],
+      "failures": [],
+      "status": "PASS"
+    },
+    {
+      "media_type": "pdf",
+      "sample_count": 30,
+      "registered": 30,
+      "verified": 30,
+      "rows": [
+        {
+          "media_type": "pdf",
+          "operation": "register",
+          "n": 30,
+          "attempted": 30,
+          "mean_ms": 1050.146,
+          "p50_ms": 1037.812,
+          "p95_ms": 1148.779,
+          "p99_ms": 1324.131,
+          "throughput_per_s": 0.952,
+          "failures": 0
+        },
+        {
+          "media_type": "pdf",
+          "operation": "verify",
+          "n": 30,
+          "attempted": 30,
+          "mean_ms": 459.251,
+          "p50_ms": 456.967,
+          "p95_ms": 491.253,
+          "p99_ms": 531.343,
+          "throughput_per_s": 2.177,
+          "failures": 0
+        },
+        {
+          "media_type": "pdf",
+          "operation": "merkle-batch-create",
+          "n": 1,
+          "attempted": 1,
+          "mean_ms": 260.886,
+          "p50_ms": 260.886,
+          "p95_ms": 260.886,
+          "p99_ms": 260.886,
+          "throughput_per_s": 3.833,
+          "failures": 0
+        },
+        {
+          "media_type": "pdf",
+          "operation": "merkle-proof-verify",
+          "n": 0,
+          "attempted": 0,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "throughput_per_s": 0.0,
+          "failures": 0
+        }
+      ],
+      "failures": [],
+      "status": "PASS"
+    },
+    {
+      "media_type": "wav",
+      "sample_count": 30,
+      "registered": 0,
+      "verified": 0,
+      "rows": [
+        {
+          "media_type": "wav",
+          "operation": "register",
+          "n": 0,
+          "attempted": 30,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "throughput_per_s": 0.0,
+          "failures": 30
+        },
+        {
+          "media_type": "wav",
+          "operation": "verify",
+          "n": 0,
+          "attempted": 0,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "throughput_per_s": 0.0,
+          "failures": 0
+        }
+      ],
+      "failures": [
+        {
+          "index": 0,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 1,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 2,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 3,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 4,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 5,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 6,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 7,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 8,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 9,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 10,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 11,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 12,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 13,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 14,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 15,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 16,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 17,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 18,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 19,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 20,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 21,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 22,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 23,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 24,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 25,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 26,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 27,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 28,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        },
+        {
+          "index": 29,
+          "stage": "register_or_verify",
+          "reason": "ManifestV2Error: metadata_hash 与 metadata 不一致",
+          "classification": "code_or_fixture"
+        }
+      ],
+      "status": "BLOCKED"
+    }
+  ],
+  "metrics": [
+    {
+      "media_type": "image",
+      "operation": "register",
+      "n": 30,
+      "attempted": 30,
+      "mean_ms": 626.015,
+      "p50_ms": 609.944,
+      "p95_ms": 706.237,
+      "p99_ms": 780.306,
+      "throughput_per_s": 1.597,
+      "failures": 0
+    },
+    {
+      "media_type": "image",
+      "operation": "verify",
+      "n": 30,
+      "attempted": 30,
+      "mean_ms": 467.76,
+      "p50_ms": 464.612,
+      "p95_ms": 525.021,
+      "p99_ms": 548.242,
+      "throughput_per_s": 2.138,
+      "failures": 0
+    },
+    {
+      "media_type": "image",
+      "operation": "merkle-batch-create",
+      "n": 1,
+      "attempted": 1,
+      "mean_ms": 276.486,
+      "p50_ms": 276.486,
+      "p95_ms": 276.486,
+      "p99_ms": 276.486,
+      "throughput_per_s": 3.617,
+      "failures": 0
+    },
+    {
+      "media_type": "image",
+      "operation": "merkle-proof-verify",
+      "n": 0,
+      "attempted": 0,
+      "mean_ms": null,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "throughput_per_s": 0.0,
+      "failures": 0
+    },
+    {
+      "media_type": "pdf",
+      "operation": "register",
+      "n": 30,
+      "attempted": 30,
+      "mean_ms": 1050.146,
+      "p50_ms": 1037.812,
+      "p95_ms": 1148.779,
+      "p99_ms": 1324.131,
+      "throughput_per_s": 0.952,
+      "failures": 0
+    },
+    {
+      "media_type": "pdf",
+      "operation": "verify",
+      "n": 30,
+      "attempted": 30,
+      "mean_ms": 459.251,
+      "p50_ms": 456.967,
+      "p95_ms": 491.253,
+      "p99_ms": 531.343,
+      "throughput_per_s": 2.177,
+      "failures": 0
+    },
+    {
+      "media_type": "pdf",
+      "operation": "merkle-batch-create",
+      "n": 1,
+      "attempted": 1,
+      "mean_ms": 260.886,
+      "p50_ms": 260.886,
+      "p95_ms": 260.886,
+      "p99_ms": 260.886,
+      "throughput_per_s": 3.833,
+      "failures": 0
+    },
+    {
+      "media_type": "pdf",
+      "operation": "merkle-proof-verify",
+      "n": 0,
+      "attempted": 0,
+      "mean_ms": null,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "throughput_per_s": 0.0,
+      "failures": 0
+    },
+    {
+      "media_type": "wav",
+      "operation": "register",
+      "n": 0,
+      "attempted": 30,
+      "mean_ms": null,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "throughput_per_s": 0.0,
+      "failures": 30
+    },
+    {
+      "media_type": "wav",
+      "operation": "verify",
+      "n": 0,
+      "attempted": 0,
+      "mean_ms": null,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "throughput_per_s": 0.0,
+      "failures": 0
+    }
+  ],
+  "audit_checkpoint": {
+    "elapsed_ms": 16.269,
+    "created": true
+  },
+  "notes": [
+    "目标 P95<=100ms 仅作为优化目标；本机实测不宣称达到。",
+    "依赖缺失或编解码器不可用记录为 BLOCKED/LIMITED。"
+  ]
+}

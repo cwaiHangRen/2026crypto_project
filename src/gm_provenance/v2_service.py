@@ -146,6 +146,12 @@ class V2Service:
         asset_id = parent["manifest"].get("asset_id") if parent else secrets.token_hex(16)
         descriptor = self._descriptor(raw, final, media_type)
         metadata = {"filename": filename, "descriptor": descriptor.as_dict()}
+        # Manifest validation hashes metadata with the protocol JCS encoder.
+        # Using json.dumps here would encode values such as WAV duration 1.0
+        # differently (``1.0`` versus canonical ``1``), rejecting valid audio
+        # registrations.  Keep the producer and validator on one rule.
+        from . import manifest_v2
+        metadata_hash = manifest_v2._sm3_hex(metadata, self.crypto)
         body = {
             "schema_version": "2.0",
             "asset_id": asset_id,
@@ -162,11 +168,10 @@ class V2Service:
             "content_hash_alg": "SM3",
             "content_hash": self.crypto.sm3(final),
             "metadata": metadata,
-            "metadata_hash": self.crypto.sm3(json.dumps(metadata, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")),
+            "metadata_hash": metadata_hash,
             "watermark_profile": watermark_profile,
             "allowed_transformations": allowed_transformations or ["jpeg-reencode", "resize", "pdf-page-render"],
         }
-        from . import manifest_v2
         canonical = manifest_v2.canonical_bytes(body)
         signing_bytes = manifest_v2.DOMAIN + canonical
         manifest_hash = self.crypto.sm3(canonical)

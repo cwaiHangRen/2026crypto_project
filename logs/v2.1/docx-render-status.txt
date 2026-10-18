@@ -1,0 +1,1 @@
+DOCX native render attempt: BLOCKED; missing pdf2image dependency and no Word/LibreOffice detected.

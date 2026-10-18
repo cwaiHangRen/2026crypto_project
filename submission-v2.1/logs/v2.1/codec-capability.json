@@ -1,0 +1,94 @@
+{
+  "executables": {
+    "ffmpeg": {
+      "available": false,
+      "error": "not_on_PATH",
+      "name": "ffmpeg",
+      "path": null,
+      "version": null
+    },
+    "ffprobe": {
+      "available": false,
+      "error": "not_on_PATH",
+      "name": "ffprobe",
+      "path": null,
+      "version": null
+    }
+  },
+  "formats": {
+    "audio/flac": {
+      "dependency": {
+        "ffmpeg": false,
+        "ffprobe": false
+      },
+      "fixture_note": "deterministic header fixture verifies safe rejection; no fake codec bytes are generated",
+      "inspect": "BLOCKED",
+      "label": "flac",
+      "offline_fixture": true,
+      "operations": {
+        "clip": "NOT_RUN",
+        "metadata_clear": "NOT_RUN",
+        "resample": "NOT_RUN",
+        "transcode": "NOT_RUN",
+        "volume_change": "NOT_RUN"
+      },
+      "reason": "ffmpeg_and_ffprobe_not_available",
+      "status": "BLOCKED_DEPENDENCY"
+    },
+    "audio/mpeg": {
+      "dependency": {
+        "ffmpeg": false,
+        "ffprobe": false
+      },
+      "fixture_note": "deterministic header fixture verifies safe rejection; no fake codec bytes are generated",
+      "inspect": "BLOCKED",
+      "label": "mp3",
+      "offline_fixture": true,
+      "operations": {
+        "clip": "NOT_RUN",
+        "metadata_clear": "NOT_RUN",
+        "resample": "NOT_RUN",
+        "transcode": "NOT_RUN",
+        "volume_change": "NOT_RUN"
+      },
+      "reason": "ffmpeg_and_ffprobe_not_available",
+      "status": "BLOCKED_DEPENDENCY"
+    },
+    "video/mp4": {
+      "dependency": {
+        "ffmpeg": false,
+        "ffprobe": false
+      },
+      "fixture_note": "deterministic header fixture verifies safe rejection; no fake codec bytes are generated",
+      "inspect": "BLOCKED",
+      "label": "mp4",
+      "offline_fixture": true,
+      "operations": {
+        "clip": "NOT_RUN",
+        "metadata_clear": "NOT_RUN",
+        "resample": "NOT_RUN",
+        "transcode": "NOT_RUN",
+        "volume_change": "NOT_RUN"
+      },
+      "reason": "ffmpeg_and_ffprobe_not_available",
+      "status": "BLOCKED_DEPENDENCY"
+    }
+  },
+  "generated_at": "2026-10-18T09:28:03.638371Z",
+  "offline": {
+    "flac": "BLOCKED_DEPENDENCY",
+    "image": "PASS",
+    "mp3": "BLOCKED_DEPENDENCY",
+    "mp4": "BLOCKED_DEPENDENCY",
+    "pdf": "PASS",
+    "wav": "PASS"
+  },
+  "platform": "Windows",
+  "privacy": {
+    "absolute_paths": "redacted",
+    "media_bytes": "not_collected",
+    "private_keys": "not_collected"
+  },
+  "python": "3.12.10",
+  "schema_version": "v2.1-codec-capability-1"
+}
