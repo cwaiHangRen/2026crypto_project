@@ -345,6 +345,23 @@ class KeyManager:
     def status(self, key_id: str | None = None, *, at: str | None = None) -> dict[str, Any] | list[dict[str, Any]] | None:
         return self.get(key_id, at=at) if key_id is not None else self.list(at=at)
 
+    @staticmethod
+    def sanitized(record: dict[str, Any] | None) -> dict[str, Any] | None:
+        """返回可写入日志/API 的状态视图。
+
+        公钥原文和私钥路径都从状态输出移除；验证器仍可通过
+        :meth:`public_key` 获取公钥，签名器通过内部记录读取私钥路径。
+        """
+        if record is None:
+            return None
+        return {key: value for key, value in record.items() if key not in ("public_pem", "private_path")}
+
+    def public_status(self, key_id: str | None = None, *, at: str | None = None) -> dict[str, Any] | list[dict[str, Any]] | None:
+        status = self.status(key_id, at=at)
+        if isinstance(status, list):
+            return [self.sanitized(item) for item in status]
+        return self.sanitized(status)
+
     def is_usable(self, key_id: str, *, at: str | None = None) -> bool:
         record = self.get(key_id, at=at)
         if record is None or record["status"] != ACTIVE:
