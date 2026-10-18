@@ -61,7 +61,14 @@ class AttackResult:
     elapsed_ms: float
     log_path: str | None = None
 
-    def as_dict(self) -> dict[str, Any]: return _jsonable(asdict(self))
+    def as_dict(self) -> dict[str, Any]:
+        out = _jsonable(asdict(self))
+        summary = self.summary if isinstance(self.summary, dict) else {}
+        out["manifest_status"] = summary.get("manifest_status", "NOT_CHECKED")
+        out["signature_status"] = summary.get("signature_status", "NOT_CHECKED")
+        out["version_chain_status"] = summary.get("version_chain_status", "NOT_CHECKED")
+        out["revocation_status"] = summary.get("revocation_status", "NOT_CHECKED")
+        return out
 
 
 def default_attack_cases(media_type: str) -> list[AttackCase]:
@@ -130,7 +137,7 @@ def run_attack_matrix(marked_data: bytes, content_id: str, cases: Iterable[Attac
 def write_attack_matrix(results: Iterable[AttackResult], path: str | Path) -> dict[str, Any]:
     rows = [r.as_dict() for r in results]; path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     if path.suffix.lower() == ".csv":
-        fields = ["attack_id", "media_type", "attack_type", "expected_result", "actual_result", "watermark_recovered", "recovered_content_ids", "elapsed_ms"]
+        fields = ["attack_id", "media_type", "attack_type", "expected_result", "actual_result", "watermark_recovered", "recovered_content_ids", "manifest_status", "signature_status", "version_chain_status", "revocation_status", "elapsed_ms"]
         with path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fields); writer.writeheader()
             for row in rows: writer.writerow({k: json.dumps(row.get(k), ensure_ascii=False) if isinstance(row.get(k), (list, dict)) else row.get(k) for k in fields})
