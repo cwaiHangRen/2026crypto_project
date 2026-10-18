@@ -1,0 +1,881 @@
+[
+  {
+    "attack_id": "img-jpeg-70",
+    "media_type": "image",
+    "attack_type": "jpeg_quality",
+    "params": {
+      "quality": 70
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "56f2934c3caf32c87b033a32188880aab7677c51f87da1ed9643282f2dfdeb3f",
+      "final_sha256": "56f2934c3caf32c87b033a32188880aab7677c51f87da1ed9643282f2dfdeb3f",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 11881,
+          "sha256": "56f2934c3caf32c87b033a32188880aab7677c51f87da1ed9643282f2dfdeb3f",
+          "details": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:44.023094Z"
+    },
+    "elapsed_ms": 325.709,
+    "log_path": "results\\v2-demo\\attacks\\img-jpeg-70.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-png-jpeg",
+    "media_type": "image",
+    "attack_type": "png_to_jpeg",
+    "params": {
+      "quality": 85
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "d7559c4be5703191557a8509f852a9fd6cdddc192e2a266cd922606b5cf3a6fd",
+      "final_sha256": "d7559c4be5703191557a8509f852a9fd6cdddc192e2a266cd922606b5cf3a6fd",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 17494,
+          "sha256": "d7559c4be5703191557a8509f852a9fd6cdddc192e2a266cd922606b5cf3a6fd",
+          "details": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:44.364916Z"
+    },
+    "elapsed_ms": 341.363,
+    "log_path": "results\\v2-demo\\attacks\\img-png-jpeg.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-resize-75",
+    "media_type": "image",
+    "attack_type": "resize",
+    "params": {
+      "scale": 0.75
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "b872879a0f2193651d8cffd7585086fa2b73c068b913bd3062b248c103ea9117",
+      "final_sha256": "b872879a0f2193651d8cffd7585086fa2b73c068b913bd3062b248c103ea9117",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 44485,
+          "sha256": "b872879a0f2193651d8cffd7585086fa2b73c068b913bd3062b248c103ea9117",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 450,
+            "height": 300,
+            "mode": "RGB",
+            "pixels": 135000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:44.748848Z"
+    },
+    "elapsed_ms": 386.107,
+    "log_path": "results\\v2-demo\\attacks\\img-resize-75.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-crop-90",
+    "media_type": "image",
+    "attack_type": "crop",
+    "params": {
+      "ratio": 0.9
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "REJECTED_OR_NOT_FOUND",
+    "watermark_recovered": false,
+    "recovered_content_ids": [],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "3e9fc72b0b100ee32559198fd376459660606c927533f9c30da8690077ef0d3e",
+      "final_sha256": "3e9fc72b0b100ee32559198fd376459660606c927533f9c30da8690077ef0d3e",
+      "watermark_recovered": false,
+      "recovered_content_ids": [],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "NOT_FOUND",
+          "content_ids": [],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 45507,
+          "sha256": "3e9fc72b0b100ee32559198fd376459660606c927533f9c30da8690077ef0d3e",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 540,
+            "height": 360,
+            "mode": "RGB",
+            "pixels": 194400
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:45.176382Z"
+    },
+    "elapsed_ms": 425.741,
+    "log_path": "results\\v2-demo\\attacks\\img-crop-90.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-rotate-2",
+    "media_type": "image",
+    "attack_type": "rotate",
+    "params": {
+      "angle": 2.0
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "97f3ee37bd72f3851445fea36a874010b0dd0e7b94303e09ba0792401dc3fae3",
+      "final_sha256": "97f3ee37bd72f3851445fea36a874010b0dd0e7b94303e09ba0792401dc3fae3",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+                "geometry": {
+                  "method": "clipped-canvas",
+                  "correction_degrees": -1.998973,
+                  "estimated_size": [
+                    600,
+                    400
+                  ],
+                  "threshold": 4,
+                  "size_offset": 0,
+                  "border": "uniform-border",
+                  "foreground_coverage": 0.980371,
+                  "center": [
+                    300.0,
+                    200.0
+                  ]
+                }
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": [
+                {
+                  "method": "clipped-canvas",
+                  "correction_degrees": -1.998973,
+                  "estimated_size": [
+                    600,
+                    400
+                  ],
+                  "threshold": 4,
+                  "size_offset": 0,
+                  "border": "uniform-border",
+                  "foreground_coverage": 0.980371,
+                  "center": [
+                    300.0,
+                    200.0
+                  ]
+                },
+                {
+                  "method": "clipped-canvas",
+                  "correction_degrees": -1.998973,
+                  "estimated_size": [
+                    400,
+                    600
+                  ],
+                  "threshold": 4,
+                  "size_offset": 0,
+                  "border": "uniform-border",
+                  "foreground_coverage": 0.980371,
+                  "center": [
+                    300.0,
+                    200.0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 83284,
+          "sha256": "97f3ee37bd72f3851445fea36a874010b0dd0e7b94303e09ba0792401dc3fae3",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:46.628506Z"
+    },
+    "elapsed_ms": 1452.625,
+    "log_path": "results\\v2-demo\\attacks\\img-rotate-2.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-mirror",
+    "media_type": "image",
+    "attack_type": "mirror",
+    "params": {},
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "641b6bdd1d713f8028334f0453bd0297087c19d31993ab737d2a22c3783b80ae",
+      "final_sha256": "641b6bdd1d713f8028334f0453bd0297087c19d31993ab737d2a22c3783b80ae",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "mirror_rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 50453,
+          "sha256": "641b6bdd1d713f8028334f0453bd0297087c19d31993ab737d2a22c3783b80ae",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:47.178844Z"
+    },
+    "elapsed_ms": 550.825,
+    "log_path": "results\\v2-demo\\attacks\\img-mirror.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-screenshot",
+    "media_type": "image",
+    "attack_type": "screenshot",
+    "params": {},
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+      "final_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 50427,
+          "sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:47.711598Z"
+    },
+    "elapsed_ms": 533.948,
+    "log_path": "results\\v2-demo\\attacks\\img-screenshot.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-metadata-clear",
+    "media_type": "image",
+    "attack_type": "metadata_clear",
+    "params": {},
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+      "final_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 50427,
+          "sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:48.250194Z"
+    },
+    "elapsed_ms": 537.089,
+    "log_path": "results\\v2-demo\\attacks\\img-metadata-clear.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-local-replace",
+    "media_type": "image",
+    "attack_type": "local_replace",
+    "params": {
+      "ratio": 0.12
+    },
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "WATERMARK_RECOVERED",
+    "watermark_recovered": true,
+    "recovered_content_ids": [
+      "6f305060372e9f4b58c303e8ca8f30e8"
+    ],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "f7f824791cbf27440fc17d427be0e2ee315e0c16875960d151612bf976b29740",
+      "final_sha256": "f7f824791cbf27440fc17d427be0e2ee315e0c16875960d151612bf976b29740",
+      "watermark_recovered": true,
+      "recovered_content_ids": [
+        "6f305060372e9f4b58c303e8ca8f30e8"
+      ],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "FOUND",
+          "content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [
+              {
+                "orientation": "rotate_0",
+                "content_id": "6f305060372e9f4b58c303e8ca8f30e8"
+              }
+            ],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 50541,
+          "sha256": "f7f824791cbf27440fc17d427be0e2ee315e0c16875960d151612bf976b29740",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:48.765660Z"
+    },
+    "elapsed_ms": 516.516,
+    "log_path": "results\\v2-demo\\attacks\\img-local-replace.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  },
+  {
+    "attack_id": "img-watermark-splice",
+    "media_type": "image",
+    "attack_type": "watermark_copy",
+    "params": {},
+    "input_file": null,
+    "expected_result": "detect_or_reject",
+    "actual_result": "REJECTED_OR_NOT_FOUND",
+    "watermark_recovered": false,
+    "recovered_content_ids": [],
+    "summary": {
+      "media_type": "image",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "original_sha256": "ba50acb8fee9dfc250aeb3f686d3a1dc4c76174e09a41f78b4ff72c335c6cbd0",
+      "final_sha256": "ba50acb8fee9dfc250aeb3f686d3a1dc4c76174e09a41f78b4ff72c335c6cbd0",
+      "watermark_recovered": false,
+      "recovered_content_ids": [],
+      "manifest_status": "NOT_CHECKED",
+      "signature_status": "NOT_CHECKED",
+      "version_chain_status": "NOT_CHECKED",
+      "revocation_status": "NOT_CHECKED",
+      "details": {
+        "decoder_profile": "dct-difference-v1",
+        "detector": {
+          "status": "NOT_FOUND",
+          "content_ids": [],
+          "details": {
+            "profile": "dct-difference-v1",
+            "dct_mode": "scalar",
+            "work_size": 512,
+            "orientations_checked": [
+              "rotate_0",
+              "rotate_90",
+              "rotate_180",
+              "rotate_270",
+              "mirror_rotate_0",
+              "mirror_rotate_90",
+              "mirror_rotate_180",
+              "mirror_rotate_270"
+            ],
+            "matches": [],
+            "rotation_recovery": {
+              "backend": "scipy-convex-hull",
+              "candidate_limit": 8,
+              "candidates_checked": []
+            }
+          }
+        },
+        "media": {
+          "media_type": "image",
+          "available": true,
+          "size_bytes": 75023,
+          "sha256": "ba50acb8fee9dfc250aeb3f686d3a1dc4c76174e09a41f78b4ff72c335c6cbd0",
+          "details": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 600,
+            "height": 400,
+            "mode": "RGB",
+            "pixels": 240000
+          },
+          "reason": null
+        }
+      },
+      "timestamp": "2026-10-18T08:27:49.297407Z"
+    },
+    "elapsed_ms": 531.091,
+    "log_path": "results\\v2-demo\\attacks\\img-watermark-splice.bin",
+    "manifest_status": "NOT_CHECKED",
+    "signature_status": "NOT_CHECKED",
+    "version_chain_status": "NOT_CHECKED",
+    "revocation_status": "NOT_CHECKED"
+  }
+]

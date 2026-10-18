@@ -1,0 +1,11 @@
+attack_id,media_type,attack_type,expected_result,actual_result,watermark_recovered,recovered_content_ids,manifest_status,signature_status,version_chain_status,revocation_status,elapsed_ms
+img-jpeg-70,image,jpeg_quality,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,325.709
+img-png-jpeg,image,png_to_jpeg,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,341.363
+img-resize-75,image,resize,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,386.107
+img-crop-90,image,crop,detect_or_reject,REJECTED_OR_NOT_FOUND,False,[],NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,425.741
+img-rotate-2,image,rotate,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,1452.625
+img-mirror,image,mirror,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,550.825
+img-screenshot,image,screenshot,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,533.948
+img-metadata-clear,image,metadata_clear,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,537.089
+img-local-replace,image,local_replace,detect_or_reject,WATERMARK_RECOVERED,True,"[""6f305060372e9f4b58c303e8ca8f30e8""]",NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,516.516
+img-watermark-splice,image,watermark_copy,detect_or_reject,REJECTED_OR_NOT_FOUND,False,[],NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,NOT_CHECKED,531.091

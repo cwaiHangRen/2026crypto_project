@@ -1,0 +1,61 @@
+{
+  "source": "sample_data/real_pdf_page1.pdf",
+  "media_type": "pdf",
+  "content_id": "0123456789abcdef0123456789abcdef",
+  "watermark_recovered": true,
+  "registration_allowed": true,
+  "pdf_raster": {
+    "status": "PASS",
+    "registration_allowed": true,
+    "original_pdf_sha256": "230eb419eeca45b4d643981ec206acac50382eed82b8b97bae2fa11cd911bf73",
+    "original_pdf_path": "source.pdf",
+    "content_id": "0123456789abcdef0123456789abcdef",
+    "page_count": 1,
+    "config": {
+      "dpi": 120,
+      "color_space": "RGB",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "final_format": "PNG",
+      "jpeg_quality": 95,
+      "resize": null
+    },
+    "pages": [
+      {
+        "page": 1,
+        "rendered_sha256": "ca5b1031cea9a5d466f4768f13084eaccbb651b4b5683fb04a54d18e70d1df9c",
+        "rendered_bytes": 475593,
+        "final_sha256": "3cd57ea80931df15959e3db23c2e04601d17f01ae55bf64a2cc677c52dccc0ad",
+        "final_bytes": 753092,
+        "render_size": [
+          1020,
+          1320
+        ],
+        "final_size": [
+          1020,
+          1320
+        ],
+        "detector_status": "FOUND",
+        "recovered_content_ids": [
+          "0123456789abcdef0123456789abcdef"
+        ],
+        "gate_pass": true,
+        "verification": {
+          "status": "NOT_CHECKED",
+          "reason": "verify_fn 未提供"
+        },
+        "artifact_paths": {
+          "rendered_page": "pages\\page-001-rendered.png",
+          "final_encoded": "pages\\page-001-final.png"
+        }
+      }
+    ],
+    "limitations": [],
+    "elapsed_ms": 2559.584,
+    "log_path": "pdf-raster-log.json"
+  },
+  "final_sha256": "fa198ab0455195e35dc5758905a87ab9e329f039464d1060b9a670cc2f23de29"
+}

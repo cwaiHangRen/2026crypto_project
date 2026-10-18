@@ -134,6 +134,29 @@ results/                 本地验证结果；不作为源代码发布
 
 更多设计和验证证据见 [`docs/`](docs/)、[`docs/PROGRESS.md`](docs/PROGRESS.md) 和 [`docs/TRACEABILITY.md`](docs/TRACEABILITY.md)。
 
+## v2 扩展（独立分支）
+
+v2 保留 v1 稳定基线，新增确定性 Manifest v2、密钥生命周期、批量 Merkle proof、SM3 审计链、多媒体适配器、攻击矩阵和 Web 演示。v2 使用独立数据根和数据库，不改写 v1 registry。
+
+安装与检查：
+
+```powershell
+python -m venv .venv-v2
+.\.venv-v2\Scripts\python.exe -m pip install -e ".[test]"
+.\.venv-v2\Scripts\python.exe -m gm_provenance.v2_cli --help
+```
+
+离线演示与导出：
+
+```powershell
+.\.venv-v2\Scripts\python.exe scripts\run_v2_demo.py
+.\.venv-v2\Scripts\python.exe scripts\run_v2_pdf_demo.py
+.\.venv-v2\Scripts\python.exe -m uvicorn gm_provenance.v2_api:app --host 127.0.0.1 --port 8001
+.\.venv-v2\Scripts\python.exe -m pytest -q --basetemp tests\.tmp\v2 tests\v2
+```
+
+`run_v2_demo.py` 使用 `sample_data/v2-demo/` 中的 10 个固定 PNG，输出登记、批量 Merkle、攻击矩阵、审计导出和性能表；`run_v2_pdf_demo.py` 对 `sample_data/real_pdf_page1.pdf` 固定 120 DPI 栅格化并保存渲染页、最终 PNG、发布 PDF 和结构化日志。常用命令：`gm-provenance-v2 keygen`、`key-import`、`key-rotate`、`key-revoke`、`key-status`、`manifest-inspect`、`register`、`verify`、`batch-create`、`batch-proof`、`audit-verify`、`attack-run` 和 `export`。私钥只留在本地运行目录，不能进入报告、日志或提交包；MP3/FLAC/MP4 没有可选编解码器时显示 `UNAVAILABLE`。
+
 ### 本轮安全边界
 `keygen` 只生成密钥，不授予信任；需显式运行 `python -m gm_provenance.cli --root data trust --public <公钥> --publisher <发布者>`。API 写操作需要先运行 `init-admin` 并通过 `Authorization: Bearer` 传入令牌。`/api/verify` 默认使用 `full` 模式，也可显式传 `hard`、`recover`。
 
@@ -166,3 +189,5 @@ Round 2 隔离验收：`python scripts/run_round2_acceptance.py --output results
 ### 裁剪模块封版交接
 
 默认图片嵌入是 `watermark-v1`，普通来源检测是 D0 `dct-difference-v1`；用户主动选择深度裁剪恢复时使用 S0 `decoder-v2-sync`，v3 `decoder-v3-sync` 只可显式尝试。调用方应展示实际 decoder、`watermark_status`、候选 ID、`search_complete`、`search_stop_reason`、`checked_scope` 和耗时。恢复 ID 是来源线索，不能替代当前上传字节的 SM3、签名、父链、撤销和状态检查。队友接入命令与文件边界见 [`docs/ROUND8_HANDOFF.md`](docs/ROUND8_HANDOFF.md)；外部结果和缺口见 [`docs/ROUND8_FINAL_REPORT.md`](docs/ROUND8_FINAL_REPORT.md)。Round9 的 800 图片 + 200 PDF 默认规模基线、数据类别限制和未完成目标见 [`docs/ROUND9_SCALE_REPORT.md`](docs/ROUND9_SCALE_REPORT.md)；本轮新增 AI 图片和外部真实 PDF 实际为 0/20、0/10，不能写成 1030 条已完成样本。
+
+\n

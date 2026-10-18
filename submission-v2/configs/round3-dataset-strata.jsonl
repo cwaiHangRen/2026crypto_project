@@ -1,0 +1,3 @@
+{"stratum":"existing_pilot","count":6,"split":"development","license_status":"review","notes":"3 COCO images, DocLayNet official example, GenImage visualization (not raw AI row), one arXiv PDF"}
+{"stratum":"synthetic_image","count":55,"split":"development","license_status":"internal-test-only","families":["synthetic-image-type-1","synthetic-image-type-2","synthetic-image-type-3","synthetic-image-type-4","synthetic-image-type-5","synthetic-image-type-6"],"origin_category":"程序合成"}
+{"stratum":"synthetic_pdf","count":39,"split":"development","license_status":"internal-test-only","families":["synthetic-pdf-report-table-chart"],"origin_category":"程序合成"}

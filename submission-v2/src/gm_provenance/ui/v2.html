@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>gm-provenance v2</title>
+<style>body{font-family:system-ui,Segoe UI,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#243b53}section{border:1px solid #bcccdc;border-radius:8px;padding:1rem;margin:1rem 0}button{background:#0b7285;color:#fff;border:0;border-radius:4px;padding:.55rem .8rem}pre{background:#f0f4f8;padding:1rem;overflow:auto}</style></head>
+<body><h1>面向 AI 生成内容的密码水印与可验证溯源系统 v2</h1>
+<section><h2>内容登记</h2><input id="regFile" type="file"><input id="publisher" value="demo"><button onclick="registerFile()">登记</button><pre id="regOut"></pre></section>
+<section><h2>验证与 Merkle proof</h2><input id="verFile" type="file"><input id="cid" placeholder="ContentID（可选）"><input id="batch" placeholder="batch_id（可选）"><input id="proof" placeholder="proof 节点逗号分隔"><button onclick="verifyFile()">验证</button><pre id="verOut"></pre></section>
+<section><h2>状态与审计</h2><button onclick="loadState()">刷新状态</button><pre id="stateOut"></pre></section>
+<script>
+async function formUpload(url,file,fields){const f=new FormData();f.append('file',file);for(const [k,v] of Object.entries(fields))if(v)f.append(k,v);const r=await fetch(url,{method:'POST',body:f});return r.json()}
+async function registerFile(){const f=document.querySelector('#regFile').files[0];if(!f)return;document.querySelector('#regOut').textContent=JSON.stringify(await formUpload('/api/v2/register',f,{publisher_id:document.querySelector('#publisher').value}),null,2);loadState()}
+async function verifyFile(){const f=document.querySelector('#verFile').files[0];if(!f)return;document.querySelector('#verOut').textContent=JSON.stringify(await formUpload('/api/v2/verify',f,{content_id:document.querySelector('#cid').value,batch_id:document.querySelector('#batch').value,proof:document.querySelector('#proof').value}),null,2)}
+async function loadState(){const [c,k,a]=await Promise.all([fetch('/api/v2/contents').then(r=>r.json()),fetch('/api/v2/key-status').then(r=>r.json()),fetch('/api/v2/audit').then(r=>r.json())]);document.querySelector('#stateOut').textContent=JSON.stringify({contents:c,keys:k,audit:a},null,2)}
+</script></body></html>
