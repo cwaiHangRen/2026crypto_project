@@ -60,6 +60,9 @@ def test_wav_adapter_roundtrip_and_attack():
     attacked = adapter.attack(op.final_bytes, "volume", {"factor": .7})
     detected = adapter.verify(attacked, CID)
     assert detected.media_type == "audio/wav"
+    for attack, params in (("resample", {"factor": .8}), ("transcode", {}), ("crop", {"ratio": .8})):
+        mutated = adapter.attack(op.final_bytes, attack, params)
+        assert adapter.inspect(mutated).available is True
 
 
 def test_mp4_feature_flag_is_explicit():
