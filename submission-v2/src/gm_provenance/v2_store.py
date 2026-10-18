@@ -134,5 +134,3 @@ class V2Store:
             item["details"] = json.loads(item.pop("details_json"))
             out.append(item)
         return out
-
-\n

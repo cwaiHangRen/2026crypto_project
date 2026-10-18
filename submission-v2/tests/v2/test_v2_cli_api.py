@@ -12,3 +12,9 @@ def test_v2_api_imports_without_changing_v1_app():
     from gm_provenance import api, v2_api
     assert api.app is not None
     assert v2_api.app is not None
+
+
+def test_v2_api_register_response_is_json_safe():
+    from gm_provenance.v2_api import _public_result
+    result = _public_result({"content_id": "cid", "media_bytes_value": b"private-bytes"})
+    assert result == {"content_id": "cid"}

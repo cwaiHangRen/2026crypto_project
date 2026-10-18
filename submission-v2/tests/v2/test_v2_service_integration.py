@@ -57,5 +57,3 @@ def test_revoked_signing_key_is_explicit_risk(tmp_path):
     assert result["signature"]["status"] == "PASS"
     assert result["revocation"]["status"] == "FAIL"
     assert result["decision"] == "RISK_REVOKED_KEY"
-
-\n

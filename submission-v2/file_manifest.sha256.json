@@ -108,7 +108,7 @@
     {
       "path": "design_report_v2.docx",
       "bytes": 40215,
-      "sha256": "beadf86d6211268bacf6336a247a0bdd65eed70d249261b1a6b61e1721b57681",
+      "sha256": "d7fcb8c56e986b5a95e164e57af86fd169dca477a30fbdf1c3186c2d9a908ce7",
       "purpose": "v2 设计报告"
     },
     {
@@ -120,7 +120,7 @@
     {
       "path": "design_report_v2.pdf",
       "bytes": 184035,
-      "sha256": "77d84f3eb21252d0d566f9482472228ea76e2c5ac677784facc03c67aedb793c",
+      "sha256": "3d1085623b17a245054f5db89b23d588fad9d45e58e3b5d956128461cb3baaf5",
       "purpose": "v2 设计报告"
     },
     {
@@ -318,7 +318,7 @@
     {
       "path": "docs/V2_FINAL_ACCEPTANCE.md",
       "bytes": 2178,
-      "sha256": "16ff1c1c3c9fb2828f35f4aba9392c00786248df5b519f726175290aee3024ae",
+      "sha256": "e1f83ee7c889ea189472a2d6b14d2b08c86ab52819ab198c4298862420801ef5",
       "purpose": "说明文件"
     },
     {
@@ -426,7 +426,7 @@
     {
       "path": "logs/v2/pytest-v2.txt",
       "bytes": 102,
-      "sha256": "a69e99bd2482ae66701175d72d91fe9a58ebc40b98c0504f70133a0d3de40abe",
+      "sha256": "ab6fc98a52462c9804975f202edf6e6de0110f3a6f26627eb8476fbbd0366a8a",
       "purpose": "v2 可审计日志"
     },
     {
@@ -444,13 +444,19 @@
     {
       "path": "logs/v2-pytest-latest.txt",
       "bytes": 102,
-      "sha256": "a69e99bd2482ae66701175d72d91fe9a58ebc40b98c0504f70133a0d3de40abe",
+      "sha256": "ab6fc98a52462c9804975f202edf6e6de0110f3a6f26627eb8476fbbd0366a8a",
       "purpose": "v2 可审计日志"
     },
     {
       "path": "logs/v2-pytest-previous-22.txt",
       "bytes": 102,
       "sha256": "efc4d1715b11759415373ac23112c1f5a33eecef06ad6533f92db10185a8b5c3",
+      "purpose": "v2 可审计日志"
+    },
+    {
+      "path": "logs/v2-pytest-previous-23.txt",
+      "bytes": 102,
+      "sha256": "a69e99bd2482ae66701175d72d91fe9a58ebc40b98c0504f70133a0d3de40abe",
       "purpose": "v2 可审计日志"
     },
     {
@@ -1061,8 +1067,8 @@
     },
     {
       "path": "src/gm_provenance/v2_api.py",
-      "bytes": 3457,
-      "sha256": "e8a705418c126a711d9ffdf9b4a48c7edde53298844f7720aa2b4929ae4eac4e",
+      "bytes": 3706,
+      "sha256": "37a093746879f08590ed59d51e26bbd80b520ce1c82029831a7f592a62e5f5c4",
       "purpose": "v1/v2 源代码"
     },
     {
@@ -1079,14 +1085,14 @@
     },
     {
       "path": "src/gm_provenance/v2_service.py",
-      "bytes": 15473,
-      "sha256": "2c55a34bc5bef815b7ba49d09d5bc095aaaacc036d3c41b46b7f2bcbeedff811",
+      "bytes": 15470,
+      "sha256": "0f81afc03791823da384daf8622152942c48f6629ad7cfa407bc92bb2d546483",
       "purpose": "v1/v2 源代码"
     },
     {
       "path": "src/gm_provenance/v2_store.py",
-      "bytes": 5869,
-      "sha256": "97386b36f07dabafce779f302fc0d9fcef8e8bcfc5293f83a6fc4dd60b5b5c53",
+      "bytes": 5866,
+      "sha256": "a9812d20cb2bc32a1c5574a608374a3425a09515a3a066adce7e13c2eadf6ba1",
       "purpose": "v1/v2 源代码"
     },
     {
@@ -1433,14 +1439,14 @@
     },
     {
       "path": "tests/v2/test_v2_cli_api.py",
-      "bytes": 490,
-      "sha256": "6aa0904ab9701ab50c7e715a720052ba21c097a1d367f79b4234dcdee9c30d74",
+      "bytes": 727,
+      "sha256": "3cf146781797a1ab88196c2dcaf66141b04852bbd2c24eb8470665aacadd2d32",
       "purpose": "v1/v2 测试"
     },
     {
       "path": "tests/v2/test_v2_service_integration.py",
-      "bytes": 2477,
-      "sha256": "8d07949ef65c682ed1cfb229969e1aa6acb9c7c023ed43ae327d2dfe1de51b01",
+      "bytes": 2474,
+      "sha256": "819a14bf66fc8b080e637f0704f1683571110d1e7d8070ff7c743fe92757d51a",
       "purpose": "v1/v2 测试"
     }
   ]

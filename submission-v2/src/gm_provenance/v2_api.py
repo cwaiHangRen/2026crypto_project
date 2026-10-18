@@ -13,6 +13,12 @@ try:
     service = V2Service(ROOT)
     app = FastAPI(title="gm-provenance v2", docs_url="/docs")
 
+    def _public_result(result: dict) -> dict:
+        """Keep binary published bytes in the local store, never in JSON API output."""
+        output = dict(result)
+        output.pop("media_bytes_value", None)
+        return output
+
     @app.get("/", response_class=HTMLResponse)
     def home() -> str:
         return (Path(__file__).parent / "ui" / "v2.html").read_text(encoding="utf-8")
@@ -52,7 +58,7 @@ try:
     async def register(file: UploadFile = File(...), publisher_id: str = Form("demo"), key_id: str | None = Form(None)):
         raw = await file.read()
         try:
-            return service.register_bytes(raw, filename=file.filename or "upload.bin", publisher_id=publisher_id, key_id=key_id)
+            return _public_result(service.register_bytes(raw, filename=file.filename or "upload.bin", publisher_id=publisher_id, key_id=key_id))
         except (ValueError, KeyError, OSError) as exc:
             raise HTTPException(400, str(exc)) from exc
 

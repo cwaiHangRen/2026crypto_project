@@ -9,7 +9,7 @@ v1 稳定基线为提交 `a7b8e0783d5d80940028aeb9d33eb6f3538da95d`。v2 在独�
 | 项目 | 命令/证据 | 结果 |
 |---|---|---|
 | Python 编译检查 | `python -m compileall -q src` | PASS，返回码 0 |
-| v2 单元/集成/API/CLI/安全负例 | `pytest -q --basetemp tests/.tmp/v2-final tests/v2` | 23 passed，0 failed，约 26.19 s |
+| v2 单元/集成/API/CLI/安全负例 | `pytest -q --basetemp tests/.tmp/v2-final tests/v2` | 24 passed，0 failed，约 26.86 s |
 | 固定图片演示 | `scripts/run_v2_demo.py` | 10 登记、10 验证、10 叶 Merkle、10 类攻击矩阵、审计链有效 |
 | 真实 PDF 演示 | `scripts/run_v2_pdf_demo.py` | 1 页、120 DPI、RGB、1020×1320，渲染页和最终 PNG 均恢复 ContentID，registration_allowed=true |
 | 报告 PDF 视觉检查 | `logs/v2/report-render/page-01.png`、`page-02.png` | 2 页 PNG 已生成并检查 |

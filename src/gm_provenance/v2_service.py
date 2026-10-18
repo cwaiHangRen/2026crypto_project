@@ -265,5 +265,3 @@ class V2Service:
         row = {**batch, "key_id": key["key_id"], "signer_key_id": key["key_id"], "signature": signature_b64, "created_at": batch["created_at"], "signature_b64": signature_b64, "manifest": {"content_ids": content_ids, "leaves": leaves, "merkle_root": batch["merkle_root"]}, "tree_height": batch["tree_height"]}
         self.store.put_batch(row)
         return {k: v for k, v in row.items() if k != "signing_bytes"}
-
-\n
