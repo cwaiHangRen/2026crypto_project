@@ -396,7 +396,7 @@ class WavAdapter(MediaAdapter):
 
 class AudioAdapter(WavAdapter):
     """Offline audio adapter; PCM16 WAV is enabled, codec formats are explicit flags."""
-    media_type = "audio"
+    media_type = "audio/wav"
 
 
 class VideoAdapter(MediaAdapter):
