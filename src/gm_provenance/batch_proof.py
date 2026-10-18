@@ -271,7 +271,19 @@ def build_batch(leaves: Iterable[str], publisher_id: str = "publisher-v2", **kwa
     return create_batch(leaves, publisher_id, **kwargs)
 
 
-def verify_proof(batch: dict[str, Any], proof: dict[str, Any], crypto: Any | None = None) -> dict[str, Any]:
+def verify_proof(batch: dict[str, Any] | str, proof: dict[str, Any] | list[str], crypto: Any | None = None) -> dict[str, Any]:
+    """Verify a proof using either the full batch or ``(leaf, proof, root)``.
+
+    The latter shape is retained for the lightweight v2 service.  It accepts
+    a complete proof object; a bare sibling list is rejected because its
+    left/right directions are deliberately part of the authenticated proof.
+    """
+    if isinstance(batch, str):
+        root = crypto if isinstance(crypto, str) else None
+        if not root or not isinstance(proof, dict):
+            return {"valid": False, "leaf": batch, "merkle_root": root, "reason": "proof_format_required"}
+        valid = MerkleTree.verify(proof, root, expected_batch_id=None) and proof.get("leaf") == batch
+        return {"valid": bool(valid), "leaf": batch, "merkle_root": root, "reason": "ok" if valid else "proof_mismatch"}
     return BatchProofService(crypto=crypto).verify_proof(batch, proof)
 
 
