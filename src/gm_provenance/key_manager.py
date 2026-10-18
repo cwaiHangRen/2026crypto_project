@@ -320,7 +320,10 @@ class KeyManager:
 
     def list(self, publisher_id: str | None = None, *, at: str | None = None) -> list[dict[str, Any]]:
         with self._connect() as conn:
-            rows = conn.execute("SELECT * FROM publisher_keys WHERE (? IS NULL OR publisher_id=?) ORDER BY created_at,key_id", (publisher_id, publisher_id)).fetchall()
+            # Timestamps are deliberately second precision for canonical
+            # manifests; ``rowid`` breaks ties so a rotation in the same UTC
+            # second is still the newest active key.
+            rows = conn.execute("SELECT * FROM publisher_keys WHERE (? IS NULL OR publisher_id=?) ORDER BY created_at,rowid", (publisher_id, publisher_id)).fetchall()
         return [self._record(row, now=at) for row in rows]
 
     def revoke(self, key_id: str, reason: str) -> dict[str, Any]:
