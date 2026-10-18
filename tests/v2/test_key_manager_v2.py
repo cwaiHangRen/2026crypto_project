@@ -51,3 +51,15 @@ def test_sign_and_verify_respect_revocation(tmp_path: Path):
     with pytest.raises(Exception):
         manager.sign(record["key_id"], b"v2-key-message", passphrase="manager-pass")
 
+
+def test_public_import_and_redacted_status(tmp_path: Path):
+    crypto = OpenSSLCrypto()
+    source = KeyManager(tmp_path / "source", crypto=crypto)
+    private, public = tmp_path / "private.pem", tmp_path / "public.pem"
+    generated = source.keygen(private, public, "manager-pass", "publisher-v2")
+    imported = KeyManager(tmp_path / "imported", crypto=crypto).import_public(public, "publisher-v2")
+    assert imported["key_id"] == generated["key_id"]
+    view = KeyManager(tmp_path / "source", crypto=crypto).public_status(generated["key_id"])
+    assert "public_pem" not in view and "private_path" not in view
+    assert view["public_key_fingerprint"] == generated["key_id"]
+
