@@ -273,3 +273,17 @@ def build_batch(leaves: Iterable[str], publisher_id: str = "publisher-v2", **kwa
 
 def verify_proof(batch: dict[str, Any], proof: dict[str, Any], crypto: Any | None = None) -> dict[str, Any]:
     return BatchProofService(crypto=crypto).verify_proof(batch, proof)
+
+
+def proof_for(batch: dict[str, Any], leaf: str, crypto: Any | None = None) -> dict[str, Any]:
+    """Compatibility helper for the v2 CLI.
+
+    A persisted batch must retain its sorted leaf list (``leaves`` or
+    ``manifest.leaves``) so a proof can be regenerated offline.
+    """
+    leaves = batch.get("leaves")
+    if leaves is None and isinstance(batch.get("manifest"), dict):
+        leaves = batch["manifest"].get("leaves")
+    if leaves is None:
+        raise ValueError("batch does not contain its deterministic leaf list")
+    return BatchProofService(crypto=crypto).proof({**batch, "leaves": leaves}, leaf)
