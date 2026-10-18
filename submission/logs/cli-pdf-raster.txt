@@ -1,0 +1,1 @@
+CLI pdf-raster check: PASS. Fixed 120 DPI rendered page, final PNG encoding, detector FOUND, gate_pass=true.

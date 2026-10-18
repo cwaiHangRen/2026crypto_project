@@ -291,29 +291,39 @@ def evaluate_sample(sample: dict[str, Any], run_dir: str | Path, config: dict[st
     # G0/G2 are deliberately verified against registries that contain no G3
     # entries.  This keeps registry-backed lookup from silently gifting a
     # credential to the watermark-only and no-provenance controls.
+    requested_groups = set(cfg.get("groups", GROUPS))
     isolated_services = {
         "G0": ProvenanceService(sample_dir / "isolated-g0-registry"),
         "G2": ProvenanceService(sample_dir / "isolated-g2-registry"),
     }
     publisher = str(cfg.get("publisher_id", "publisher-round3")); groups: dict[str, dict[str, Any]] = {}
+    g1_service: ProvenanceService | None = None
     state_snapshot = sample_dir / "state-snapshot.json"
     try:
-        publish_started = time.perf_counter_ns()
-        g1 = _signed_only(service, source_copy, private, password, sample_dir, publisher)
-        g1_publish_ms = (time.perf_counter_ns() - publish_started) / 1_000_000
-        publish_started = time.perf_counter_ns()
-        g3 = service.register(source_copy, private, password, publisher_id=publisher)
-        g3_publish_ms = (time.perf_counter_ns() - publish_started) / 1_000_000
-        timings.extend([{"sample_id": sample_id, "group": "G1", "phase": "publish", "publish_ms": round(g1_publish_ms, 3)}, {"sample_id": sample_id, "group": "G3", "phase": "publish", "publish_ms": round(g3_publish_ms, 3)}])
-        g2_cid = secrets.token_hex(16); g2_bytes, g2_profile = media.embed(original, g2_cid, media_type); g2_path = sample_dir / "G2.bin"; g2_path.write_bytes(g2_bytes)
-        groups = {
-            "G0": {"path": source_copy, "manifest": None, "content_id": None},
-            "G1": {"path": Path(g1["media_path"]), "manifest": Path(g1["manifest_path"]), "content_id": g1["content_id"]},
-            "G2": {"path": g2_path, "manifest": None, "content_id": g2_cid},
-            "G3": {"path": Path(g3["media_path"]), "manifest": Path(g3["manifest_path"]), "content_id": g3["content_id"]},
-        }
+        groups = {"G0": {"path": source_copy, "manifest": None, "content_id": None}}
+        if "G1" in requested_groups:
+            # G1 is a signed-only control.  Keep its legitimate credential in
+            # a separate registry so a failed G3 attempt cannot be confused
+            # with a G3 publication or registry side effect.
+            g1_service = ProvenanceService(sample_dir / "g1-registry")
+            publish_started = time.perf_counter_ns()
+            g1 = _signed_only(g1_service, source_copy, private, password, sample_dir, publisher)
+            g1_publish_ms = (time.perf_counter_ns() - publish_started) / 1_000_000
+            timings.append({"sample_id": sample_id, "group": "G1", "phase": "publish", "publish_ms": round(g1_publish_ms, 3)})
+            groups["G1"] = {"path": Path(g1["media_path"]), "manifest": Path(g1["manifest_path"]), "content_id": g1["content_id"]}
+        if "G2" in requested_groups:
+            g2_cid = secrets.token_hex(16); g2_bytes, g2_profile = media.embed(original, g2_cid, media_type); g2_path = sample_dir / "G2.bin"; g2_path.write_bytes(g2_bytes)
+            groups["G2"] = {"path": g2_path, "manifest": None, "content_id": g2_cid}
+        if "G3" in requested_groups:
+            publish_started = time.perf_counter_ns()
+            g3 = service.register(source_copy, private, password, publisher_id=publisher)
+            g3_publish_ms = (time.perf_counter_ns() - publish_started) / 1_000_000
+            timings.append({"sample_id": sample_id, "group": "G3", "phase": "publish", "publish_ms": round(g3_publish_ms, 3)})
+            groups["G3"] = {"path": Path(g3["media_path"]), "manifest": Path(g3["manifest_path"]), "content_id": g3["content_id"]}
     except Exception as exc:
         failures.append({"sample_id": sample_id, "stage": "publish", "error": f"{type(exc).__name__}: {exc}"})
+    if g1_service is not None:
+        isolated_services["G1"] = g1_service
     if groups:
         for case in _cases(cfg, media_type):
             for group in cfg.get("groups", GROUPS):
@@ -362,7 +372,7 @@ def evaluate_sample(sample: dict[str, Any], run_dir: str | Path, config: dict[st
     # Authorized derivation is a real service operation and is meaningful for
     # images in the current implementation.  PDF derivation remains explicit
     # N/A rather than being silently treated as a pass.
-    if groups and "G3" in groups:
+    if groups and "G3" in groups and cfg.get("scale_evaluation", {}).get("derive_enabled", True):
         if media_type not in ("application/pdf",):
             try:
                 child = service.derive(groups["G3"]["content_id"], private, password, "resize")
@@ -371,17 +381,18 @@ def evaluate_sample(sample: dict[str, Any], run_dir: str | Path, config: dict[st
                 observed, measured = verify_current(service, child_path, Path(child["manifest_path"]), "full")
                 rows.append({"sample_id": sample_id, "group": "G3", "transform": "derive_resize", "media_type": media_type, "simulated": False, "sidecar": "retained", "capabilities": {"content_id_recovery": True, "sidecar_lookup": True, "registry_lookup_when_sidecar_lost": True, "signature": True, "parent_chain": True, "authorization": True, "revocation": "full"}, "detector_input": {"manifest_supplied": True, "mode": "full"}, "observed": {k: observed.get(k) for k in ("conclusion", "parent_chain_status", "authorization_status", "latest_version_status", "state_freshness", "reasons")}, "truth": {"expected_content_id": child["content_id"], "expected_outcome": "VERIFIED_DERIVATIVE"}, "handled": observed.get("conclusion") == "VERIFIED_DERIVATIVE", "media_path": str(child_path)})
                 timings.append({"sample_id": sample_id, "group": "G3", "transform": "derive_resize", "mode": "full", **measured})
-                parent_observed, parent_timing = verify_current(service, groups["G3"]["path"], groups["G3"]["manifest"], "full")
-                attacks.append({"sample_id": sample_id, "attack": "historical_parent", "observed": {"conclusion": parent_observed.get("conclusion"), "latest_version_status": parent_observed.get("latest_version_status")}, "truth": {"expected": "INDETERMINATE", "expected_field": "conclusion", "expected_latest_version_status": "FAIL"}, "handled": parent_observed.get("conclusion") == "INDETERMINATE" and parent_observed.get("latest_version_status") == "FAIL", "timing": parent_timing})
-                historical_hard, historical_hard_timing = verify_current(service, groups["G3"]["path"], groups["G3"]["manifest"], "hard")
-                attacks.append({"sample_id": sample_id, "attack": "historical_view_hard", "observed": {"conclusion": historical_hard.get("conclusion"), "content_hash_match": historical_hard.get("content_hash_match")}, "truth": {"expected": "VERIFIED_BINDING_ONLY", "expected_field": "conclusion", "reason": "合法历史查看只声明硬绑定"}, "handled": historical_hard.get("conclusion") == "VERIFIED_BINDING_ONLY", "timing": historical_hard_timing})
+                if cfg.get("scale_evaluation", {}).get("attacks_enabled", True):
+                    parent_observed, parent_timing = verify_current(service, groups["G3"]["path"], groups["G3"]["manifest"], "full")
+                    attacks.append({"sample_id": sample_id, "attack": "historical_parent", "observed": {"conclusion": parent_observed.get("conclusion"), "latest_version_status": parent_observed.get("latest_version_status")}, "truth": {"expected": "INDETERMINATE", "expected_field": "conclusion", "expected_latest_version_status": "FAIL"}, "handled": parent_observed.get("conclusion") == "INDETERMINATE" and parent_observed.get("latest_version_status") == "FAIL", "timing": parent_timing})
+                    historical_hard, historical_hard_timing = verify_current(service, groups["G3"]["path"], groups["G3"]["manifest"], "hard")
+                    attacks.append({"sample_id": sample_id, "attack": "historical_view_hard", "observed": {"conclusion": historical_hard.get("conclusion"), "content_hash_match": historical_hard.get("content_hash_match")}, "truth": {"expected": "VERIFIED_BINDING_ONLY", "expected_field": "conclusion", "reason": "合法历史查看只声明硬绑定"}, "handled": historical_hard.get("conclusion") == "VERIFIED_BINDING_ONLY", "timing": historical_hard_timing})
             except Exception as exc:
                 failures.append({"sample_id": sample_id, "stage": "derive", "group": "G3", "error": f"{type(exc).__name__}: {exc}"})
         else:
             attacks.append({"sample_id": sample_id, "attack": "derive_pdf", "applicable": False, "observed": {"conclusion": "N/A"}, "truth": {"expected": "N/A", "reason": "service derive currently supports images only"}, "handled": None, "timing": None})
     # A compact attack set uses isolated files and records failures as errors,
     # never as successful attack detections.
-    if groups and "G3" in groups:
+    if groups and "G3" in groups and cfg.get("scale_evaluation", {}).get("attacks_enabled", True):
         g3 = groups["G3"]
         try:
             env = json.loads(Path(g3["manifest"]).read_text(encoding="utf-8")); tampered = json.loads(json.dumps(env)); tampered["body"]["publisher_id"] = "attacker"; tp = sample_dir / "manifest-tampered.json"; _write_json(tp, tampered)
@@ -488,7 +499,7 @@ def evaluate_sample(sample: dict[str, Any], run_dir: str | Path, config: dict[st
             if media_ref and Path(media_ref).is_relative_to(sample_dir) and not Path(media_ref).exists():
                 record["media_path"] = "not retained"
     files = [p for p in sample_dir.rglob("*") if p.is_file()]
-    registry_files = [p for p in (sample_dir / "registry").rglob("*") if p.is_file()]
+    registry_files = [p for name in ("registry", "g1-registry") for p in (sample_dir / name).rglob("*") if p.is_file()]
     isolated_registry_files = [p for name in ("isolated-g0-registry", "isolated-g2-registry") for p in (sample_dir / name).rglob("*") if p.is_file()]
     storage = {"bytes": sum(p.stat().st_size for p in files), "bytes_before_prune": bytes_before_prune, "artifact_retention": retention, "manifest_bytes": sum(p.stat().st_size for p in files if p.suffix == ".json"), "media_bytes": sum(p.stat().st_size for p in files if p.suffix in (".bin", ".png", ".jpg", ".jpeg", ".pdf")), "registry_bytes": sum(p.stat().st_size for p in registry_files + isolated_registry_files), "sample_dir": str(sample_dir)}
     metadata = {"sample_id": sample_id, "source_family_id": sample.get("source_family_id"), "source_reference": sample.get("source_reference"), "license_status": sample.get("license_status"), "origin_category": sample.get("origin_category"), "media_type": media_type, "base_bytes": len(original), "groups": list(groups), "elapsed_ms": round((time.monotonic() - started) * 1000, 3), "watermark_profile": cfg.get("watermark_profile"), "truth_is_evaluator_only": True}

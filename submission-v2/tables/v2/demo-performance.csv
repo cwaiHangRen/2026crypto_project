@@ -1,0 +1,3 @@
+operation,count,elapsed_ms
+register+verify,10,5963.273
+attack_matrix,10,5607.13

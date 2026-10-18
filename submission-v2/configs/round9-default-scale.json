@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "seed": 20261014,
+  "watermark_profile": "watermark-v1",
+  "publisher_id": "publisher-round9-scale",
+  "groups": ["G0", "G3"],
+  "sidecar_states": ["retained"],
+  "verification_modes": {"retained": "full"},
+  "images": {
+    "jpeg_quality": [],
+    "resize": [],
+    "resize_jpeg": [],
+    "crop_keep": [],
+    "metadata_clear": false,
+    "format_convert": false,
+    "screenshot_simulated": false,
+    "cross_content_id": false
+  },
+  "pdf": {
+    "render_dpi": [],
+    "screenshot_simulated": false,
+    "delete_page": false,
+    "reorder_pages": false,
+    "replace_unmarked": false,
+    "cross_content_id": false
+  },
+  "performance": {"repeats": 1, "warmup": 0},
+  "artifact_retention": "minimal",
+  "scale_evaluation": {"attacks_enabled": false, "derive_enabled": false, "quality_enabled": false},
+  "notes": "Round9 default first-layer scale: watermark-v1 with G0 unwatermarked negative and G3 signed publish/full verification. v2/v3 and attack-heavy historical matrices are excluded from this main-layer scale run."
+}

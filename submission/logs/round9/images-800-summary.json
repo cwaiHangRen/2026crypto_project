@@ -1,0 +1,85 @@
+{
+  "samples": {
+    "rows": 2376,
+    "handled": 1584,
+    "rate": 0.6666666666666666,
+    "by_group": {
+      "G0": 792,
+      "G1": 0,
+      "G2": 0,
+      "G3": 1584
+    }
+  },
+  "attacks": {
+    "rows": 0,
+    "applicable_rows": 0,
+    "handled": 0,
+    "rate": null,
+    "by_attack": {}
+  },
+  "failures": {
+    "rows": 8,
+    "by_stage": {
+      "publish": 8
+    }
+  },
+  "watermark_recovery": {
+    "rows": 792,
+    "by_group": {
+      "G0": {
+        "n": 792,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 792,
+        "partial_page_recovery": 0,
+        "false_positive": 0
+      },
+      "G2": {
+        "n": 0,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 0,
+        "partial_page_recovery": 0,
+        "false_positive": null
+      },
+      "G3": {
+        "n": 0,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 0,
+        "partial_page_recovery": 0,
+        "false_positive": null
+      }
+    },
+    "note": "G0 FOUND counts are false positives; G2/G3 misses are detector false negatives or unsupported propagation cases and retain their denominator."
+  },
+  "storage": {
+    "bytes": 1382461858,
+    "samples": 800
+  },
+  "timings": {
+    "breakdown": {
+      "G0/recover/exact": {
+        "n": 792,
+        "mean_ms": 540.827,
+        "p50_ms": 540.924,
+        "p95_ms": 791.749
+      },
+      "G3/full/exact": {
+        "n": 1584,
+        "mean_ms": 1164.3,
+        "p50_ms": 1156.362,
+        "p95_ms": 1646.974
+      }
+    },
+    "note": "read/verify/transform are measured separately; internal hash/signature stages are not instrumented in this run."
+  },
+  "quality": {
+    "image": {},
+    "pdf": {},
+    "limits": "Metrics are descriptive for this development set; synthetic rows are not real-world prevalence estimates."
+  }
+}

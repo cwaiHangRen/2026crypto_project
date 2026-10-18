@@ -1,0 +1,77 @@
+{
+  "protocol": "GM-PROVENANCE-V2.1-CAPABILITY",
+  "ffmpeg_path_present": false,
+  "ffprobe_path_present": false,
+  "entries": [
+    {
+      "media_type": "audio/mpeg",
+      "code_boundary": "implemented-unavailable-safe",
+      "adapter": "Mp3Adapter",
+      "available": false,
+      "status": "BLOCKED",
+      "classification": "dependency_missing",
+      "reason": "ffprobe 不在 PATH；该格式为 BLOCKED_DEPENDENCY",
+      "ffmpeg": false,
+      "ffprobe": false
+    },
+    {
+      "media_type": "audio/flac",
+      "code_boundary": "implemented-unavailable-safe",
+      "adapter": "FlacAdapter",
+      "available": false,
+      "status": "BLOCKED",
+      "classification": "dependency_missing",
+      "reason": "ffprobe 不在 PATH；该格式为 BLOCKED_DEPENDENCY",
+      "ffmpeg": false,
+      "ffprobe": false
+    },
+    {
+      "media_type": "video/mp4",
+      "code_boundary": "implemented-unavailable-safe",
+      "adapter": "VideoAdapter",
+      "available": false,
+      "status": "BLOCKED",
+      "classification": "dependency_missing",
+      "reason": "MP4 BLOCKED_DEPENDENCY: ffmpeg/ffprobe 不在 PATH；离线安全模式未启用外部组件",
+      "ffmpeg": false,
+      "ffprobe": false
+    },
+    {
+      "media_type": "image/png",
+      "code_boundary": "implemented",
+      "adapter": "ImageAdapter",
+      "available": true,
+      "status": "PASS",
+      "classification": "offline_fixture",
+      "reason": null,
+      "ffmpeg": false,
+      "ffprobe": false
+    },
+    {
+      "media_type": "application/pdf",
+      "code_boundary": "implemented",
+      "adapter": "PdfAdapter",
+      "available": true,
+      "status": "PASS",
+      "classification": "offline_fixture",
+      "reason": null,
+      "ffmpeg": false,
+      "ffprobe": false
+    },
+    {
+      "media_type": "audio/wav",
+      "code_boundary": "implemented",
+      "adapter": "AudioAdapter",
+      "available": true,
+      "status": "PASS",
+      "classification": "offline_fixture",
+      "reason": null,
+      "ffmpeg": false,
+      "ffprobe": false
+    }
+  ],
+  "notes": [
+    "MP3/FLAC/MP4 boundary is explicit and safe: no codec is claimed when the dependency is absent.",
+    "The offline WAV/image/PDF adapters remain the CI smoke path."
+  ]
+}

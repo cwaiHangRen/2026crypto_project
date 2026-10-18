@@ -1,0 +1,11 @@
+media_type,operation,n,attempted,mean_ms,p50_ms,p95_ms,p99_ms,throughput_per_s,failures
+image,register,30,30,626.015,609.944,706.237,780.306,1.597,0
+image,verify,30,30,467.76,464.612,525.021,548.242,2.138,0
+image,merkle-batch-create,1,1,276.486,276.486,276.486,276.486,3.617,0
+image,merkle-proof-verify,0,0,,,,,0.0,0
+pdf,register,30,30,1050.146,1037.812,1148.779,1324.131,0.952,0
+pdf,verify,30,30,459.251,456.967,491.253,531.343,2.177,0
+pdf,merkle-batch-create,1,1,260.886,260.886,260.886,260.886,3.833,0
+pdf,merkle-proof-verify,0,0,,,,,0.0,0
+wav,register,0,30,,,,,0.0,30
+wav,verify,0,0,,,,,0.0,0

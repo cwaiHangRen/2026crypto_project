@@ -1,0 +1,1 @@
+DOCX visual render failed: LibreOffice/soffice was not available on the host. Full unsanitized diagnostics are preserved in the baseline evidence directory outside the submission package.

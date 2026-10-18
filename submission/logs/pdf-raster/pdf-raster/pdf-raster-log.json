@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "registration_allowed": true,
+  "original_pdf_sha256": "b50f181faf6d90d95ba13b5ddc0a5d27ee3846ad536558d438d1eb7db348d29a",
+  "original_pdf_path": "source.pdf",
+  "content_id": "ecafa611f1373b9a049dd7550a570e8d",
+  "page_count": 1,
+  "config": {
+    "dpi": 120,
+    "color_space": "RGB",
+    "background": [
+      255,
+      255,
+      255
+    ],
+    "final_format": "PNG",
+    "jpeg_quality": 95,
+    "resize": null
+  },
+  "pages": [
+    {
+      "page": 1,
+      "rendered_sha256": "bddf85272ad5269214c7e80e4297631d28dd807bd72a18d7c320bdd8b22156c0",
+      "rendered_bytes": 753629,
+      "final_sha256": "7ae1bf9414209cfdc90cfbcabf939d31c735eaca3fda033b109c66857ed5e6ec",
+      "final_bytes": 772415,
+      "render_size": [
+        1020,
+        1320
+      ],
+      "final_size": [
+        1020,
+        1320
+      ],
+      "detector_status": "FOUND",
+      "recovered_content_ids": [
+        "ecafa611f1373b9a049dd7550a570e8d"
+      ],
+      "gate_pass": true,
+      "verification": {
+        "status": "PAGE_EVIDENCE_WITH_PDF_CREDENTIAL",
+        "page": 1,
+        "checked_scope": "page",
+        "final_page_sm3": "57ab00f85265a3bcfbcbc4a61d470ba26ea8452e16ea2ce5e4639c55bead78d2",
+        "pdf_manifest_verification": {
+          "conclusion": "VERIFIED_BINDING_ONLY",
+          "manifest_presence": "PASS",
+          "manifest_schema": "PASS",
+          "signature_valid": "PASS",
+          "issuer_trusted": "PASS",
+          "content_hash_match": "PASS",
+          "parent_chain_status": "PASS",
+          "authorization_status": "PASS",
+          "content_revocation_status": "NOT_CHECKED",
+          "key_revocation_status": "NOT_CHECKED",
+          "state_freshness": "NOT_CHECKED",
+          "latest_version_status": "NOT_CHECKED"
+        },
+        "page_hash_binding": "NOT_APPLICABLE: manifest binds complete PDF bytes"
+      },
+      "artifact_paths": {
+        "rendered_page": "pages\\page-001-rendered.png",
+        "final_encoded": "pages\\page-001-final.png"
+      }
+    }
+  ],
+  "limitations": [],
+  "elapsed_ms": 2154.099,
+  "log_path": "pdf-raster-log.json"
+}

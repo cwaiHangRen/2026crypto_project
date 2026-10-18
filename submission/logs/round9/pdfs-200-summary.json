@@ -1,0 +1,83 @@
+{
+  "samples": {
+    "rows": 600,
+    "handled": 400,
+    "rate": 0.6666666666666666,
+    "by_group": {
+      "G0": 200,
+      "G1": 0,
+      "G2": 0,
+      "G3": 400
+    }
+  },
+  "attacks": {
+    "rows": 0,
+    "applicable_rows": 0,
+    "handled": 0,
+    "rate": null,
+    "by_attack": {}
+  },
+  "failures": {
+    "rows": 0,
+    "by_stage": {}
+  },
+  "watermark_recovery": {
+    "rows": 200,
+    "by_group": {
+      "G0": {
+        "n": 200,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 200,
+        "partial_page_recovery": 0,
+        "false_positive": 0
+      },
+      "G2": {
+        "n": 0,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 0,
+        "partial_page_recovery": 0,
+        "false_positive": null
+      },
+      "G3": {
+        "n": 0,
+        "watermark_found": 0,
+        "content_ids_nonempty": 0,
+        "expected_content_id_recovered": 0,
+        "not_found": 0,
+        "partial_page_recovery": 0,
+        "false_positive": null
+      }
+    },
+    "note": "G0 FOUND counts are false positives; G2/G3 misses are detector false negatives or unsupported propagation cases and retain their denominator."
+  },
+  "storage": {
+    "bytes": 788573256,
+    "samples": 200
+  },
+  "timings": {
+    "breakdown": {
+      "G0/recover/exact": {
+        "n": 200,
+        "mean_ms": 204.002,
+        "p50_ms": 196.872,
+        "p95_ms": 379.059
+      },
+      "G3/full/exact": {
+        "n": 400,
+        "mean_ms": 607.17,
+        "p50_ms": 579.003,
+        "p95_ms": 963.331
+      }
+    },
+    "note": "read/verify/transform are measured separately; internal hash/signature stages are not instrumented in this run."
+  },
+  "quality": {
+    "image": {},
+    "pdf": {},
+    "limits": "Metrics are descriptive for this development set; synthetic rows are not real-world prevalence estimates."
+  }
+}

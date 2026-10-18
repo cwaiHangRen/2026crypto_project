@@ -1,0 +1,2533 @@
+{
+  "schema_version": "round9-content-failure-diagnostics-1",
+  "source_run": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800",
+  "sample_count": 6,
+  "configurations": [
+    "v1+D0",
+    "v1+S0",
+    "existing-v2-candidate"
+  ],
+  "timeout_seconds_per_configuration": 20.0,
+  "gate_definition": "Only direct final encoded-byte recovery equal to the diagnostic ContentID is a gate pass; S0 is evidence only.",
+  "rows": [
+    {
+      "sample_id": "r8-img-0058",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0058/source.bin",
+      "source_sha256": "68caf6dd761f2153a4db67f2786c9c8ad00ce3603fbfaf1e7c45102a27e4e360",
+      "original_dimensions": [
+        800,
+        624
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 42487,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "468a7d05a128c615ce6037237fbd9c87",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 652499,
+          "final_sha256": "94fa27ff481aa8a0e564b8ffd95d2d91746d6a4d6688324933ba9f8d18ac41e2",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "468a7d05a128c615ce6037237fbd9c87",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 226.997,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 652499,
+          "final_sha256": "94fa27ff481aa8a0e564b8ffd95d2d91746d6a4d6688324933ba9f8d18ac41e2",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "468a7d05a128c615ce6037237fbd9c87",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "TIME_BUDGET_EXHAUSTED",
+            "candidate_content_ids": [],
+            "stop_reason": "time_budget_exhausted",
+            "search_complete": false,
+            "candidate_count": 48,
+            "decode_attempts": 48,
+            "timing_ms": {
+              "d0": 52.611,
+              "geometry_generation": 0.0,
+              "reconstruction": 708.505,
+              "dct_ecc": 312.127,
+              "sync_search": 1022.406
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 1325.268,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 215196,
+          "final_sha256": "186e61598f0a0101c20104d8d30e67019cc1ad7a2e763774a665e569ed8dfa29",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 7733,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.015490785256410256,
+              "residual_min": -91.7164306640625,
+              "residual_max": 94.73564147949219,
+              "residual_mean_abs": 1.970259428024292
+            }
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "468a7d05a128c615ce6037237fbd9c87",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 10.581298180908528,
+              "max_abs_coefficient_error": 84.91328811645508,
+              "bit_errors_before_ecc": 24,
+              "byte_errors_before_ecc": 18,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 62,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 109,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 230,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 233,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 262,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 292,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 294,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 296,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 369,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 370,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 10.581298180908528,
+              "max_abs_coefficient_error": 84.91328811645508,
+              "bit_errors_before_ecc": 24,
+              "byte_errors_before_ecc": 18,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 62,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 109,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 230,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 233,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 262,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 292,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 294,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 296,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 369,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 370,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 7733,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.015490785256410256
+            }
+          },
+          "elapsed_ms": 853.896,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        }
+      ]
+    },
+    {
+      "sample_id": "r8-img-0142",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0142/source.bin",
+      "source_sha256": "c07e11da1eb4da013d60e709f3c27a45f00926a511b0ec91c784ff8b5a80091f",
+      "original_dimensions": [
+        1440,
+        624
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 54953,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 980742,
+          "final_sha256": "1fcaa906cc1b841591b9b12d3a438af2c1ded8de9458bba642123e673b63ac30",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1440,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "b6fd5e6da516d11731b290c1ece79f35"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 421.285,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 980742,
+          "final_sha256": "1fcaa906cc1b841591b9b12d3a438af2c1ded8de9458bba642123e673b63ac30",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1440,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "b6fd5e6da516d11731b290c1ece79f35"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "b6fd5e6da516d11731b290c1ece79f35"
+            ],
+            "stop_reason": "d0_found",
+            "search_complete": false,
+            "candidate_count": 0,
+            "decode_attempts": 0,
+            "timing_ms": {
+              "d0": 100.502
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 539.88,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 267421,
+          "final_sha256": "66fa6617854d161e758c7093633fee6ad0e61247e954dbb085ef17012b4877a6",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1440,
+              624
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 13941,
+              "total_pixels": 898560,
+              "clipped_fraction": 0.015514823717948718,
+              "residual_min": -92.07102966308594,
+              "residual_max": 95.99946594238281,
+              "residual_mean_abs": 1.9686682224273682
+            }
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "b6fd5e6da516d11731b290c1ece79f35"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 10.071704352239394,
+              "max_abs_coefficient_error": 79.51799011230469,
+              "bit_errors_before_ecc": 20,
+              "byte_errors_before_ecc": 16,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 16,
+              "recovered_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 77,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 78,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 138,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 202,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 276,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 296,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 338,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 399,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 10.071704352239394,
+              "max_abs_coefficient_error": 79.51799011230469,
+              "bit_errors_before_ecc": 20,
+              "byte_errors_before_ecc": 16,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 16,
+              "recovered_content_id": "b6fd5e6da516d11731b290c1ece79f35",
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 77,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 78,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 138,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 202,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 276,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 296,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 338,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 399,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 13941,
+              "total_pixels": 898560,
+              "clipped_fraction": 0.015514823717948718
+            }
+          },
+          "elapsed_ms": 1063.723,
+          "failure_stage": "passed_gate"
+        }
+      ]
+    },
+    {
+      "sample_id": "r8-img-0178",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0178/source.bin",
+      "source_sha256": "75e719bd7b0caa83674b057ec685f2726fdda0f9b3be85f61bdb359976abdc8b",
+      "original_dimensions": [
+        800,
+        768
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 50711,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "889ea910115a39316f4245ee85a0840e",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 764152,
+          "final_sha256": "85e4d8f4ae86fedcf755a8879370a91264810ce49b801b0ffa5c993cf49795b7",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              768
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "889ea910115a39316f4245ee85a0840e"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "889ea910115a39316f4245ee85a0840e",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 370.036,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 764152,
+          "final_sha256": "85e4d8f4ae86fedcf755a8879370a91264810ce49b801b0ffa5c993cf49795b7",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              768
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "889ea910115a39316f4245ee85a0840e"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "889ea910115a39316f4245ee85a0840e",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "889ea910115a39316f4245ee85a0840e"
+            ],
+            "stop_reason": "d0_found",
+            "search_complete": false,
+            "candidate_count": 0,
+            "decode_attempts": 0,
+            "timing_ms": {
+              "d0": 97.531
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 454.412,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 242409,
+          "final_sha256": "57dd9d6e25a673995414e9910c9b6eb1bb9be516a0a60fa0d0f7d0ffce278743",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              768
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 9369,
+              "total_pixels": 614400,
+              "clipped_fraction": 0.0152490234375,
+              "residual_min": -73.26777648925781,
+              "residual_max": 71.97863006591797,
+              "residual_mean_abs": 1.779753565788269
+            }
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "889ea910115a39316f4245ee85a0840e",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 9.965917130123895,
+              "max_abs_coefficient_error": 88.40537643432617,
+              "bit_errors_before_ecc": 22,
+              "byte_errors_before_ecc": 17,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 15,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 108,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 171,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 217,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 218,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 248,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 264,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 282,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 340,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 9.965917130123895,
+              "max_abs_coefficient_error": 88.40537643432617,
+              "bit_errors_before_ecc": 22,
+              "byte_errors_before_ecc": 17,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 15,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 108,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 171,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 217,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 218,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 248,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 264,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 282,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 340,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 9369,
+              "total_pixels": 614400,
+              "clipped_fraction": 0.0152490234375
+            }
+          },
+          "elapsed_ms": 856.504,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        }
+      ]
+    },
+    {
+      "sample_id": "r8-img-0226",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0226/source.bin",
+      "source_sha256": "0551e43aa09482951000f22f03018670c119fd9dde1536859e42e22c39d28761",
+      "original_dimensions": [
+        800,
+        624
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 44403,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "ef42f386d88db17275106014ee5f2aab",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 660673,
+          "final_sha256": "a420162b6c47856485deb31591356f24039752ff8bf142b10b663f1ba9dbe941",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "ef42f386d88db17275106014ee5f2aab",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 343.542,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 660673,
+          "final_sha256": "a420162b6c47856485deb31591356f24039752ff8bf142b10b663f1ba9dbe941",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "ef42f386d88db17275106014ee5f2aab",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "TIME_BUDGET_EXHAUSTED",
+            "candidate_content_ids": [],
+            "stop_reason": "time_budget_exhausted",
+            "search_complete": false,
+            "candidate_count": 56,
+            "decode_attempts": 56,
+            "timing_ms": {
+              "d0": 79.128,
+              "geometry_generation": 0.0,
+              "reconstruction": 648.271,
+              "dct_ecc": 350.994,
+              "sync_search": 1001.339
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 1383.081,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 220269,
+          "final_sha256": "212db51a35de00be98b7b9df2aa50c592d3884cb30bca044d5095558032904ea",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 7903,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.015831330128205128,
+              "residual_min": -88.10454559326172,
+              "residual_max": 92.08087158203125,
+              "residual_mean_abs": 1.995597243309021
+            }
+          },
+          "direct_detection": {
+            "status": "NOT_FOUND",
+            "candidate_content_ids": [],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar"
+            }
+          },
+          "gate": {
+            "passed": false,
+            "expected_content_id": "ef42f386d88db17275106014ee5f2aab",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 10.97258679681229,
+              "max_abs_coefficient_error": 86.53987121582031,
+              "bit_errors_before_ecc": 29,
+              "byte_errors_before_ecc": 22,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 78,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 109,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 139,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 153,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 199,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 200,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 232,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 233,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 248,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 250,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 292,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 311,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 340,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 369,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 10.97258679681229,
+              "max_abs_coefficient_error": 86.53987121582031,
+              "bit_errors_before_ecc": 29,
+              "byte_errors_before_ecc": 22,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": false,
+              "ecc_matches_expected": false,
+              "bit_errors_after_ecc": null,
+              "corrected_symbols": null,
+              "recovered_content_id": null,
+              "failure_positions": [
+                {
+                  "bit_index": 46,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 78,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 94,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 109,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 139,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 153,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 155,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 156,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 186,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 199,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 200,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 231,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 232,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 233,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 246,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 248,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 250,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 292,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 311,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 340,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 369,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 7903,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.015831330128205128
+            }
+          },
+          "elapsed_ms": 686.213,
+          "failure_stage": "final_encoded_byte_blind_recovery"
+        }
+      ]
+    },
+    {
+      "sample_id": "r8-img-0394",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0394/source.bin",
+      "source_sha256": "795f38e85bacb71b35097e67b44fbed186e1b2b6048677070a800beb05ce2d66",
+      "original_dimensions": [
+        800,
+        624
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 40195,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "72b707a1725cea6967c0a3c53153ab75",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 639467,
+          "final_sha256": "e3cd440ba607227e9b508c1f4b3db255d178077499bdf2a2a9f029a82b6cfa23",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "72b707a1725cea6967c0a3c53153ab75"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "72b707a1725cea6967c0a3c53153ab75",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 265.433,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 639467,
+          "final_sha256": "e3cd440ba607227e9b508c1f4b3db255d178077499bdf2a2a9f029a82b6cfa23",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "72b707a1725cea6967c0a3c53153ab75"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "72b707a1725cea6967c0a3c53153ab75",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "72b707a1725cea6967c0a3c53153ab75"
+            ],
+            "stop_reason": "d0_found",
+            "search_complete": false,
+            "candidate_count": 0,
+            "decode_attempts": 0,
+            "timing_ms": {
+              "d0": 75.402
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 373.615,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 205888,
+          "final_sha256": "d5974a9de5e8d3198d3e8e237ff199ee1566d5303830911afdd081ab6ff661b8",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              800,
+              624
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 6953,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.013928285256410256,
+              "residual_min": -87.18582916259766,
+              "residual_max": 90.87732696533203,
+              "residual_mean_abs": 1.771723985671997
+            }
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "72b707a1725cea6967c0a3c53153ab75"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "72b707a1725cea6967c0a3c53153ab75",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 9.399196303115701,
+              "max_abs_coefficient_error": 88.42344284057617,
+              "bit_errors_before_ecc": 16,
+              "byte_errors_before_ecc": 14,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 14,
+              "recovered_content_id": "72b707a1725cea6967c0a3c53153ab75",
+              "failure_positions": [
+                {
+                  "bit_index": 2,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 62,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 108,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 139,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 202,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 230,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 232,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 276,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 9.399196303115701,
+              "max_abs_coefficient_error": 88.42344284057617,
+              "bit_errors_before_ecc": 16,
+              "byte_errors_before_ecc": 14,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 14,
+              "recovered_content_id": "72b707a1725cea6967c0a3c53153ab75",
+              "failure_positions": [
+                {
+                  "bit_index": 2,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 62,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 108,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 139,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 201,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 202,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 230,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 232,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 247,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 276,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 323,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 6953,
+              "total_pixels": 499200,
+              "clipped_fraction": 0.013928285256410256
+            }
+          },
+          "elapsed_ms": 780.568,
+          "failure_stage": "passed_gate"
+        }
+      ]
+    },
+    {
+      "sample_id": "r8-img-0520",
+      "source_path": "C:/Users/23292/Desktop/crypto/project/gm-provenance/results/pilot-round3/20261014T-round9-default-images-800/samples/r8-img-0520/source.bin",
+      "source_sha256": "deaa2141d99a71674089e9e9c1a95b3604dd6c1a5dac5a501ee227f8b2eb8436",
+      "original_dimensions": [
+        1760,
+        624
+      ],
+      "original_mode": "RGB",
+      "original_format": "PNG",
+      "original_bytes": 57821,
+      "final_encoding": {
+        "format": "PNG",
+        "jpeg_quality": null,
+        "watermark_output_quality": 95
+      },
+      "diagnostic_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+      "content_id_note": "Round9 G3 gate rejected before manifest/publication; production CID is unavailable. This stable CID is used only for bounded reproduction.",
+      "configurations": [
+        {
+          "configuration": "v1+D0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 1072917,
+          "final_sha256": "833324099dbc422d37a39af740a136d726e0b595daac665f7b373ea11e3075eb",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1760,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "c8dfcdfc16df5c89fc9106f43a54023a"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+            "stage": "final_media_blind_self_check"
+          },
+          "elapsed_ms": 392.319,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "v1+S0",
+          "watermark_profile": "watermark-v1",
+          "decoder_profile": "decoder-v2-sync",
+          "output_format": "PNG",
+          "final_encoded_bytes": 1072917,
+          "final_sha256": "833324099dbc422d37a39af740a136d726e0b595daac665f7b373ea11e3075eb",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1760,
+              624
+            ],
+            "output_format": "PNG"
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "c8dfcdfc16df5c89fc9106f43a54023a"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+            "stage": "final_media_blind_self_check"
+          },
+          "sync_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "c8dfcdfc16df5c89fc9106f43a54023a"
+            ],
+            "stop_reason": "d0_found",
+            "search_complete": false,
+            "candidate_count": 0,
+            "decode_attempts": 0,
+            "timing_ms": {
+              "d0": 104.118
+            },
+            "budget": {
+              "max_candidates": 128,
+              "max_decode_attempts": 128,
+              "max_search_ms": 1000,
+              "max_memory_mb": 256,
+              "max_return_candidates": 8
+            }
+          },
+          "elapsed_ms": 523.345,
+          "failure_stage": "passed_gate"
+        },
+        {
+          "configuration": "existing-v2-candidate",
+          "watermark_profile": "watermark-v2-residual",
+          "decoder_profile": "dct-difference-v1",
+          "output_format": "PNG",
+          "final_encoded_bytes": 271239,
+          "final_sha256": "1982243db0688359880b039c6b26b5d27a26ad5f644f700bcdfc26a675416363",
+          "embed_profile": {
+            "algorithm": "dct-difference",
+            "embed_profile": "watermark-v2-residual",
+            "version": 1,
+            "payload_version": 1,
+            "decoder_version": 1,
+            "work_size": 512,
+            "ecc": "reed-solomon-rs(53,21)",
+            "dct_backend": "scipy",
+            "dct_mode": "scalar",
+            "repeat": 4,
+            "strength": 34.0,
+            "input_size": [
+              1760,
+              624
+            ],
+            "input_mode": "RGB",
+            "output_format": "PNG",
+            "watermark": "enabled",
+            "residual_scale": 1.0,
+            "residual_source": "unclipped-float-work-luminance",
+            "quantization": "clip-0-255-then-uint8-truncate",
+            "orientation_policy": "reject-non-1",
+            "residual": {
+              "clipped_pixels": 15095,
+              "total_pixels": 1098240,
+              "clipped_fraction": 0.013744718822843822,
+              "residual_min": -86.42576599121094,
+              "residual_max": 87.0814437866211,
+              "residual_mean_abs": 1.8076138496398926
+            }
+          },
+          "direct_detection": {
+            "status": "FOUND",
+            "candidate_content_ids": [
+              "c8dfcdfc16df5c89fc9106f43a54023a"
+            ],
+            "details": {
+              "profile": "dct-difference-v1",
+              "dct_mode": "scalar",
+              "work_size": 512
+            }
+          },
+          "gate": {
+            "passed": true,
+            "expected_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+            "stage": "final_media_blind_self_check"
+          },
+          "residual_diagnostic": {
+            "pre_encode": {
+              "mean_abs_coefficient_error": 8.586780657324026,
+              "max_abs_coefficient_error": 78.86595153808594,
+              "bit_errors_before_ecc": 13,
+              "byte_errors_before_ecc": 11,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 11,
+              "recovered_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+              "failure_positions": [
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 124,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 217,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 262,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "post_encode": {
+              "mean_abs_coefficient_error": 8.586780657324026,
+              "max_abs_coefficient_error": 78.86595153808594,
+              "bit_errors_before_ecc": 13,
+              "byte_errors_before_ecc": 11,
+              "codeword_exact_before_ecc": false,
+              "ecc_decoded": true,
+              "ecc_matches_expected": true,
+              "bit_errors_after_ecc": 0,
+              "corrected_symbols": 11,
+              "recovered_content_id": "c8dfcdfc16df5c89fc9106f43a54023a",
+              "failure_positions": [
+                {
+                  "bit_index": 93,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 124,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 170,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 215,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 216,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 217,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 249,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 261,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 262,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 265,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 307,
+                  "expected": 1,
+                  "observed": 0
+                },
+                {
+                  "bit_index": 324,
+                  "expected": 0,
+                  "observed": 1
+                },
+                {
+                  "bit_index": 353,
+                  "expected": 0,
+                  "observed": 1
+                }
+              ]
+            },
+            "clipping": {
+              "clipped_pixels": 15095,
+              "total_pixels": 1098240,
+              "clipped_fraction": 0.013744718822843822
+            }
+          },
+          "elapsed_ms": 1071.976,
+          "failure_stage": "passed_gate"
+        }
+      ]
+    }
+  ]
+}

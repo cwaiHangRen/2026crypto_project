@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse, getpass, json, secrets
+import time
 from pathlib import Path
 from .service import ProvenanceService
 from .benchmark import run_benchmark
@@ -31,6 +32,21 @@ def build_parser():
     d = sub.add_parser("demo", help="运行本地图片端到端演示"); d.add_argument("--output", default="results/demo")
     b = sub.add_parser("benchmark", help="运行当前固定小型基准"); b.add_argument("--output", default="results/benchmark"); b.add_argument("--config", default="configs/attacks.yaml"); b.add_argument("--samples", type=int, default=1)
     sub.add_parser("export", help="导出匿名登记状态")
+    sb = sub.add_parser("screenshot-batch", help="批量提交用户已授权的截图并导出报告")
+    sb.add_argument("files", nargs="+", help="PNG/JPEG/PDF 文件")
+    sb.add_argument("--admin-token", required=True)
+    sb.add_argument("--source-kind", choices=["upload", "paste", "screen"], default="upload")
+    sb.add_argument("--format", choices=["json", "csv", "html"], default="json")
+    sb.add_argument("--output")
+    pr = sub.add_parser("pdf-raster", help="按固定 DPI 渲染 PDF 页面、嵌入水印并执行最终字节盲恢复 gate")
+    pr.add_argument("input", help="PDF 文件")
+    pr.add_argument("--content-id", required=True, help="本次页面水印使用的 32 位十六进制 ContentID")
+    pr.add_argument("--output", required=True, help="栅格化产物和结构化日志目录")
+    pr.add_argument("--dpi", type=int, default=120)
+    pr.add_argument("--color-space", choices=["RGB", "L"], default="RGB")
+    pr.add_argument("--format", choices=["PNG", "JPEG"], default="PNG")
+    pr.add_argument("--jpeg-quality", type=int, default=95)
+    pr.add_argument("--max-pages", type=int, default=10)
     return p
 
 
@@ -50,7 +66,39 @@ def main(argv=None):
     elif args.command == "export": out = {"status": service.registry.status(), "contents": service.registry.list_contents()}
     elif args.command == "benchmark": out = run_benchmark(args.output, args.config, args.samples)
     elif args.command == "demo": out = run_demo(service, Path(args.output))
+    elif args.command == "screenshot-batch": out = run_screenshot_batch(service, args)
+    elif args.command == "pdf-raster": out = run_pdf_raster(args)
     print(json.dumps(out, ensure_ascii=False, indent=2, default=str)); return 0
+
+
+def run_pdf_raster(args):
+    """执行纯媒体 PDF 栅格化；来源凭证验证通过独立 service.verify 接入。"""
+    from .pdf_raster import PdfRasterConfig, process_pdf
+    source = Path(args.input)
+    raw = source.read_bytes()
+    config = PdfRasterConfig(dpi=args.dpi, color_space=args.color_space,
+                             final_format=args.format, jpeg_quality=args.jpeg_quality,
+                             max_pages=args.max_pages)
+    result = process_pdf(raw, args.content_id, config=config, output_dir=args.output)
+    return result.as_dict()
+
+def run_screenshot_batch(service, args):
+    token_path = service.root / "admin-token"
+    expected = token_path.read_text(encoding="utf-8").strip() if token_path.exists() else ""
+    if not expected or not secrets.compare_digest(args.admin_token, expected):
+        raise PermissionError("需要有效的本地管理员令牌")
+    from .screenshot_tasks import ScreenshotTaskManager, report_json, report_csv, report_html
+    manager = ScreenshotTaskManager(service.root, service.verify)
+    ids = []
+    try:
+        for name in args.files:
+            p = Path(name); ids.append(manager.submit(p.read_bytes(), p.name, args.source_kind)["task_id"])
+        deadline = time.time() + 120
+        while time.time() < deadline and any(manager.get(i)["status"] in {"queued", "running"} for i in ids): time.sleep(.02)
+        rows = manager.report(ids); payload = {"json": report_json(rows), "csv": report_csv(rows), "html": report_html(rows)}[args.format]
+        if args.output: Path(args.output).write_text(payload, encoding="utf-8")
+        return json.loads(payload) if args.format == "json" else {"output": args.output, "format": args.format, "count": len(rows)}
+    finally: manager.close()
 
 
 def run_demo(service: ProvenanceService, output: Path):

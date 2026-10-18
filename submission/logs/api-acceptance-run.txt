@@ -1,0 +1,1 @@
+API acceptance attempt: BLOCKED by sandbox temporary-directory permissions before service startup. Full unsanitized traceback is preserved in baseline evidence outside the submission package.

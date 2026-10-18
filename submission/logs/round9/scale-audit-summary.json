@@ -1,0 +1,35 @@
+{
+  "schema_version": "round9-default-output-audit-1",
+  "runs": {
+    "images": "results/pilot-round3/20261014T-round9-default-images-800",
+    "pdfs": "results/pilot-round3/20261014T-round9-default-pdfs-200"
+  },
+  "default_d0": {
+    "published_rows": 992,
+    "detector_attempted": 992,
+    "gate_failed": 8,
+    "expected_id_hit": 992,
+    "correct_single_output": 992,
+    "status_counts": {
+      "FOUND": 992
+    },
+    "base_attempts": 1000
+  },
+  "negative_g0": {
+    "rows": 992,
+    "false_positive": 0,
+    "status_counts": {
+      "NOT_FOUND": 992
+    }
+  },
+  "quality_fixed_subset": {
+    "selected": 20,
+    "attempted": 20,
+    "passed": 20,
+    "status_counts": {
+      "PASS": 20
+    },
+    "selection_rule": "first 10 rows of each frozen manifest before observing outcomes"
+  },
+  "note": "D0 is measured on the final published bytes. Gate failures have no media and therefore no decoder record; they remain in the end-to-end denominator. Quality is a fixed 20-row diagnostic subset, not a whole-corpus quality claim."
+}

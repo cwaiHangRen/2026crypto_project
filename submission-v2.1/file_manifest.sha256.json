@@ -1,0 +1,1664 @@
+{
+  "schema_version": 1,
+  "scope": "v2.1-submission",
+  "excluded": [
+    ".venv",
+    "cache",
+    "private keys",
+    "runtime databases",
+    "results",
+    "temporary files"
+  ],
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 1000,
+      "sha256": "eabb551dda11942eade01eee04fd035617444e156233ebc918c07817abba6653",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "configs/attacks.yaml",
+      "bytes": 712,
+      "sha256": "14b5a51a61dc60790f8d28d7bed963e5f1c903ba3ebd8ecc9c57a4e12b2f3043",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/decoder-v2-sync.json",
+      "bytes": 309,
+      "sha256": "ae674f945d145973bae78f9b3d30bc19307b14850e8245b346d5c6c49fdc1559",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round3-dataset-strata.jsonl",
+      "bytes": 672,
+      "sha256": "84008023f900e73e12f3e70b211be1822bff76cf458173a61f32228128c51a5d",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round3-dataset.json",
+      "bytes": 752,
+      "sha256": "5142d4dd03c0cbf34d47dd5171e5ca4404664af1d6adb45c715075176265a23b",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round3-evaluation.json",
+      "bytes": 869,
+      "sha256": "539e05ad57b3dcbfee78b3c82725f4509ea1595c9212f0a0155f6a8e88bd4d7c",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round4-watermark-evaluation.json",
+      "bytes": 1436,
+      "sha256": "33df1e7cde46e88728234b3e72c7c09ecc403ff666bbacc9b848a7e083bbafac",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round5-watermark-evaluation.json",
+      "bytes": 1664,
+      "sha256": "fb888409b531428a531cacf66e7556f85f3f8a44754d68e30764c445a8599791",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round6-sync-evaluation.json",
+      "bytes": 4107,
+      "sha256": "3c5eb412290c50d716d8e84f7b4dd710f7fe553d5a7dd6e74d1314bd6158e2af",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round7-development.json",
+      "bytes": 5632,
+      "sha256": "a96d5c3cf21916e39dc4dfe91d6d01e5f723a896a7ee745d135a4ea49aee3975",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round7-external-marked-exact.json",
+      "bytes": 1533,
+      "sha256": "86a65b08a6b0c42abe4504aaed2fd6c5ae199187b6046e811f8150cc00142a38",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round7-external-marked.json",
+      "bytes": 5745,
+      "sha256": "d3b8c2b34d45630ed8134fa249c1ba3dd078e6fdd59ff8606defeae68885916a",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round9-crop-subset.json",
+      "bytes": 1213,
+      "sha256": "aea7403744bf3b45788bc63561ea8068e060fcc88e0fc48ad0c1edfc38019004",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/round9-default-scale.json",
+      "bytes": 1054,
+      "sha256": "3a6a93fe3ff7d87fe3048b9697f62ba2f372b87739924c656a3cf60676c8803d",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "configs/v2-demo.json",
+      "bytes": 435,
+      "sha256": "fd44a809b1c369503229267d67f216d6edc556a75757b073078432d891ea373d",
+      "purpose": "v2/v2.1 配置"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1273,
+      "sha256": "75ef9e807ca3324282ce45d9ac8132cf90afb6de1b238917d19a5cb41b0f95a7",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "design_report_v2_1.docx",
+      "bytes": 40207,
+      "sha256": "e08878da239694279a99ec6d80a186d1bd3060d5726582d30ba8182bb1c29074",
+      "purpose": "v2.1 设计与验收报告"
+    },
+    {
+      "path": "design_report_v2_1.md",
+      "bytes": 6049,
+      "sha256": "dd03e788d13ddf112dfdca7e07f23febc82f1d50896dd175520150c635b5066d",
+      "purpose": "v2.1 设计与验收报告"
+    },
+    {
+      "path": "design_report_v2_1.pdf",
+      "bytes": 184010,
+      "sha256": "e734dfb20b8cd39e0b10a61424ca696bf050dd504ae0a501d3e7753008b95dba",
+      "purpose": "v2.1 设计与验收报告"
+    },
+    {
+      "path": "docs/ARBITRARY_ROTATION.md",
+      "bytes": 13716,
+      "sha256": "d032190f7bac28355ba3433dac87249f965d1b5e12219709d60b6dac79598095",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 748,
+      "sha256": "2d153f04957931fdb4412934797d26d4a480f14c59ffd2e44e33b253c918c0b9",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/BENCHMARK.md",
+      "bytes": 2775,
+      "sha256": "6ebc600265da11e7cfe73061a0524ebc62831eea058e1d8d1da6513de91cbd7f",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/CRYPTO.md",
+      "bytes": 854,
+      "sha256": "5387f122604bb16ad178a73de292780e299a449a32ef5285df33bdb48311f5b8",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/DATASET_PILOT_RESULTS.md",
+      "bytes": 4932,
+      "sha256": "0e19bc8e1d09ab5205c0280ed4d153b32087112c931f1401a4c43a000327ab03",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/DATASET_RESEARCH.md",
+      "bytes": 13043,
+      "sha256": "71815b19c2b449269a2cf44f3bfb8861b2b031690a23e90d56053dd1c5521817",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "bytes": 660,
+      "sha256": "fcd82670e89603c79f12877c5e10f3a7d5ffb65fb3eb7ab8f6f90a26ff10b71c",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/FINAL_V2_ACCEPTANCE.md",
+      "bytes": 4322,
+      "sha256": "642450dd7f23ba97b1f9b2bfecff9a026ab368295e05cec4c2d1943a78668c77",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/FULL_DATASET_DOWNLOAD_STATUS.md",
+      "bytes": 3225,
+      "sha256": "692d5fa65d17dc242ec86b1670be51202e35cbd6ee59a9e75732a8e6f8fb9343",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/PDF_RASTER_FINAL.md",
+      "bytes": 1708,
+      "sha256": "7ff3a0b97ff4d215e2211b2018967a8e9b6189d5a244bbe11be56f80abb40dbc",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/PDF_SECURITY.md",
+      "bytes": 4357,
+      "sha256": "dae117d82a66acf526f2077da46f746fc7ebb93ed80e2ab04fa2d899739d3731",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/PROGRESS.md",
+      "bytes": 22619,
+      "sha256": "a7c2fa940ca2150b5fe6e70097fdd827a73c9c786393b2e737d01872e535e172",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/PROTOCOL.md",
+      "bytes": 1084,
+      "sha256": "90f2c6c56b085aaaadcaef743a4821a5848322068d9a68d080f657c55d6da0c5",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/REPORT_MATERIALS.md",
+      "bytes": 7754,
+      "sha256": "043cf831f7153250fff120a5534ea31e6a57aba21a2950aaaf76b0d2f73df4f2",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/REQUIREMENTS.md",
+      "bytes": 489,
+      "sha256": "e2478146281c78ede7951914aa1709a70209f695a367f532758633b3d811c895",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROTATION_MIRROR.md",
+      "bytes": 8472,
+      "sha256": "869beb0e21c1d681fb876e6acf938a5577aaae6136c86e87de99e11418c307b4",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND4_PERFORMANCE.md",
+      "bytes": 3100,
+      "sha256": "6b3028c6a8071f9ee1bae530dd68471d72f69cc1a24ff1e8efb3d749233dae94",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND4_WATERMARK_REPORT.md",
+      "bytes": 4328,
+      "sha256": "a4cbde246e706d3346943776c6392a097de2fc681849f5b9cb814879bf9814f7",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND5_PERFORMANCE.md",
+      "bytes": 2815,
+      "sha256": "37cd48e488b37adc4771e8f0512d50a3bc12d6e14c30e8933853c123798fbe18",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND5_WATERMARK_REPORT.md",
+      "bytes": 4651,
+      "sha256": "14c7b607faa5472514245f287237259db165c8fc7448c5df2987152edf7411c1",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND6_BASELINE_AUDIT.md",
+      "bytes": 2483,
+      "sha256": "1f50b494397222905e51b0aa876fa8bf35753ee1f3f0bb094cc8d7547723af03",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND6_SYNC_FINAL_REPORT.md",
+      "bytes": 9224,
+      "sha256": "7c711b59aefb8cd1f43b60c99a6aed6a1d80faff86de0b75d31a0dbe956aec1d",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND7_FINAL_REPORT.md",
+      "bytes": 7382,
+      "sha256": "f046229a83fc6544882cb95b970e46aea0e279ea0d30f21285b44b7938c79e7c",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND7_PERFORMANCE.md",
+      "bytes": 1776,
+      "sha256": "91682443f44e5bc58a7e00ea81c71b583db79becfa0d5526e9ea84964fcf0243",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND8_FINAL_REPORT.md",
+      "bytes": 9069,
+      "sha256": "5916f098fd4c7a8f46cee9ed310c7cefc77e7f356a52e4fceeaac4bf6a6af240",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND8_HANDOFF.md",
+      "bytes": 12925,
+      "sha256": "3c57a6e2a5705a667c3a99f3e744700f453d5309b30ea69a306e7cacf4880faf",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/ROUND9_SCALE_REPORT.md",
+      "bytes": 17710,
+      "sha256": "6de81efbd660bb240426b2bf0e67f3ff41e827034c87299cbd80d7aa34aadea9",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/STATE.md",
+      "bytes": 2285,
+      "sha256": "71c00dcd01e7a06164566253247a58e56eb014af9769749ce1fde36a8d5b2109",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/THIRD_PARTY_NOTICES.md",
+      "bytes": 716,
+      "sha256": "fc5adb629987adb77af5d717acf7a441b768fa211e19871d9d05ea109ac06211",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/THREAT_MODEL.md",
+      "bytes": 642,
+      "sha256": "108fe8075398077c416e2cacd2b3acdda124b8d33b1a6b870d9401979f011bce",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/TRACEABILITY.md",
+      "bytes": 1952,
+      "sha256": "f70771654ff4bf0755e306579e994b7be27d74d00162f0792c8a61dce2de6177",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/USER_REQUIREMENTS.txt",
+      "bytes": 33811,
+      "sha256": "5a0557601aab265942b59015d3e30c00e8f118fd960fadfeb78ad37118228e2c",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V1_V2_DIFF.md",
+      "bytes": 2495,
+      "sha256": "9e7935ae8bf94ae2294864fb193c67678ed0fc69c18864b006b2d7e5737b4587",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V2_1_DEMO_SCRIPT.md",
+      "bytes": 3642,
+      "sha256": "c65b0492e7b6f84bf8838fdb319106bb67bf251725057f1aba1dd65f6d938a85",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V2_CODEC_CAPABILITY.md",
+      "bytes": 1172,
+      "sha256": "de97c05e5f74d4bc9b02c719b5d05d108179d209ef8016bae246b7b7ec509db3",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V2_DESIGN_REPORT.md",
+      "bytes": 6049,
+      "sha256": "dd03e788d13ddf112dfdca7e07f23febc82f1d50896dd175520150c635b5066d",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V2_FINAL_ACCEPTANCE.md",
+      "bytes": 2178,
+      "sha256": "e1f83ee7c889ea189472a2d6b14d2b08c86ab52819ab198c4298862420801ef5",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/V2_MEDIA_ATTACK_LAB.md",
+      "bytes": 1200,
+      "sha256": "61f46569a6805498d7e3c6afacf60e0720ba77d1746ebc617ec717e389218ff9",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "docs/WATERMARK.md",
+      "bytes": 8069,
+      "sha256": "3b33110ac261688f5de8f65530f139f410914eee492ea2260caa52ac1da18fa9",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "figures/v2/architecture.svg",
+      "bytes": 1607,
+      "sha256": "9185448dde5e7f4b6922f37114cbe1ea76883daa19221568a3f5dcc98631b063",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "figures/v2/batch-throughput.svg",
+      "bytes": 382,
+      "sha256": "d1d22ebd80a26e84b6906e5794ab15e8e515aac2c5cf235bf1f2730abf15597e",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "figures/v2/latency-distribution.svg",
+      "bytes": 768,
+      "sha256": "e7d6b9ccc988e10918932a90823d7708227231ebaa94e67bf1cb36ef97f515a9",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "figures/v2/media-comparison.svg",
+      "bytes": 757,
+      "sha256": "f095f662b2429f77c864243503605564e1ec9582ff7343dc36a24284f56749e0",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "figures/v2/verification-flow.svg",
+      "bytes": 1198,
+      "sha256": "5cbd404a9d8d174daae99bef781e907f3619302b6b1036b996ddfcebb29443fb",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "figures/v2.1/performance-n30-register.svg",
+      "bytes": 763,
+      "sha256": "bacaa9dbb706b8d89982d30d695276fd486ecdfed3f12fb4de5fdc1c0790bedc",
+      "purpose": "v2.1 图表"
+    },
+    {
+      "path": "logs/v2/attack-matrix.json",
+      "bytes": 28828,
+      "sha256": "89b82e7878b336a414bb2cb0254ccb1a8cb1133322b6a3b390ca5bc59ffe6e73",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/audit-export.json",
+      "bytes": 46980,
+      "sha256": "3cfd55eec0a65e8c0d46288ff79fe1a6b80c133cef32c36645540bd9c8514789",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/benchmark-metrics.json",
+      "bytes": 712,
+      "sha256": "febb10a9fa58266679db8db6cb04c8f297b8a7d7e785bb410f9baa8ddb04a171",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/demo-summary.json",
+      "bytes": 5559,
+      "sha256": "5c3419355e6e0bfcc7afe5a9153d75507dd42aa3b1ec48ac44e401ef9a129d1d",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/pages/page-001-final.png",
+      "bytes": 753092,
+      "sha256": "3cd57ea80931df15959e3db23c2e04601d17f01ae55bf64a2cc677c52dccc0ad",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/pages/page-001-rendered.png",
+      "bytes": 475593,
+      "sha256": "ca5b1031cea9a5d466f4768f13084eaccbb651b4b5683fb04a54d18e70d1df9c",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/pdf-raster-log.json",
+      "bytes": 1383,
+      "sha256": "f9fafc406e1371acd2fb4590098a3b79ca232b3188bf97d0f4d5f483c8651e80",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/published.pdf",
+      "bytes": 1006791,
+      "sha256": "fa198ab0455195e35dc5758905a87ab9e329f039464d1060b9a670cc2f23de29",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/source.pdf",
+      "bytes": 899269,
+      "sha256": "230eb419eeca45b4d643981ec206acac50382eed82b8b97bae2fa11cd911bf73",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pdf-demo/v2-pdf-demo-summary.json",
+      "bytes": 1785,
+      "sha256": "9f32ace597bb4549cd51e5c7b0f1ee616c07902c49190f74bc47c5bd60cd569d",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/pytest-v2.txt",
+      "bytes": 102,
+      "sha256": "ab6fc98a52462c9804975f202edf6e6de0110f3a6f26627eb8476fbbd0366a8a",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/report-render/page-01.png",
+      "bytes": 408986,
+      "sha256": "a7c26b20ddcde675d63ff403e3e454ccae85d07cd7368a3e0cc6cb2aecd3fb0b",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2/report-render/page-02.png",
+      "bytes": 273709,
+      "sha256": "228371aceacecbcbcf7f5f69c9e53fe323c01f6fe7220a67a63eb7662e338674",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2-pytest-latest.txt",
+      "bytes": 102,
+      "sha256": "ab6fc98a52462c9804975f202edf6e6de0110f3a6f26627eb8476fbbd0366a8a",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2-pytest-previous-22.txt",
+      "bytes": 102,
+      "sha256": "efc4d1715b11759415373ac23112c1f5a33eecef06ad6533f92db10185a8b5c3",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2-pytest-previous-23.txt",
+      "bytes": 102,
+      "sha256": "a69e99bd2482ae66701175d72d91fe9a58ebc40b98c0504f70133a0d3de40abe",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/baseline-audit.json",
+      "bytes": 470,
+      "sha256": "dcba1363c3338068694cd5199d392b503cd0293a2b9b9d9aa3fd0af947f3e844",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/codec-capability.json",
+      "bytes": 2631,
+      "sha256": "5debfea044cda52b503334797459e32c2467a5a4b91cc55fff772271c8078426",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/compileall.txt",
+      "bytes": 19,
+      "sha256": "b5440854d4f2ae4dd50b91cd4c884a28068fbe97dbb655551e0f750037352014",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/docx-render-status.txt",
+      "bytes": 101,
+      "sha256": "da4f3ba266e2e8712b2c351f51670013ec9815d7c5c8b8807ee12fb47bae7c24",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/media-capability-report.csv",
+      "bytes": 587,
+      "sha256": "8e4293aca928f47e9b301c7ceb7d5beec8e1d38d144d7383d74b19fc35fc90fa",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/media-capability-report.json",
+      "bytes": 2325,
+      "sha256": "61ca8c60715104f123c46e20c51510481a90693a2773a9cec9f7d002c89a8b09",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/package-audit.json",
+      "bytes": 515,
+      "sha256": "36ee5ee02b90678a81bc41e3b8a272478e8670f45940d385c27448940502ab1e",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/performance-n30-pre-fix-blocked.csv",
+      "bytes": 608,
+      "sha256": "b71601d258216553000e5195a75b62fbc58e0c821499daefeec14cd0f6130d37",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/performance-n30-pre-fix-blocked.json",
+      "bytes": 13328,
+      "sha256": "6fc299b0bf2465bffafb71726208e8c42382ceef49f6880ba1a39cddc209f87e",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/performance-n30-register.svg",
+      "bytes": 763,
+      "sha256": "bacaa9dbb706b8d89982d30d695276fd486ecdfed3f12fb4de5fdc1c0790bedc",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/performance-n30.csv",
+      "bytes": 1128,
+      "sha256": "25709f5d1529ec837a9341e52082af9d12c95e73f877c7248b178a3ab3d39f36",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/performance-n30.json",
+      "bytes": 10820,
+      "sha256": "ae65acc91eece8b1a1e72382017854217e0e28a6acb5ab95f0e8b5fe37b8bac5",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/pytest-collect.txt",
+      "bytes": 3539,
+      "sha256": "decca78ba944b2749323b50ff8827c4cea3f951649a371dfc05703ced56f973e",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/pytest-v2-fast.txt",
+      "bytes": 102,
+      "sha256": "95acb064308d9f6757bece057295a92bc9330d50e2676f7f7220132f8ca2b971",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/pytest-v2.1.txt",
+      "bytes": 533,
+      "sha256": "b0344cd837c12cc2431745dbad29dabd2a6db39e6fb49c9c3b50fc02ed4ddba5",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/pytest-v21-previous-11.txt",
+      "bytes": 532,
+      "sha256": "dc8527f5f0daedc9716464b441e8ae30a4057f4276d817a7fa1a799577188530",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/report-render/page-01.png",
+      "bytes": 408986,
+      "sha256": "a7c26b20ddcde675d63ff403e3e454ccae85d07cd7368a3e0cc6cb2aecd3fb0b",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "logs/v2.1/report-render/page-02.png",
+      "bytes": 273709,
+      "sha256": "228371aceacecbcbcf7f5f69c9e53fe323c01f6fe7220a67a63eb7662e338674",
+      "purpose": "v2/v2.1 可审计日志"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 880,
+      "sha256": "fbb1c74b4f34741ec545aceedcef79d22cf8a80c1063b9e7acf5fb3700ee76c3",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "README.md",
+      "bytes": 14286,
+      "sha256": "d3c7ba437facfbf48d528da0cfc44e1985af87cf2470d9d594c60598b6f13e43",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 134,
+      "sha256": "711c9a8009cd77bb3b51a82a8330c59258410b46fea52cfac1ff917412932d70",
+      "purpose": "说明文件"
+    },
+    {
+      "path": "sample_data/real_pdf_page1.pdf",
+      "bytes": 899269,
+      "sha256": "230eb419eeca45b4d643981ec206acac50382eed82b8b97bae2fa11cd911bf73",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-01.png",
+      "bytes": 3404,
+      "sha256": "8134e208f85e9e17a29daebfddac42e824156749baa1c3912128d862c735c6cf",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-02.png",
+      "bytes": 3376,
+      "sha256": "c0cfac572b08a7306a5ef6cfc2186465c23f9dc808c75c56c13fc0ec66484415",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-03.png",
+      "bytes": 3490,
+      "sha256": "3e50c4a0da7c75ec6647679ad74eb1114ef74e3588b167c3365410942a8bdaaa",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-04.png",
+      "bytes": 3443,
+      "sha256": "c630269479773af8fdfcad4f5a7b4da02019b38ca5d428d482d499d97a2324db",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-05.png",
+      "bytes": 3465,
+      "sha256": "b76dff8042f474bb81ccf8239fef8b414e31db6fd930326dc84ee275d7677cb4",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-06.png",
+      "bytes": 3456,
+      "sha256": "6918d5d9b80f5d77bbb34a467a0d40cf11eedf4a16f1a50aae08734fe10bfd4c",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-07.png",
+      "bytes": 3358,
+      "sha256": "1a9de29f833b7f1acc034eef8b79ddbb101c64c887249200a3a0b15e0e1cfbbc",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-08.png",
+      "bytes": 3381,
+      "sha256": "2508db47bad4fb584b244224990b0b72e88367c6de87f7128b0701b4f1ee5cf4",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-09.png",
+      "bytes": 3283,
+      "sha256": "0a1af4f8ca59c164c3eef916b78bd9112669a68a5256b17243352b4c9d9a1e4a",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "sample_data/v2-demo/fixed-image-10.png",
+      "bytes": 3155,
+      "sha256": "e5a1d14b47009e0558b324e2eb20bf08f364016b5d4d783e0c68452baa2cd7fe",
+      "purpose": "离线固定样本"
+    },
+    {
+      "path": "scripts/attribute_round6_failures.py",
+      "bytes": 3375,
+      "sha256": "241d3cb2f9cd7a0954dd89b782d2fa8287b01841243283c772201e8a3beb5b89",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round3_baseline.py",
+      "bytes": 5781,
+      "sha256": "52405ad240f8658b0f556ce870326c64f57e01a5e6be7ed949a023544b6ac5b8",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round4_g2_g3_pair.py",
+      "bytes": 5575,
+      "sha256": "d57c88177ffb3e599cbb469d360cd3b0fe536b0a2255b18203bb1cc0759ced6c",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round6_baseline.py",
+      "bytes": 19507,
+      "sha256": "0282f6bd948aa2847fa34e7c24a8df8b58e77d21ecbcc4578aec70f768760bd0",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round6_checkpoint.py",
+      "bytes": 8179,
+      "sha256": "1bac32dbd86b8f491c752701b7bd7e5ce30e63f901e0c70dec5e16b17b2c0fd1",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round8_external.py",
+      "bytes": 9153,
+      "sha256": "0e00b664a96b5278f141dd91a1f49662e050750b1cb023e6815d8c33d0ed22b6",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round9_default_outputs.py",
+      "bytes": 7144,
+      "sha256": "9c963dd654f6c7cdeda1a56cc0a41b67368ee2263cd7f64e3176b94e5a4c1902",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round9_gate_failures.py",
+      "bytes": 6959,
+      "sha256": "80e4a23fa92e54bfa746ca6bd0f6e3eedc34bd39854f4255617d7eb585b53c93",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/audit_round9_quality_metrics.py",
+      "bytes": 8897,
+      "sha256": "91f4a3610161d3c33e3cc26473bfdf572df092945dc8d477dee80afb0487bd4d",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_design_report.py",
+      "bytes": 19683,
+      "sha256": "5c830ac6a229d03b652083a86b9099e5b82f2fb03c6537384dcd2911e3f0edd5",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_design_report_pdf.py",
+      "bytes": 15982,
+      "sha256": "12717178525183c50712e8323ddc5b55c218edd03ea4fc712abea4cbb8825b04",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_submission_metrics.py",
+      "bytes": 7478,
+      "sha256": "b77922c38f97051374aec447e9a22889d2ec96ec026b48cc06204fd507669e9d",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_v21_submission.py",
+      "bytes": 3856,
+      "sha256": "7d6d12680124fdb961f3b6b3974d800e2df4078dcfa87c566119371858d2584c",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_v2_reports.py",
+      "bytes": 3936,
+      "sha256": "f23312625042d4ba88f834afa8a48ba3e9a16a60c2d295ec99418966f8686797",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/build_v2_submission.py",
+      "bytes": 3686,
+      "sha256": "af744f857d6b49a47a6a477a8a7c48ea67ab8471710a5a1530835becef6a1b5e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/check_environment.py",
+      "bytes": 1418,
+      "sha256": "641477e4de4674851153ad21777ab133a27c74b4dca671acde7b84bf9c4f27b4",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/dataset_pilot_quality.py",
+      "bytes": 14997,
+      "sha256": "f0c782c65a6c0cb23c568b28e5dd46e2d715c7d8750a4a0c9bc365395d4e5d09",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/diagnose_round7_geometry.py",
+      "bytes": 10638,
+      "sha256": "fda5e5deaf7bea8c13e64ad607bb56c38269b0636a9b7bae9c28db08d79b9327",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/diagnose_round8_mixed_ids.py",
+      "bytes": 9233,
+      "sha256": "f9f2642116b21e786cf86879d82e21bcd119b2430188634e057766492dca85d4",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/diagnose_round8_regressions.py",
+      "bytes": 5797,
+      "sha256": "258b7a7beb2db6358d2876a32b00ae7f5dcce33f51f9c6887d89203cbdecc43e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/diagnose_round9_content_failures.py",
+      "bytes": 7357,
+      "sha256": "3434eef822ce3d20787901643cd2189ce90ee780a77a557ef834354d0c7d2bac",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/download_all_datasets.py",
+      "bytes": 25892,
+      "sha256": "4c1064dd3f2b84eb5039b4cdfebb5d77d10c85ae196290a0fb825e90a0d926e8",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/download_dataset_pilot.py",
+      "bytes": 17155,
+      "sha256": "4105baa61b30068c28bfb483e37bf5bc55ddc75786c73152fba25788282b42ce",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/download_full_selected.py",
+      "bytes": 10131,
+      "sha256": "9d06a2eb7862ea2f9c909ad8179cddee2ceff9239565ce6e6d01cdf8d885042e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/finalize_round4_failure_audit.py",
+      "bytes": 2412,
+      "sha256": "2587650d84ffad62f4f54f06e8dac74b1858d88187026bceb007f8bd14af5f7e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/finalize_round7_report.py",
+      "bytes": 14042,
+      "sha256": "9abcb7c6fce74b3077d861c4ba484c77f88122767a359a037373bdf1e01a3835",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/generate_submission_manifest.py",
+      "bytes": 5057,
+      "sha256": "a40bcb25eda6a45b664d1fa3cea189dba9448b88d3531888a763f2ddc6973bd6",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/import_external_materials.py",
+      "bytes": 10890,
+      "sha256": "b87cf60c66fab65dc077da4082fccfba8d42e0aa8774a276fa9ef9a48728f553",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/pdf_qa.py",
+      "bytes": 8090,
+      "sha256": "03f8f2985afea7cd4e25a39cb1635e6c63f5b8a142d3552131c5bf6ba53508d3",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/prepare_round3_dataset.py",
+      "bytes": 9042,
+      "sha256": "cdad319e56559f090be8436c8e6ea941b877c43cc283f0acb86185922e02e46f",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/prepare_round7_challenge.py",
+      "bytes": 6703,
+      "sha256": "6cbf98852ea3b67a033c5da13d92ae07f6a23795f41f4d16406ef4c4838a248d",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/prepare_round7_marked_challenge.py",
+      "bytes": 7246,
+      "sha256": "776fdc287f01955c4cfbde76a4d8d1002bda19f4e1d0816951e415ea82110131",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/prepare_round8_scale_dataset.py",
+      "bytes": 14997,
+      "sha256": "b653a871a8588154baf6d2d68f6d0aa09d206aea9d73ee017823f53e5d72ec7c",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/prepare_round9_crop_index.py",
+      "bytes": 3074,
+      "sha256": "15d174e0e75d7e920068b1e13f8c2fde73e4fd01817cf5cd49cc6e9837682268",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/probe_media_codecs.py",
+      "bytes": 794,
+      "sha256": "1b7f1103fed9790fd550f21390ecba9fa9894d0e225641bdee2ef473a1f848ab",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/probe_round5_feedback.py",
+      "bytes": 4904,
+      "sha256": "6b750a09d54e0522ca8a1bac6beffc24ef3ecdd7d8c15edc4016dd2e95995284",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/probe_round6_sync.py",
+      "bytes": 1297,
+      "sha256": "7902c481a6870178438bc1ca5298f25e33f109a24c68362c8b99cd74cb8ec86e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/reclassify_invalid_transforms.py",
+      "bytes": 8639,
+      "sha256": "a7536fe5f07007c1d4afd503342dc6c979795706f133435f606780ab94f17a8d",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/render_round9_failure_diagnostics.py",
+      "bytes": 3322,
+      "sha256": "ffa224651e9094ac0ef3ca2dfe5b3618ff7346d606da47a470e4d1007994f8a7",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/report_v2_1_capabilities.py",
+      "bytes": 3407,
+      "sha256": "443461edaf6d571cd5d7946271698ee62a2edb5a88ea4b97672a1823d1ca037d",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/round6_records.py",
+      "bytes": 7137,
+      "sha256": "1223733a83bf94d5718a82ad5a74306e90f84fed42ebaa80a36fb2bdf392420b",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/round7_sets.py",
+      "bytes": 8855,
+      "sha256": "5b25b99d636a8ab082b919e8c8cee7d17da691a86797b6bd44a1cda43100b342",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run.py",
+      "bytes": 230,
+      "sha256": "44fec7d0d433528badffe2d666d40517fcc0fe7bad526ff2ca4bcb21ca318002",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_bounded_geometry.py",
+      "bytes": 1444,
+      "sha256": "0ec705ebcbbb90307bbfe15b7fc9207eb9faedea17146fb32bc1ebe124d4ac3b",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_pdf_raster_acceptance.py",
+      "bytes": 6302,
+      "sha256": "eccf61bd0a6c23c098a2e6f176b39654f27389453169f966df7d22a03710d689",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round2_acceptance.py",
+      "bytes": 18750,
+      "sha256": "f85de4b856f1bfe04cd136bb84d7ad586c847a3b66fd9dc165eba5f4b4e557b3",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round3_evaluation.py",
+      "bytes": 21835,
+      "sha256": "7113fcbbacbd1f11499a14f8a3ea2360bb000dc92c5064b8ccd012a4fb6abd0f",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round4_performance.py",
+      "bytes": 24652,
+      "sha256": "e29d150199a56ebfafb2ecc4820a50fc2d49e2d99db8a9a2c2fd6e058b1eaf78",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round4_watermark_eval.py",
+      "bytes": 39853,
+      "sha256": "77d0007676f70596958f398f2dcb98921ca28408b7ec1bdf9ab0942fb02fa6c6",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round5_performance.py",
+      "bytes": 9761,
+      "sha256": "4bcc8868c5df0aea8af06213158d092e8457689097c3ef650c6ba8f1603c9044",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round5_watermark_eval.py",
+      "bytes": 41212,
+      "sha256": "49fd0b8babd27b6a4049d2ddd66d291fa13a8bc58493df7004e9c480d35162d6",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round6_recover_performance.py",
+      "bytes": 9016,
+      "sha256": "01ac03ca54c6cf02be828a958289b0590f8cd90fe3cb5da2f5cdbaba3d929150",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round6_sync_eval.py",
+      "bytes": 42999,
+      "sha256": "2df4306c96551ff35117e5d375839cf328ecc9404671517e6b86fc3e02732213",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round7_development.py",
+      "bytes": 42131,
+      "sha256": "9f11b8ca0012b7819f40c62ae73ff4b290f3c9c0624c0ee68621003aabbc45a9",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round7_external_challenge.py",
+      "bytes": 5724,
+      "sha256": "44d7dc6ff55dc63c381c0660a2d224fdfca674523969da8aeb8e96dbe96ba102",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_round7_performance.py",
+      "bytes": 14177,
+      "sha256": "b3c4ebb0a5c663df9a5793c53acb2bcb1055d8759ce99eaf1c93ed78e9fdae12",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_v2_1_benchmark.py",
+      "bytes": 13018,
+      "sha256": "c144ef4869b58715f183d8fe69b64465134b6242c0a521475b27968b28cbb141",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_v2_attack_matrix.py",
+      "bytes": 1437,
+      "sha256": "640ef298de1bf586a48a865bf2bb9cbfcfd833411d11f4ac86a97a26372d8c6e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_v2_benchmark.py",
+      "bytes": 3949,
+      "sha256": "2f4c05c49d02304ea49465de7bf008cd3a42749fe3db395f9171189f4c2428aa",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_v2_demo.py",
+      "bytes": 3786,
+      "sha256": "5286631a6433425e8dc248aad746f313510236622e4dba496673cb126c00dad1",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/run_v2_pdf_demo.py",
+      "bytes": 1147,
+      "sha256": "c2a3dcfb7ffa2a6cfa824b0394d92b5602060826033c4164b8c881d7c1acc483",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/smoke_test.py",
+      "bytes": 3318,
+      "sha256": "da58afdfafce5188f74517f56dce84268c58be89e0c8405d74a0164cf744b21e",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/test_dataset_pilot.py",
+      "bytes": 11852,
+      "sha256": "e35b62776711a81fc51100ef555d1e02ec17a490634bb001a06b4b988c369c96",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/validate_arbitrary_rotation.py",
+      "bytes": 22508,
+      "sha256": "1a06b7112ca0d4d87df4611ef9b69f217f9c20748788d5c642a95b8aa6ccd6b6",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "scripts/validate_rotation_mirror.py",
+      "bytes": 14605,
+      "sha256": "0ddbaa3a6f3da7d7ea83b228d7a435ef10d2f7eeebfa761456db8f63003ddf5a",
+      "purpose": "v2/v2.1 复现脚本"
+    },
+    {
+      "path": "src/gm_provenance/__init__.py",
+      "bytes": 71,
+      "sha256": "92edaf2da70185dea93bc35548429fdd8de6039cec8cdbf9895b028b9f6cb549",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/__main__.py",
+      "bytes": 47,
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/api.py",
+      "bytes": 9344,
+      "sha256": "ad79b2d5ba0c2dc1182cadaba331b818fc71868b54d2af3845e0b4b2fa78fc58",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/attack_lab.py",
+      "bytes": 8580,
+      "sha256": "69c8bdd492dda5b1526e4acda8f08283ec54b558dbc7015af7598a61156cb2dc",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/audit_service.py",
+      "bytes": 9957,
+      "sha256": "792f1b6b5c26d998a8397997fb4aa01d712c2bc41b06ae751de78d4d77ddd50a",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/batch_proof.py",
+      "bytes": 15558,
+      "sha256": "d7ae6186232298f7084d27cb4a794acbf66816d43dc93179180aed3000868954",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/benchmark.py",
+      "bytes": 21566,
+      "sha256": "baebe50c9af268f50395a91a3a1e487a8d8005f44d0eaa1e5d05afcf72f8f378",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/cli.py",
+      "bytes": 10340,
+      "sha256": "6253d09580aa6c7a443ea790b5148de51ab392add62e069a7764694842000488",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/codec_capabilities.py",
+      "bytes": 5012,
+      "sha256": "1c0ba06c4b74c1c310452ca5aabe1b0b3252736efb38ce7b17646d86b74cccee",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/crypto.py",
+      "bytes": 10803,
+      "sha256": "f6d49ce648e553f0a86a7dee6dd42e2588ffb8c025562eb317a0ac049b3ccc78",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/development_eval.py",
+      "bytes": 41606,
+      "sha256": "1c6764cee68422bab271cd7f5ecd95ad9d91c861e315d71085c782c954b9aba8",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/key_manager.py",
+      "bytes": 17897,
+      "sha256": "02fb0c834cf0f3c4d0e7584041bea7288dbe13ad5726172e0527b838efed6c3d",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/manifest.py",
+      "bytes": 11128,
+      "sha256": "b213221ff58d0e73dedaaf6f63e9c5375f16ffdd1ac8520240122f5c69fa15ca",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/manifest_service.py",
+      "bytes": 295,
+      "sha256": "2899c872d0989dd05d42470bf8d21ff10fd6a162bb86c4252fe52f14d530be95",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/manifest_v2.py",
+      "bytes": 10035,
+      "sha256": "74d747b03efaa3021ad5a0010a6262a0128c7940214310f6fa7c72f027e5de77",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/media.py",
+      "bytes": 12430,
+      "sha256": "d64725b1ed7514e40d0863c494d7eaad66bb47f25a63d9108ea959cd1c614534",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/media_adapters.py",
+      "bytes": 29866,
+      "sha256": "798f05b5a241a1a494e8d16cd1cbdb1e66e365a18c5a8acf5d32f1f2864b7384",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/pdf_raster.py",
+      "bytes": 15988,
+      "sha256": "d7ce009193d9b86a71ca4430f8fcc3306eb6b0571bd54a626491012d781a0857",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/quality.py",
+      "bytes": 16129,
+      "sha256": "c42f99216829c2a5005fdcec908680b40477efd2f960a02a1e342b9fa7779679",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/registry.py",
+      "bytes": 15411,
+      "sha256": "240de1f323472c4f6870be148a53e7f0e3d5d327b1efea87051677163b302302",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/rotation.py",
+      "bytes": 7775,
+      "sha256": "e73da35dd439a30fe3d6672777a45f65e1a21aa4b67be19b04a1770dada9b4e4",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/screenshot.py",
+      "bytes": 12195,
+      "sha256": "a30210001051f906a4dedc30ce6180e2852cfc932581a2ca8970a6446d0a4626",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/screenshot_tasks.py",
+      "bytes": 3511,
+      "sha256": "a56a7ff6171c9c7821dcddeaba31a289544694a7209dcbb844dcb02964fe27d3",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/service.py",
+      "bytes": 31354,
+      "sha256": "bab4fb34851569ee1b4ca4a1c2e2431ae0024be9db0df65af57579cb63b8d58b",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/state.py",
+      "bytes": 5546,
+      "sha256": "735e1254ae693a0f10a4a30de5237a3188cd25d72f4b98511f8a8d8dee05a2b0",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/ui/index.html",
+      "bytes": 11642,
+      "sha256": "cc2f5f7afbbb44532d2a9b5fb27b1b16eef3071ec683d3024655ec72e8be25ad",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/ui/v2.html",
+      "bytes": 2291,
+      "sha256": "6d806bbbd5863cb289a569a1780d7868777d94f6d88c28355f4b5665b235ea84",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/v2_api.py",
+      "bytes": 8395,
+      "sha256": "92b29d20d81a7c58aaf8bce8b2b238d6d884ef93d51f823d830a90cafdbd4a06",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/v2_cli.py",
+      "bytes": 7452,
+      "sha256": "f82680a525ca773a283433604c0cd3d3f9598b5b343533560634d5a401a61d2e",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/v2_models.py",
+      "bytes": 1687,
+      "sha256": "c6b450b06a44afff2efce7500d12d6ffb72c3cea6ad0b8989f14684ee3449391",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/v2_service.py",
+      "bytes": 15742,
+      "sha256": "c784fbc72fc586237b419927d2ec8ecaca9e275adb83efcca816473613eac424",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/v2_store.py",
+      "bytes": 5866,
+      "sha256": "a9812d20cb2bc32a1c5574a608374a3425a09515a3a066adce7e13c2eadf6ba1",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark.py",
+      "bytes": 28989,
+      "sha256": "3d46a8f72137ab6d18061e199088ec51c5a158997f0ec70440cf1e08472b2d39",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark_feedback.py",
+      "bytes": 15144,
+      "sha256": "a6298fcb9b351ad09a95f1c921bef310064c8881bb942dff7137e2048bfc4e91",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "src/gm_provenance/watermark_sync.py",
+      "bytes": 26546,
+      "sha256": "29d6989bafc61cfc6ef94e3f9f6b4ae0fe18275077cb7b30e0dd8b3e88b3f3b3",
+      "purpose": "v1/v2/v2.1 源代码"
+    },
+    {
+      "path": "tables/v2/attack-matrix.csv",
+      "bytes": 1834,
+      "sha256": "cd54aa56d1256c933255c3124c09573bb2119717a893b317e5676a68229343ea",
+      "purpose": "v2.1 指标表"
+    },
+    {
+      "path": "tables/v2/benchmark-metrics.csv",
+      "bytes": 237,
+      "sha256": "7bd4377daba725def36c96c0c565b5f72a904ce780dca9412caafe72b0cce743",
+      "purpose": "v2.1 指标表"
+    },
+    {
+      "path": "tables/v2/demo-performance.csv",
+      "bytes": 83,
+      "sha256": "1d9be0a2df393f0a9abc20f44d0805c6615a971a8240f70ae625cea62c13dbaa",
+      "purpose": "v2.1 指标表"
+    },
+    {
+      "path": "tables/v2.1/performance-n30.csv",
+      "bytes": 1128,
+      "sha256": "25709f5d1529ec837a9341e52082af9d12c95e73f877c7248b178a3ab3d39f36",
+      "purpose": "v2.1 指标表"
+    },
+    {
+      "path": "tests/conftest.py",
+      "bytes": 105,
+      "sha256": "207b42852b9dedb120ae1c032d4be11100ddb8b12d7d508563def778298d05d5",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/helpers.py",
+      "bytes": 670,
+      "sha256": "8beeb380fad7afc0e64a102494e496fcad05d89634711442a64a810da87c1b93",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_api.py",
+      "bytes": 2729,
+      "sha256": "e3401f91fd61b7bcd16fbc0699b1f94f43122d2a0357310b7e191bf08f2b99d1",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_api_security.py",
+      "bytes": 4254,
+      "sha256": "acb6a8134f567976286affaf6c75af5a64dc8cc1a5d75d8b7a957939c6a0ca1e",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_arbitrary_rotation_demo.py",
+      "bytes": 10835,
+      "sha256": "73a60e194bc9f9cd258eb27176e56f52ff6896c62dcc2e11ff3340aa9ce49592",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_benchmark.py",
+      "bytes": 4944,
+      "sha256": "a9eca187284609dcffb069c4fa1d1db443c26f9deadb73bc6f29be32380b6711",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_derivation.py",
+      "bytes": 2711,
+      "sha256": "6afab01084a5e5187f39ea7896fdc9e72bb0c2ff320ecda5cd105e5a8c891d22",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_development_eval.py",
+      "bytes": 4935,
+      "sha256": "903f1baa212ecd440b2c7b058f850c35b82b27e74d720e906188d21300d9710d",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_pdf.py",
+      "bytes": 1477,
+      "sha256": "83189df9dc6a0855a675c2e9da287763bb61e0c1b038f86186fbc2e3aaa7798c",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_publish_self_check.py",
+      "bytes": 4512,
+      "sha256": "4c4766cf79d4feb3981ac3a52b2b1f115b6f215d2bf5090dd023381ed48536c4",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_rotation_mirror_service.py",
+      "bytes": 4213,
+      "sha256": "8e6b1029f425ecb10a71e667fc3a252fc32b9d9c6cd2bca175e7197441d9650e",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_round7_sync_boundaries.py",
+      "bytes": 4394,
+      "sha256": "970dcc923c97e9e0111d9dc03157d40f9233317914f106a8f7cdcc9fc23d091a",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_service.py",
+      "bytes": 1042,
+      "sha256": "a8a665827ef93c96a1497ca7140afd60a9d5a66dde66859a4a6ec9de53ec04bc",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_watermark_profiles.py",
+      "bytes": 2018,
+      "sha256": "39ba3517c28f260789f2c5dbab76d690687f7d2a88e70bf02d5a1dc5503fd9ed",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/integration/test_watermark_sync_api.py",
+      "bytes": 7859,
+      "sha256": "42f153ba1d68b1e2a918b49fbb0107d9e2af94d8d1932ae3d759b31074d1be7d",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/security/test_attacks.py",
+      "bytes": 1097,
+      "sha256": "063bbc9d5d40232f58c3c6f7d738bed377a6932395e2453261b6c5c6a27a27bb",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/security/test_key_trust_boundary.py",
+      "bytes": 2614,
+      "sha256": "775fee0d0be484473fca198387772328962f954f816594793a95f622774f816c",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/security/test_pdf_attacks.py",
+      "bytes": 6464,
+      "sha256": "e709b8ca610d27f4d8b73233958cfd7a94923c41f73b2f54015e67f08c3942bd",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/security/test_service_protocol.py",
+      "bytes": 3287,
+      "sha256": "750d8b9e2331c62ace245e3608e291eaaa3baa82b7574e810416fc3fec01e2d8",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/security/test_state.py",
+      "bytes": 2907,
+      "sha256": "41739298a02f5cf18e825b9a5de64160309f8b9ae9eb7495c2d8edb04f8849c6",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_arbitrary_rotation.py",
+      "bytes": 5417,
+      "sha256": "b90d0a94d8b28e0b54eaef53a8979f2bda95b7c4430b409b6634aa678655fd38",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_crypto.py",
+      "bytes": 957,
+      "sha256": "bcc059926b0549e42894c54843261455162588117104cc7757a73d88b9aa1c51",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_crypto_backends.py",
+      "bytes": 785,
+      "sha256": "51b1745b23f093ca3e297f9fe3af848468d685cd2c77469d02cc6753350a72b5",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_dataset_downloader.py",
+      "bytes": 3783,
+      "sha256": "84b1c1ba90bff9e4b4d9466bfbc68ea7d1b24df783e5af1101feb7567b96bf2f",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_dct_backends.py",
+      "bytes": 1649,
+      "sha256": "2ee801f384f2ac3cfe39550add257d58a780c113cac1a54a0ec5e8dc669e1214",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_import_external_materials.py",
+      "bytes": 1672,
+      "sha256": "9a27e6156a8e4cfeded132973736215d21ed711a552843f20228131560471f02",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_manifest.py",
+      "bytes": 1224,
+      "sha256": "fbe3407ed33fe11f4000a2c529050c656313296b2d91cfe3d45fbb713520587d",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_pdf_raster.py",
+      "bytes": 3736,
+      "sha256": "e68c32fa5bc84f7cf45a4d3e35271c99f93c8ac4c92a3d3177dbf1bcb5ec2ea3",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_quality_metrics.py",
+      "bytes": 1920,
+      "sha256": "cde3f82d5dc6bb2a7bc570c0b79a0f0809bb5d1370c6d730f0eedcfbfa975d20",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_reclassify_invalid_transforms.py",
+      "bytes": 844,
+      "sha256": "a7be538bdf052fc3157c4c641911ccb4932ea3a3fe97c13bd956c0fdc04281cb",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_registry.py",
+      "bytes": 1974,
+      "sha256": "acfcfe8f487bf89956758cbf90280ae03b6359396205cb5ff2bff09213239f05",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_erasure.py",
+      "bytes": 2155,
+      "sha256": "6b7424891c036a280793abb266979b54075085a4f43ec8d4eec43c9338e09803",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_geometry.py",
+      "bytes": 4762,
+      "sha256": "65069ee74d8dc9b6a7e7ffcd549457b83dbe57c6d45f32f75e01221024434d5e",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_rotation_mirror.py",
+      "bytes": 4348,
+      "sha256": "5574f082a1e19ea13762730b588c44ec707f472ee3b5cf7ecefd835d80b117f0",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round3_dataset.py",
+      "bytes": 556,
+      "sha256": "a8e318f3e7303c1ce1ea9a721fd4f4833f6c66083c5553b5552442d40a4532f4",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round3_quality.py",
+      "bytes": 4296,
+      "sha256": "ab5283763195c4f4b139f056ffd5ffd80df5c7808e34f1ef6642cc0f9fe1f071",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round5_runner.py",
+      "bytes": 1578,
+      "sha256": "5fc761dc0d4e458e6a23d60ad90dc673635404c86abc685cbb795a3782332a50",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round6_eval.py",
+      "bytes": 5304,
+      "sha256": "488c329fe0716142cf004881e4f7aebb1e2f5b2ca8fd84ff61937547c6558f4e",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round7_geometry.py",
+      "bytes": 1482,
+      "sha256": "f0727dd7b6277d75099c845014a9c96740eed5bf43fcb24a92bd9a81dc75af49",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round7_geometry_analytic.py",
+      "bytes": 6704,
+      "sha256": "c624adc8f1b9a3e6cd7efc67f93a6b900d99ef3b4cb88a938ecb164605b4ba09",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_round7_sets.py",
+      "bytes": 2476,
+      "sha256": "c7c04bf6902e54cfbefe88fcb0e0a35419ffc27e433bd4abbe4e4108bdf1cd3a",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_screenshot.py",
+      "bytes": 1587,
+      "sha256": "d6f1e4023d31f72a89bf5639dd297aa35becf48f7af89c39dd6d91d7c2b9b781",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_watermark.py",
+      "bytes": 1526,
+      "sha256": "ae3126c83c3910722f4f51f214eabcc9d46952d68bd1de33af47037ba1688888",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_feedback.py",
+      "bytes": 3673,
+      "sha256": "2d9b4c27523a041bd01cbbdd1cb75687e42e2ec402ec323c7c70781a818b99e4",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_residual.py",
+      "bytes": 7039,
+      "sha256": "6ad85de3cf6eb76670f9059b092a38bbad2ee2c5f23a9267747fe8f892f48114",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/unit/test_watermark_sync.py",
+      "bytes": 7115,
+      "sha256": "9d0603e102de29538ce123d042dcef33d72f2256a6de750b620a08b583169418",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_attack_lab.py",
+      "bytes": 977,
+      "sha256": "908b73bdf5bead6912caf26accb9c5e4d5fd2b7ad0dbdca2180b393d018e36af",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_batch_audit.py",
+      "bytes": 3550,
+      "sha256": "b628521ef701a547dc1158389330537669b5bcb718e307a78a30d36dd2cc2ebd",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_key_manager_v2.py",
+      "bytes": 3370,
+      "sha256": "2e7bda0c9d3a08006f1440dbedc3f7cf4cdf00cd092ce3e28570e3efe1cbff25",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_manifest_v2.py",
+      "bytes": 2927,
+      "sha256": "6c1a5b13fc6a9bb0b06607c6659435cf168756f85e6e06c833811f379ba43328",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_media_adapters.py",
+      "bytes": 2921,
+      "sha256": "0d7186485d2f31436862a0479db821f0cc35f3cff3f5838da74ed1c60d7931dc",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_v2_cli_api.py",
+      "bytes": 727,
+      "sha256": "3cf146781797a1ab88196c2dcaf66141b04852bbd2c24eb8470665aacadd2d32",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2/test_v2_service_integration.py",
+      "bytes": 2474,
+      "sha256": "819a14bf66fc8b080e637f0704f1683571110d1e7d8070ff7c743fe92757d51a",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_api_boundaries.py",
+      "bytes": 905,
+      "sha256": "fd527e4065260887e5d909d84521e24510696c5c4fe1dc667ebe710889d3b33e",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_api_safety.py",
+      "bytes": 277,
+      "sha256": "940c7a37b890da66c4b60089d3bd5dff0c9e0365828178aeb1dea6e3ef5238de",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_codec_capability.py",
+      "bytes": 1140,
+      "sha256": "88a66e57b7e347a9bbf6a210a8e7484e888c56947f3063e104f0e1f5f6e6455c",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_media_capabilities.py",
+      "bytes": 987,
+      "sha256": "7faf194e2acf5290e511d711f21a06b640d0ef3fe10634b57d7c78c152d30bf3",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_negative_security.py",
+      "bytes": 3278,
+      "sha256": "725222f81620995e4bbded11568439f63140de9f88b07bacc008267ea406487b",
+      "purpose": "v1/v2/v2.1 测试"
+    },
+    {
+      "path": "tests/v2_1/test_v21_security.py",
+      "bytes": 5015,
+      "sha256": "1870cb60363235439045374581f5ce64aee13091b4b5b6d636264160008ba3ae",
+      "purpose": "v1/v2/v2.1 测试"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+DOCX visual render: BLOCKED because LibreOffice/soffice was not available on the host. DOCX XML audit passed and the companion PDF was rendered and inspected page by page.

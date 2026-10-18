@@ -1,0 +1,39 @@
+{
+  "schema_version": "round5-watermark-evaluation-1",
+  "seed": 20261007,
+  "sample_count": 60,
+  "pilot_count": 6,
+  "dataset_manifest": "data/round3-development-v3/dataset_manifest.jsonl",
+  "profiles": {
+    "v1": "watermark-v1",
+    "v2": "watermark-v2-residual",
+    "feedback": "watermark-v2-feedback"
+  },
+  "transforms": [
+    {"name": "exact", "operation": "identity"},
+    {"name": "jpeg_q90", "operation": "jpeg", "quality": 90},
+    {"name": "jpeg_q75", "operation": "jpeg", "quality": 75},
+    {"name": "jpeg_q50", "operation": "jpeg", "quality": 50},
+    {"name": "resize_0.75", "operation": "resize", "ratio": 0.75},
+    {"name": "resize_jpeg_0.75_q75", "operation": "resize_jpeg", "ratio": 0.75, "quality": 75},
+    {"name": "crop_0.95", "operation": "crop", "keep": 0.95},
+    {"name": "metadata_clear", "operation": "metadata_clear"},
+    {"name": "format_convert", "operation": "format_convert", "quality": 90},
+    {"name": "screenshot_simulated", "operation": "screenshot_simulated", "simulated": true}
+  ],
+  "payload_sensitivity": {
+    "sample_count": 6,
+    "ids_per_sample": 3,
+    "sample_ids": ["img-real-coco-139", "img-synth-001", "img-synth-002", "img-synth-004", "img-synth-005", "img-synth-006"],
+    "transforms": ["exact", "jpeg_q75", "resize_0.75"]
+  },
+  "crop_diagnostic": {
+    "enabled": true,
+    "subset_count": 6,
+    "keep": [0.95, 0.90],
+    "offsets": [[0.0, 0.0], [0.01, 0.0]]
+  },
+  "pdf_regression": {"enabled": true, "max_samples": 40},
+  "quality_budget": {"max_feedback_iterations": 3, "max_feedback_clipped_fraction": 0.25},
+  "retain_artifacts": {"exact": true, "representative": true, "diagnostics": true}
+}

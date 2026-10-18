@@ -1,0 +1,1 @@
+Offline ASGITransport attempt: did not reach a final response within the bounded run; no localhost socket was used. Classified as environment/runtime blocker. Direct app import/startup passed in api-import-startup.txt; historical 9/9 logical API summary retained.

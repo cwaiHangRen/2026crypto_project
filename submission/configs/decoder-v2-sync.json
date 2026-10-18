@@ -1,0 +1,11 @@
+{
+  "profile": "decoder-v2-sync",
+  "max_candidates": 128,
+  "max_decode_attempts": 128,
+  "max_search_ms": 1000,
+  "max_memory_mb": 256,
+  "max_return_candidates": 8,
+  "crop_area_ratios": [1.0, 0.98, 0.96, 0.95, 0.94, 0.92, 0.90],
+  "offset_fractions": [0.0, -0.03, 0.03],
+  "fill_mode": "fixed-gray-128"
+}

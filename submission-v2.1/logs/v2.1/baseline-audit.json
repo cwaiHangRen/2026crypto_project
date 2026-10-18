@@ -1,0 +1,14 @@
+{
+  "v1_commit": "a7b8e0783d5d80940028aeb9d33eb6f3538da95d",
+  "v1_worktree": "<preserved-v1-worktree>",
+  "v2_commit": "eee6e62deea796d6a53b855297eaba55120c9da3",
+  "branch": "v2.1",
+  "package": "<v2-baseline-archive>",
+  "package_sha256": "0b9645f46fcca4c4d3338aaa14218fbab3685c0841a3220c902c4b362981e596",
+  "package_bytes": 5216891,
+  "zip_entries": 242,
+  "manifest_files": 240,
+  "manifest_mismatch": [],
+  "excluded_hits": [],
+  "status": "PASS"
+}

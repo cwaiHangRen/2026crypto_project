@@ -1,0 +1,8 @@
+{"sample_id": "wikimedia-artemis-earthrise", "stage": "publish", "error": "ValueError: 图片像素数超过 16MP 限制"}
+{"sample_id": "wikimedia-earth-from-space", "stage": "publish", "error": "ValueError: 图片像素数超过 16MP 限制"}
+{"sample_id": "r8-img-0058", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}
+{"sample_id": "r8-img-0142", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}
+{"sample_id": "r8-img-0178", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}
+{"sample_id": "r8-img-0226", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}
+{"sample_id": "r8-img-0394", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}
+{"sample_id": "r8-img-0520", "stage": "publish", "error": "WatermarkSelfCheckError: 最终编码文件未恢复本次 ContentID，拒绝发布"}

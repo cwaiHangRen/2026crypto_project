@@ -1,0 +1,1277 @@
+{
+  "protocol": "GM-PROVENANCE-AUDIT-v2",
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "2f1c9e9d-03ab-4db9-8e96-065efb4284e8",
+      "event_type": "register",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:28Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "23fbebc4c84f546b55d674e262e5796aec2b258e694a6c99bb0e04fcf6481efb"
+      },
+      "previous_event_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "event_hash": "62c7f725794b8019070410effedfb61abb79a91c8130786045191907696d6c4b"
+    },
+    {
+      "sequence": 2,
+      "event_id": "2a4d9e75-b70b-448a-b0c8-7a10d4973fae",
+      "event_type": "register",
+      "content_id": "9e99095e5fdb039bf46b046d93b0a688",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:29Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "fa9378ef74c01a53d2559ce08bd666e8dc8b0126a22540ee5136fee65af2857f"
+      },
+      "previous_event_hash": "62c7f725794b8019070410effedfb61abb79a91c8130786045191907696d6c4b",
+      "event_hash": "a6dd18780188d924568687b60b3aa0c4c437510a5b949a7fb21aea5e7aec8360"
+    },
+    {
+      "sequence": 3,
+      "event_id": "b7e4d502-08c1-4cd1-ba1a-d330e696b8e7",
+      "event_type": "register",
+      "content_id": "a4c1f2b9a86f38b0a5b8f18b7e7a49fc",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:30Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "8b95a78000d3d6ff0ab068ad67a5e49d1302c8d915b540d2db6299dc9191e65b"
+      },
+      "previous_event_hash": "a6dd18780188d924568687b60b3aa0c4c437510a5b949a7fb21aea5e7aec8360",
+      "event_hash": "9c2a44cb55b1af2a8b0541e3b0ff181083b2ace4a8e21aba4691e8a46e9ed975"
+    },
+    {
+      "sequence": 4,
+      "event_id": "37526cd9-3495-4fdd-ae36-4b4cbe60672f",
+      "event_type": "register",
+      "content_id": "dd0abed88f510836ce1cf65a352c13d0",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:31Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "606cf069848a5122125868e712e9440d4b8e1c65d72e299703f6127b85276de3"
+      },
+      "previous_event_hash": "9c2a44cb55b1af2a8b0541e3b0ff181083b2ace4a8e21aba4691e8a46e9ed975",
+      "event_hash": "a2172601668af5b517ce08e10ab472d3629a7b84052ffa3b2098a5816e346194"
+    },
+    {
+      "sequence": 5,
+      "event_id": "c2d9dc66-9279-404c-9c19-c197147c5a35",
+      "event_type": "register",
+      "content_id": "443bb630dbae84e1fc6569445e8de972",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:32Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "c02a406c580837e734b50ad7b63c4e7e6849b07e85cc2d0a6630ff128b2d881d"
+      },
+      "previous_event_hash": "a2172601668af5b517ce08e10ab472d3629a7b84052ffa3b2098a5816e346194",
+      "event_hash": "fb0d743f6a32db8e7074629af80b9993ca527806d1ccc46d67d9b60223a93f91"
+    },
+    {
+      "sequence": 6,
+      "event_id": "adf54c90-46a0-4202-a4d5-47b2199646d7",
+      "event_type": "register",
+      "content_id": "aaf146a03fce01f3057ffc50059007f1",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:33Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "e1e39aa1d5cc17436b3c4cf90b8990b0c65b6e3fd1f3d7a4004ed4119bb1cded"
+      },
+      "previous_event_hash": "fb0d743f6a32db8e7074629af80b9993ca527806d1ccc46d67d9b60223a93f91",
+      "event_hash": "fca82927a2f5601e294448f7835de52819d0a209005f750d9ab124a3123b24b2"
+    },
+    {
+      "sequence": 7,
+      "event_id": "e89754e8-81fb-4ba6-9cdc-af2cab0e1dbc",
+      "event_type": "register",
+      "content_id": "9e0393d3d0cf4c62fe1b3d9d7914c310",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:34Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "5e29fa6426e4e02eba8185c25c3177eda9f53904380674ab520f50cc4d59b71d"
+      },
+      "previous_event_hash": "fca82927a2f5601e294448f7835de52819d0a209005f750d9ab124a3123b24b2",
+      "event_hash": "e4e6c9d4b07d437d0dc8df0533e2e13a10385247f0f0c72a309702103ef32a71"
+    },
+    {
+      "sequence": 8,
+      "event_id": "28cc2178-f350-4cc2-ae3e-fcb979807e12",
+      "event_type": "register",
+      "content_id": "935051a366a1c618ba949499bf6fca94",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:35Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "a41344c842f38ef6dc6acf0e5a2a9b9ca0e924a5efb25883b3c40e1c2cb83e3c"
+      },
+      "previous_event_hash": "e4e6c9d4b07d437d0dc8df0533e2e13a10385247f0f0c72a309702103ef32a71",
+      "event_hash": "1e7bb34073dc02613fef669406a40060d4abb71a4c6f00149d87efc353814283"
+    },
+    {
+      "sequence": 9,
+      "event_id": "09f00b45-694c-4954-9946-aa61029c5c4b",
+      "event_type": "register",
+      "content_id": "dbf6c588b766162b4fb3b67871e91e6b",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:36Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "68d2c42ed7d32f48aa3dce8f8a8d5ebb0d4879c8552acf0272c6056a8bd338e0"
+      },
+      "previous_event_hash": "1e7bb34073dc02613fef669406a40060d4abb71a4c6f00149d87efc353814283",
+      "event_hash": "4d704fd268ee11932b36d04ba4bc77bfbd26e1277f505172d49b786e818e938e"
+    },
+    {
+      "sequence": 10,
+      "event_id": "b9f951c4-da9b-43ac-ac75-af272a91e229",
+      "event_type": "register",
+      "content_id": "4fb8524fa56a610cbe704fdd98902a56",
+      "actor": "demo-v2",
+      "timestamp": "2026-10-18T08:27:37Z",
+      "result": "PASS",
+      "details": {
+        "manifest_hash": "913c5bc6c915e5454a3d09aad63a5327f64430c9e8e94275e79ec068b4fa96d0"
+      },
+      "previous_event_hash": "4d704fd268ee11932b36d04ba4bc77bfbd26e1277f505172d49b786e818e938e",
+      "event_hash": "0ded0efa23fc7cca9356b6c86c507b1e2f48b07c96775bac8590ef745e7f5bef"
+    },
+    {
+      "sequence": 11,
+      "event_id": "0182d8d9-1506-413c-8fab-f6d99f1fc929",
+      "event_type": "verify",
+      "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:37Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+        "decision": "VERIFIED",
+        "elapsed_ms": 686.853,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "23fbebc4c84f546b55d674e262e5796aec2b258e694a6c99bb0e04fcf6481efb",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "cd776629f18d51ef5d7ab04ed54dd972cbc55ab592e5206271092274696bf2c4",
+          "observed": "cd776629f18d51ef5d7ab04ed54dd972cbc55ab592e5206271092274696bf2c4",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "6f305060372e9f4b58c303e8ca8f30e8"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "6f305060372e9f4b58c303e8ca8f30e8",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+              "size_bytes": 50427
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "0d732265b32cdcbb5a59ba4494d433ed0742887a34d6ac2a061f66b9f9cb85c7",
+          "recovered_content_ids": [
+            "6f305060372e9f4b58c303e8ca8f30e8"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:37.713101Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "0ded0efa23fc7cca9356b6c86c507b1e2f48b07c96775bac8590ef745e7f5bef",
+      "event_hash": "8ebf237188e130d10b2668c42264dd5cd1aef8ed097333370570b98f550658e2"
+    },
+    {
+      "sequence": 12,
+      "event_id": "cb423ed6-c0c3-4f77-b06e-3dcc1c5e85df",
+      "event_type": "verify",
+      "content_id": "9e99095e5fdb039bf46b046d93b0a688",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:38Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "9e99095e5fdb039bf46b046d93b0a688",
+        "decision": "VERIFIED",
+        "elapsed_ms": 716.953,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "fa9378ef74c01a53d2559ce08bd666e8dc8b0126a22540ee5136fee65af2857f",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "90c73b1db2904674773c6ebd91a7636fa45e80e1b1b80dce3d5c5d8ae61a40de",
+          "observed": "90c73b1db2904674773c6ebd91a7636fa45e80e1b1b80dce3d5c5d8ae61a40de",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "9e99095e5fdb039bf46b046d93b0a688"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "9e99095e5fdb039bf46b046d93b0a688",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "71d030248e01a5c395fcff6dff9717a032b37ef28bbb3a6b5e406664ac6bc64a",
+              "size_bytes": 52883
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "71d030248e01a5c395fcff6dff9717a032b37ef28bbb3a6b5e406664ac6bc64a",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "71d030248e01a5c395fcff6dff9717a032b37ef28bbb3a6b5e406664ac6bc64a",
+          "recovered_content_ids": [
+            "9e99095e5fdb039bf46b046d93b0a688"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:38.449187Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "8ebf237188e130d10b2668c42264dd5cd1aef8ed097333370570b98f550658e2",
+      "event_hash": "b19a032ef736f5e85f92413782ae2061d6d162a444c8b08d13c07b943da0aaf1"
+    },
+    {
+      "sequence": 13,
+      "event_id": "09401398-6871-45de-941e-bc05620327eb",
+      "event_type": "verify",
+      "content_id": "a4c1f2b9a86f38b0a5b8f18b7e7a49fc",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:39Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "a4c1f2b9a86f38b0a5b8f18b7e7a49fc",
+        "decision": "VERIFIED",
+        "elapsed_ms": 705.8,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "8b95a78000d3d6ff0ab068ad67a5e49d1302c8d915b540d2db6299dc9191e65b",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "e5a6683a834618271bcb119bc9755be5361f27fc66fd7a3c55f76988b96dffb7",
+          "observed": "e5a6683a834618271bcb119bc9755be5361f27fc66fd7a3c55f76988b96dffb7",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "a4c1f2b9a86f38b0a5b8f18b7e7a49fc"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "a4c1f2b9a86f38b0a5b8f18b7e7a49fc",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "0bbb798596a5fe42f3d69ff7f28f3fb7b61067cd62f0cafddec2167f28521379",
+              "size_bytes": 52544
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "0bbb798596a5fe42f3d69ff7f28f3fb7b61067cd62f0cafddec2167f28521379",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "0bbb798596a5fe42f3d69ff7f28f3fb7b61067cd62f0cafddec2167f28521379",
+          "recovered_content_ids": [
+            "a4c1f2b9a86f38b0a5b8f18b7e7a49fc"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:39.177322Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "b19a032ef736f5e85f92413782ae2061d6d162a444c8b08d13c07b943da0aaf1",
+      "event_hash": "6ed1e877410f56ac115bbd4d9147bfddf9c7d0af23d0c3f0d797ca0e441b5428"
+    },
+    {
+      "sequence": 14,
+      "event_id": "8ae2dac9-9e42-49db-bcae-311fb500feca",
+      "event_type": "verify",
+      "content_id": "dd0abed88f510836ce1cf65a352c13d0",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:40Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "dd0abed88f510836ce1cf65a352c13d0",
+        "decision": "VERIFIED",
+        "elapsed_ms": 743.758,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "606cf069848a5122125868e712e9440d4b8e1c65d72e299703f6127b85276de3",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "4fb2be5116532d95e5c80fdd8b168f4864269a1df0a18f9319fb405dd029187e",
+          "observed": "4fb2be5116532d95e5c80fdd8b168f4864269a1df0a18f9319fb405dd029187e",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "dd0abed88f510836ce1cf65a352c13d0"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "dd0abed88f510836ce1cf65a352c13d0",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "298745af409406b4690e31cf31cbed5b11fef9d4f9c621b229799b96787f3fcc",
+              "size_bytes": 52223
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "298745af409406b4690e31cf31cbed5b11fef9d4f9c621b229799b96787f3fcc",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "298745af409406b4690e31cf31cbed5b11fef9d4f9c621b229799b96787f3fcc",
+          "recovered_content_ids": [
+            "dd0abed88f510836ce1cf65a352c13d0"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:39.949908Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "6ed1e877410f56ac115bbd4d9147bfddf9c7d0af23d0c3f0d797ca0e441b5428",
+      "event_hash": "5ee2e891579985ea862b0f46cdbdb6f71cc158de983b78d7ccc93085a160954c"
+    },
+    {
+      "sequence": 15,
+      "event_id": "2cf81115-49ee-4292-a52c-a1234bfaa562",
+      "event_type": "verify",
+      "content_id": "443bb630dbae84e1fc6569445e8de972",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:40Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "443bb630dbae84e1fc6569445e8de972",
+        "decision": "VERIFIED",
+        "elapsed_ms": 570.236,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "c02a406c580837e734b50ad7b63c4e7e6849b07e85cc2d0a6630ff128b2d881d",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "50b5498e060e93ac0e4d17ba18688d095d73c6b452c689b89d8b9eb648bd2692",
+          "observed": "50b5498e060e93ac0e4d17ba18688d095d73c6b452c689b89d8b9eb648bd2692",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "443bb630dbae84e1fc6569445e8de972"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "443bb630dbae84e1fc6569445e8de972",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "756cb68ae39258330dea4be8f184210ed3e82884ef88206e7782fef5ffd76488",
+              "size_bytes": 49170
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "756cb68ae39258330dea4be8f184210ed3e82884ef88206e7782fef5ffd76488",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "756cb68ae39258330dea4be8f184210ed3e82884ef88206e7782fef5ffd76488",
+          "recovered_content_ids": [
+            "443bb630dbae84e1fc6569445e8de972"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:40.569738Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "5ee2e891579985ea862b0f46cdbdb6f71cc158de983b78d7ccc93085a160954c",
+      "event_hash": "e08f7915776bdf7f4b24a26fd5f402ec55c660cabe5a49b9f13215056cf18be4"
+    },
+    {
+      "sequence": 16,
+      "event_id": "af840b23-42a6-4707-b0f1-3e42a2765ea7",
+      "event_type": "verify",
+      "content_id": "aaf146a03fce01f3057ffc50059007f1",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:41Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "aaf146a03fce01f3057ffc50059007f1",
+        "decision": "VERIFIED",
+        "elapsed_ms": 516.034,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "e1e39aa1d5cc17436b3c4cf90b8990b0c65b6e3fd1f3d7a4004ed4119bb1cded",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "68b72c2e4f04901931708984389ad51ecb0691c38b2427dc2af1744d87f3465c",
+          "observed": "68b72c2e4f04901931708984389ad51ecb0691c38b2427dc2af1744d87f3465c",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "aaf146a03fce01f3057ffc50059007f1"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "aaf146a03fce01f3057ffc50059007f1",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "23278349a22f632eb0c7c859b25dda31e3f4164cdb5ac84976e2bbcc7e84180c",
+              "size_bytes": 48690
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "23278349a22f632eb0c7c859b25dda31e3f4164cdb5ac84976e2bbcc7e84180c",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "23278349a22f632eb0c7c859b25dda31e3f4164cdb5ac84976e2bbcc7e84180c",
+          "recovered_content_ids": [
+            "aaf146a03fce01f3057ffc50059007f1"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:41.119580Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "e08f7915776bdf7f4b24a26fd5f402ec55c660cabe5a49b9f13215056cf18be4",
+      "event_hash": "2663783aef4e87355e836e412c3ca75d1ea3641756017d9587ca00bf89deb4ad"
+    },
+    {
+      "sequence": 17,
+      "event_id": "974e97ca-91b3-48e5-9eb9-ca2e1009402e",
+      "event_type": "verify",
+      "content_id": "9e0393d3d0cf4c62fe1b3d9d7914c310",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:41Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "9e0393d3d0cf4c62fe1b3d9d7914c310",
+        "decision": "VERIFIED",
+        "elapsed_ms": 501.472,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "5e29fa6426e4e02eba8185c25c3177eda9f53904380674ab520f50cc4d59b71d",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "916106ba349ecf106043e7cd6d2cd66f378afb5c8160dbd45a98fcab4508ce7a",
+          "observed": "916106ba349ecf106043e7cd6d2cd66f378afb5c8160dbd45a98fcab4508ce7a",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "9e0393d3d0cf4c62fe1b3d9d7914c310"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "9e0393d3d0cf4c62fe1b3d9d7914c310",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "685c8fb1558038eef4cba3142a45e72c9a15906fa1143933f2a6c8666638db21",
+              "size_bytes": 48693
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "685c8fb1558038eef4cba3142a45e72c9a15906fa1143933f2a6c8666638db21",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "685c8fb1558038eef4cba3142a45e72c9a15906fa1143933f2a6c8666638db21",
+          "recovered_content_ids": [
+            "9e0393d3d0cf4c62fe1b3d9d7914c310"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:41.655235Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "2663783aef4e87355e836e412c3ca75d1ea3641756017d9587ca00bf89deb4ad",
+      "event_hash": "1abc55697ed20dca98234cc346aa9f475cbbaa5e29b6271ae9bb6c0a1e9eb384"
+    },
+    {
+      "sequence": 18,
+      "event_id": "82e1c992-76fb-4df8-861a-5aae1a4baffc",
+      "event_type": "verify",
+      "content_id": "935051a366a1c618ba949499bf6fca94",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:42Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "935051a366a1c618ba949499bf6fca94",
+        "decision": "VERIFIED",
+        "elapsed_ms": 506.304,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "a41344c842f38ef6dc6acf0e5a2a9b9ca0e924a5efb25883b3c40e1c2cb83e3c",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "d6bc18614ad66dda58f15c8750b66c09376a3ef881a3eb186b2b5243c82edaa7",
+          "observed": "d6bc18614ad66dda58f15c8750b66c09376a3ef881a3eb186b2b5243c82edaa7",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "935051a366a1c618ba949499bf6fca94"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "935051a366a1c618ba949499bf6fca94",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "5d2c397a34754a49eb803a2d380986ce7acfed7b84130e19ba2d30cd5a68a7e9",
+              "size_bytes": 47280
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "5d2c397a34754a49eb803a2d380986ce7acfed7b84130e19ba2d30cd5a68a7e9",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "5d2c397a34754a49eb803a2d380986ce7acfed7b84130e19ba2d30cd5a68a7e9",
+          "recovered_content_ids": [
+            "935051a366a1c618ba949499bf6fca94"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:42.168017Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "1abc55697ed20dca98234cc346aa9f475cbbaa5e29b6271ae9bb6c0a1e9eb384",
+      "event_hash": "db0e94e064b54be19bd98c9c35b115f0257f3991ac08ca03443056597e3ac484"
+    },
+    {
+      "sequence": 19,
+      "event_id": "8b3275a2-b762-433f-b390-add4aba59fcf",
+      "event_type": "verify",
+      "content_id": "dbf6c588b766162b4fb3b67871e91e6b",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:42Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "dbf6c588b766162b4fb3b67871e91e6b",
+        "decision": "VERIFIED",
+        "elapsed_ms": 510.727,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "68d2c42ed7d32f48aa3dce8f8a8d5ebb0d4879c8552acf0272c6056a8bd338e0",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "76da0272068931119b24e747fe0456cfb3bb8aba561541a7c06714f952857eb8",
+          "observed": "76da0272068931119b24e747fe0456cfb3bb8aba561541a7c06714f952857eb8",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "dbf6c588b766162b4fb3b67871e91e6b"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "dbf6c588b766162b4fb3b67871e91e6b",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "b7bd10e4350dfa3c6b60b815db6aa9532082241937d1c8bd854540e576dd7b3c",
+              "size_bytes": 46365
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "b7bd10e4350dfa3c6b60b815db6aa9532082241937d1c8bd854540e576dd7b3c",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "b7bd10e4350dfa3c6b60b815db6aa9532082241937d1c8bd854540e576dd7b3c",
+          "recovered_content_ids": [
+            "dbf6c588b766162b4fb3b67871e91e6b"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:42.709106Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "db0e94e064b54be19bd98c9c35b115f0257f3991ac08ca03443056597e3ac484",
+      "event_hash": "8e7359d881493ab9c794cedc27a3d76ffe1022cd460ed2f423fc1cc45890fbc5"
+    },
+    {
+      "sequence": 20,
+      "event_id": "016c00c8-d3d0-4e2b-95f6-76fcc71b26e7",
+      "event_type": "verify",
+      "content_id": "4fb8524fa56a610cbe704fdd98902a56",
+      "actor": "verifier",
+      "timestamp": "2026-10-18T08:27:43Z",
+      "result": "VERIFIED",
+      "details": {
+        "content_id": "4fb8524fa56a610cbe704fdd98902a56",
+        "decision": "VERIFIED",
+        "elapsed_ms": 505.136,
+        "manifest": {
+          "canonical_bytes": 1482,
+          "key_id": "f0f7246ef87f6106a29ee2d7e57ea2d933492a65c10ed688332242220831277c",
+          "manifest_hash": "913c5bc6c915e5454a3d09aad63a5327f64430c9e8e94275e79ec068b4fa96d0",
+          "status": "PASS"
+        },
+        "merkle": {
+          "status": "NOT_CHECKED"
+        },
+        "reasons": [],
+        "revocation": {
+          "key_status": "active",
+          "status": "PASS"
+        },
+        "signature": {
+          "algorithm": "SM2-SM3-DER-v2",
+          "status": "PASS"
+        },
+        "sm3": {
+          "algorithm": "SM3",
+          "expected": "b43301b56591a9cd00e6e40c926f3878985358aed822206d175d620f9e97a56b",
+          "observed": "b43301b56591a9cd00e6e40c926f3878985358aed822206d175d620f9e97a56b",
+          "status": "PASS"
+        },
+        "version_chain": {
+          "parent_content_id": null,
+          "status": "PASS",
+          "version": 1
+        },
+        "watermark": {
+          "content_id": null,
+          "details": {
+            "decoder_profile": "dct-difference-v1",
+            "detector": {
+              "content_ids": [
+                "4fb8524fa56a610cbe704fdd98902a56"
+              ],
+              "details": {
+                "dct_mode": "scalar",
+                "matches": [
+                  {
+                    "content_id": "4fb8524fa56a610cbe704fdd98902a56",
+                    "orientation": "rotate_0"
+                  }
+                ],
+                "orientations_checked": [
+                  "rotate_0",
+                  "rotate_90",
+                  "rotate_180",
+                  "rotate_270",
+                  "mirror_rotate_0",
+                  "mirror_rotate_90",
+                  "mirror_rotate_180",
+                  "mirror_rotate_270"
+                ],
+                "profile": "dct-difference-v1",
+                "rotation_recovery": {
+                  "backend": "scipy-convex-hull",
+                  "candidate_limit": 8,
+                  "candidates_checked": []
+                },
+                "work_size": 512
+              },
+              "status": "FOUND"
+            },
+            "media": {
+              "available": true,
+              "details": {
+                "format": "PNG",
+                "height": 400,
+                "mime": "image/png",
+                "mode": "RGB",
+                "pixels": 240000,
+                "width": 600
+              },
+              "media_type": "image",
+              "reason": null,
+              "sha256": "eac795bc87c3deb439ecfe4787d2132c4c253ac3043e9cd7a3c392c56ea2f69a",
+              "size_bytes": 47380
+            }
+          },
+          "final_bytes": null,
+          "final_sha256": "eac795bc87c3deb439ecfe4787d2132c4c253ac3043e9cd7a3c392c56ea2f69a",
+          "manifest_status": "NOT_CHECKED",
+          "media_type": "image",
+          "original_sha256": "eac795bc87c3deb439ecfe4787d2132c4c253ac3043e9cd7a3c392c56ea2f69a",
+          "recovered_content_ids": [
+            "4fb8524fa56a610cbe704fdd98902a56"
+          ],
+          "revocation_status": "NOT_CHECKED",
+          "signature_status": "NOT_CHECKED",
+          "timestamp": "2026-10-18T08:27:43.237775Z",
+          "version_chain_status": "NOT_CHECKED",
+          "watermark_recovered": true
+        }
+      },
+      "previous_event_hash": "8e7359d881493ab9c794cedc27a3d76ffe1022cd460ed2f423fc1cc45890fbc5",
+      "event_hash": "49a4e1ff403d2508d5d7ac8d3d0d2fb5709934a92902563470cbe41afa059501"
+    }
+  ],
+  "checkpoints": [
+    {
+      "checkpoint_id": "26a28e5a6095a59f9d3184409a99f5b0",
+      "last_sequence": 10,
+      "last_event_hash": "0ded0efa23fc7cca9356b6c86c507b1e2f48b07c96775bac8590ef745e7f5bef",
+      "event_count": 10,
+      "created_at": "2026-10-18T08:27:37Z",
+      "signer_key_id": null,
+      "signature": null,
+      "signature_encoding": "base64-DER"
+    },
+    {
+      "checkpoint_id": "3294d38c2d16439ec6eee8683b8e4172",
+      "last_sequence": 20,
+      "last_event_hash": "49a4e1ff403d2508d5d7ac8d3d0d2fb5709934a92902563470cbe41afa059501",
+      "event_count": 20,
+      "created_at": "2026-10-18T08:27:43Z",
+      "signer_key_id": null,
+      "signature": null,
+      "signature_encoding": "base64-DER"
+    }
+  ]
+}

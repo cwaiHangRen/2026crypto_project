@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "targeted": [
+    {
+      "suite": "unit_non_watermark_residual_sync",
+      "status": "PASS",
+      "passed": 158,
+      "evidence": "command output from pytest unit chunk"
+    },
+    {
+      "suite": "unit_watermark_residual",
+      "status": "PASS_WITH_WARNING",
+      "passed": 13,
+      "warnings": 1,
+      "evidence": "Pillow I-mode deprecation"
+    },
+    {
+      "suite": "unit_watermark_sync",
+      "status": "PASS",
+      "passed": 11
+    },
+    {
+      "suite": "pdf_raster_and_screenshot",
+      "status": "PASS",
+      "passed": 9
+    },
+    {
+      "suite": "integration_core",
+      "status": "PASS",
+      "passed": 12
+    },
+    {
+      "suite": "integration_benchmark",
+      "status": "PASS",
+      "passed": 6
+    },
+    {
+      "suite": "integration_development_eval",
+      "status": "PASS",
+      "passed": 4
+    },
+    {
+      "suite": "integration_profiles_round7",
+      "status": "PASS",
+      "passed": 11
+    },
+    {
+      "suite": "security_without_service_protocol",
+      "status": "PASS",
+      "passed": 24
+    },
+    {
+      "suite": "api_historical",
+      "status": "PASS",
+      "passed": 9,
+      "note": "historical isolated acceptance summary"
+    }
+  ],
+  "blockers": [
+    {
+      "suite": "full_pytest",
+      "status": "UNVERIFIED",
+      "reason": "long-running geometry/API tests did not reach final summary in constrained sandbox"
+    },
+    {
+      "suite": "api_current",
+      "status": "BLOCKED",
+      "reason": "FastAPI TestClient loopback or temp-directory permissions"
+    }
+  ],
+  "full_pytest_collection": {
+    "collected": 301,
+    "current_distinct_grouped_passed": 239,
+    "full_run_passed": null,
+    "full_run_failed": null,
+    "full_run_skipped": null,
+    "full_run_timed_out": null,
+    "environment_blocked_categories": 2,
+    "note": "The bounded full run did not reach pytest's final summary before long geometry/API environment blockers; null values are intentionally not inferred from partial output."
+  },
+  "totals": {
+    "current_distinct_passed": 239,
+    "unit_all": 182,
+    "integration_current": 33,
+    "security_current": 24,
+    "pdf_screenshot_subset": 9,
+    "historical_api": 9,
+    "known_evidence_rows": 248,
+    "full_collected": 301
+  },
+  "optional_pressure": [
+    {
+      "suite": "geometry_pressure_bounded",
+      "status": "PASS",
+      "passed": 36,
+      "timeout_seconds": 20,
+      "elapsed_ms": 17260.456,
+      "evidence": "geometry-pressure-bounded.txt"
+    }
+  ]
+}

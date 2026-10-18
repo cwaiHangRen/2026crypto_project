@@ -7,12 +7,22 @@ import tempfile
 from pathlib import Path
 try:
     from fastapi import FastAPI, File, UploadFile, HTTPException, Body, Header
-    from fastapi.responses import HTMLResponse
+    from fastapi.responses import HTMLResponse, Response
     from .service import ProvenanceService
     from . import media
+    from .screenshot_tasks import ScreenshotTaskManager, report_json, report_csv, report_html
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
     app = FastAPI(title="gm-provenance", docs_url="/docs")
     service = ProvenanceService(PROJECT_ROOT / "data")
+    _screenshot_manager = ScreenshotTaskManager(service.root, service.verify)
+    _screenshot_manager._service = service
+    def _capture_manager():
+        global _screenshot_manager
+        if getattr(_screenshot_manager, "_service", None) is not service:
+            _screenshot_manager.close()
+            _screenshot_manager = ScreenshotTaskManager(service.root, service.verify)
+            _screenshot_manager._service = service
+        return _screenshot_manager
     async def _read_limited(file: UploadFile, limit: int) -> bytes:
         chunks: list[bytes] = []
         total = 0
@@ -115,6 +125,45 @@ try:
                 raise HTTPException(400, str(exc)) from exc
         return {"transform": transform, "verification": verified,
                 "before_bytes": len(data), "after_bytes": after_bytes, **previews}
+
+    @app.post("/api/screenshot-tasks")
+    async def create_screenshot_task(file: UploadFile = File(...), source_kind: str = "upload", mode: str = "recover", authorization: str | None = Header(default=None)):
+        _require_admin(authorization)
+        data = await _read_limited(file, media.MAX_BYTES)
+        try:
+            return _capture_manager().submit(data, file.filename or "capture.bin", source_kind, mode=mode)
+        except (ValueError, OSError) as exc:
+            raise HTTPException(400, str(exc)) from exc
+
+    @app.get("/api/screenshot-tasks")
+    def list_screenshot_tasks():
+        return {"tasks": _capture_manager().list()}
+
+    @app.get("/api/screenshot-tasks/{task_id}")
+    def get_screenshot_task(task_id: str):
+        try: return _capture_manager().get(task_id)
+        except KeyError as exc: raise HTTPException(404, "任务不存在") from exc
+
+    @app.post("/api/screenshot-tasks/{task_id}/cancel")
+    def cancel_screenshot_task(task_id: str, authorization: str | None = Header(default=None)):
+        _require_admin(authorization)
+        try: return _capture_manager().cancel(task_id)
+        except KeyError as exc: raise HTTPException(404, "任务不存在") from exc
+
+    @app.delete("/api/screenshot-tasks/{task_id}")
+    def delete_screenshot_task(task_id: str, authorization: str | None = Header(default=None)):
+        _require_admin(authorization)
+        try: return _capture_manager().delete(task_id)
+        except KeyError as exc: raise HTTPException(404, "任务不存在") from exc
+        except ValueError as exc: raise HTTPException(409, str(exc)) from exc
+
+    @app.get("/api/screenshot-report")
+    def screenshot_report(format: str = "json", task_ids: str | None = None):
+        rows = _capture_manager().report(task_ids.split(",") if task_ids else None)
+        if format == "json": return json.loads(report_json(rows))
+        if format == "csv": return Response(report_csv(rows), media_type="text/csv; charset=utf-8")
+        if format == "html": return HTMLResponse(report_html(rows))
+        raise HTTPException(400, "format 必须是 json、csv 或 html")
 
     @app.post("/api/revoke")
     def revoke(payload: dict = Body(...), authorization: str | None = Header(default=None)):

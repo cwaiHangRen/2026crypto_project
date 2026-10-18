@@ -1,0 +1,11 @@
+{
+  "protocol": "gm-provenance-v2",
+  "default_mode": "safe",
+  "max_pixels": 16777216,
+  "media": ["image/png", "image/jpeg", "application/pdf", "audio/wav"],
+  "optional_unavailable": ["audio/mpeg", "audio/flac", "video/mp4"],
+  "watermark_is_origin_hint": true,
+  "audit_checkpoint_interval": 10,
+  "batch_leaf_order": "UTF-8 lexical sort",
+  "performance_profiles": {"smoke": {"sample_count": 3}, "full": {"sample_count": 1000}}
+}

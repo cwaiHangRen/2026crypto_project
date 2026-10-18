@@ -1,0 +1,442 @@
+{
+  "schema_version": "gm-provenance-submission-metrics-1",
+  "sources": [
+    "submission/logs/round9/scale-audit-summary.json",
+    "submission/logs/round9/images-800-summary.json",
+    "submission/logs/round9/pdfs-200-summary.json",
+    "submission/logs/round9/quality-summary.json",
+    "submission/logs/round9/crop-260-summary.json",
+    "submission/logs/round9/crop-80-summary.json"
+  ],
+  "scale_1000": {
+    "groups": [
+      {
+        "media": "image",
+        "attempts": 800,
+        "gate_pass": 792,
+        "gate_rate": 0.99,
+        "correct_recovery": 792,
+        "recovery_denominator": 792,
+        "recovery_rate": 1.0,
+        "gate_failed": 8,
+        "false_positive": 0
+      },
+      {
+        "media": "pdf",
+        "attempts": 200,
+        "gate_pass": 200,
+        "gate_rate": 1.0,
+        "correct_recovery": 200,
+        "recovery_denominator": 200,
+        "recovery_rate": 1.0,
+        "gate_failed": 0,
+        "false_positive": 0
+      },
+      {
+        "media": "total",
+        "attempts": 1000,
+        "gate_pass": 992,
+        "gate_rate": 0.992,
+        "correct_recovery": 992,
+        "recovery_denominator": 992,
+        "recovery_rate": 1.0,
+        "gate_failed": 8,
+        "false_positive": 0
+      }
+    ],
+    "negative_g0": {
+      "rows": 992,
+      "false_positive": 0,
+      "status_counts": {
+        "NOT_FOUND": 992
+      }
+    },
+    "gate_definition": "final encoded bytes pass blind recovery before registration",
+    "d0_definition": "exact expected ContentID as the only returned ID"
+  },
+  "timing_ms": {
+    "image_d0_recover": {
+      "n": 792,
+      "mean_ms": 540.827,
+      "p50_ms": 540.924,
+      "p95_ms": 791.749
+    },
+    "image_g3_full": {
+      "n": 1584,
+      "mean_ms": 1164.3,
+      "p50_ms": 1156.362,
+      "p95_ms": 1646.974
+    },
+    "pdf_d0_recover": {
+      "n": 200,
+      "mean_ms": 204.002,
+      "p50_ms": 196.872,
+      "p95_ms": 379.059
+    },
+    "pdf_g3_full": {
+      "n": 400,
+      "mean_ms": 607.17,
+      "p50_ms": 579.003,
+      "p95_ms": 963.331
+    },
+    "crop_s0": {
+      "n": 80,
+      "success": 48,
+      "rate": 0.6,
+      "p50_ms": 936.413,
+      "p95_ms": 1237.624
+    }
+  },
+  "transform_rows": [
+    {
+      "transform": "crop_boundary_area_0.80",
+      "n": 10,
+      "d0_correct": 0,
+      "d0_rate": 0.0,
+      "s0_expected_id": 0,
+      "s0_rate": 0.0,
+      "p50_ms": 1235.326,
+      "p95_ms": 2141.333
+    },
+    {
+      "transform": "crop_center_area_0.95",
+      "n": 10,
+      "d0_correct": 0,
+      "d0_rate": 0.0,
+      "s0_expected_id": 9,
+      "s0_rate": 0.9,
+      "p50_ms": 1251.0,
+      "p95_ms": 2159.359
+    },
+    {
+      "transform": "crop_out_of_range_negative",
+      "n": 10,
+      "d0_correct": 0,
+      "d0_rate": 0.0,
+      "s0_expected_id": 0,
+      "s0_rate": 0.0,
+      "p50_ms": null,
+      "p95_ms": null
+    },
+    {
+      "transform": "crop_out_of_range_over_one",
+      "n": 10,
+      "d0_correct": 0,
+      "d0_rate": 0.0,
+      "s0_expected_id": 0,
+      "s0_rate": 0.0,
+      "p50_ms": null,
+      "p95_ms": null
+    },
+    {
+      "transform": "exact",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 114.417,
+      "p95_ms": 435.086
+    },
+    {
+      "transform": "format_convert",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 113.736,
+      "p95_ms": 485.018
+    },
+    {
+      "transform": "jpeg_q50",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 94.313,
+      "p95_ms": 449.647
+    },
+    {
+      "transform": "jpeg_q75",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 104.71,
+      "p95_ms": 453.253
+    },
+    {
+      "transform": "jpeg_q90",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 124.442,
+      "p95_ms": 410.901
+    },
+    {
+      "transform": "metadata_clear",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 144.467,
+      "p95_ms": 748.485
+    },
+    {
+      "transform": "resize_0.75",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 123.233,
+      "p95_ms": 439.107
+    },
+    {
+      "transform": "resize_jpeg_0.75_q75",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 85.53,
+      "p95_ms": 229.964
+    },
+    {
+      "transform": "screenshot_simulated",
+      "n": 10,
+      "d0_correct": 10,
+      "d0_rate": 1.0,
+      "s0_expected_id": 10,
+      "s0_rate": 1.0,
+      "p50_ms": 53.543,
+      "p95_ms": 71.997
+    },
+    {
+      "transform": "crop_center_area_0.95_round9_80",
+      "n": 80,
+      "d0_correct": 0,
+      "d0_rate": 0.0,
+      "s0_expected_id": 48,
+      "s0_rate": 0.6,
+      "p50_ms": 936.413,
+      "p95_ms": 1237.624
+    }
+  ],
+  "quality": {
+    "schema_version": "round9-quality-metrics-1",
+    "source": "results/round9-scale-audit-r2/quality_fixed_subset.jsonl",
+    "selected_records": 20,
+    "image": {
+      "A_B": {
+        "n": 10,
+        "mse": {
+          "n": 10,
+          "mean": 289.73189,
+          "median": 79.43871,
+          "worst": 1096.404868
+        },
+        "psnr_db": {
+          "n": 10,
+          "mean": 30.398887,
+          "median": 29.13677,
+          "worst": 17.731094
+        },
+        "ssim_local": {
+          "n": 10,
+          "mean": 0.918936,
+          "median": 0.936778,
+          "worst": 0.778625
+        },
+        "zero_mse": 0,
+        "parameters": {
+          "K1": 0.01,
+          "K2": 0.03,
+          "colorspace": "RGB",
+          "data_range": 255.0,
+          "edge_mode": "reflect",
+          "use_sample_covariance": false,
+          "window": "uniform",
+          "window_size": 11
+        }
+      },
+      "A_C": {
+        "n": 10,
+        "mse": {
+          "n": 10,
+          "mean": 299.617593,
+          "median": 87.651094,
+          "worst": 1116.740165
+        },
+        "psnr_db": {
+          "n": 10,
+          "mean": 27.88916,
+          "median": 28.707117,
+          "worst": 17.651282
+        },
+        "ssim_local": {
+          "n": 10,
+          "mean": 0.892481,
+          "median": 0.90878,
+          "worst": 0.764515
+        },
+        "zero_mse": 0,
+        "parameters": {
+          "K1": 0.01,
+          "K2": 0.03,
+          "colorspace": "RGB",
+          "data_range": 255.0,
+          "edge_mode": "reflect",
+          "use_sample_covariance": false,
+          "window": "uniform",
+          "window_size": 11
+        }
+      },
+      "B_C": {
+        "n": 10,
+        "mse": {
+          "n": 10,
+          "mean": 9.030087,
+          "median": 7.915602,
+          "worst": 18.433801
+        },
+        "psnr_db": {
+          "n": 10,
+          "mean": 39.259469,
+          "median": 39.172415,
+          "worst": 35.474655
+        },
+        "ssim_local": {
+          "n": 10,
+          "mean": 0.971418,
+          "median": 0.974033,
+          "worst": 0.943757
+        },
+        "zero_mse": 0,
+        "parameters": {
+          "K1": 0.01,
+          "K2": 0.03,
+          "colorspace": "RGB",
+          "data_range": 255.0,
+          "edge_mode": "reflect",
+          "use_sample_covariance": false,
+          "window": "uniform",
+          "window_size": 11
+        }
+      }
+    },
+    "pdf": {
+      "rendered_pages": {
+        "n": 27,
+        "mse": {
+          "n": 27,
+          "mean": 537.942194,
+          "median": 451.631509,
+          "worst": 894.058053
+        },
+        "psnr_db": {
+          "n": 27,
+          "mean": 20.963666,
+          "median": 21.582961,
+          "worst": 18.617146
+        },
+        "ssim_local": {
+          "n": 27,
+          "mean": 0.878221,
+          "median": 0.898923,
+          "worst": 0.815305
+        },
+        "zero_mse": 0,
+        "parameters": {
+          "K1": 0.01,
+          "K2": 0.03,
+          "colorspace": "RGB",
+          "data_range": 255.0,
+          "edge_mode": "reflect",
+          "use_sample_covariance": false,
+          "window": "uniform",
+          "window_size": 11
+        }
+      },
+      "feature_status": {
+        "bookmarks": {
+          "LOST": 10
+        },
+        "forms": {
+          "N/A_NO_SOURCE_FEATURE": 10
+        },
+        "links": {
+          "LOST": 1,
+          "N/A_NO_SOURCE_FEATURE": 9
+        },
+        "text_layer": {
+          "LOST": 10
+        }
+      },
+      "source_page_count": {
+        "n": 10,
+        "mean": 2.7,
+        "median": 2.0,
+        "worst": 1.0
+      },
+      "published_to_source_size_ratio": {
+        "n": 10,
+        "mean": 212.007186,
+        "median": 243.995124,
+        "worst": 267.113678
+      },
+      "B_control": "NOT_APPLICABLE: the current PDF path has no no-watermark PDF encoder",
+      "render_scope": "same-DPI pypdfium2 render at 120 DPI; not a real reader screenshot"
+    },
+    "interpretation": {
+      "A_B_A_C_B_C": "Image metrics are decoded RGB at source geometry; MSE is 0 only when arrays are identical and PSNR is then reported as null with psnr_infinite=true.",
+      "thresholds": "No quality threshold was declared before this diagnostic; values are distributions, not pass/fail claims."
+    }
+  },
+  "storage_bytes": {
+    "images": {
+      "retained_published_bytes": 569655013,
+      "retained_files": 792,
+      "full_copy_bytes": 569655013,
+      "full_copy_files": 792,
+      "registry_json_bytes": 3171736,
+      "registry_json_files": 1592,
+      "registry_db_bytes": 152666112,
+      "registry_db_files": 191,
+      "state_snapshot_bytes": 491828,
+      "state_snapshot_files": 792,
+      "run_manifest_bytes": 22036
+    },
+    "pdfs": {
+      "retained_published_bytes": 254416175,
+      "retained_files": 200,
+      "full_copy_bytes": 254416175,
+      "full_copy_files": 200,
+      "registry_json_bytes": 1028733,
+      "registry_json_files": 400,
+      "registry_db_bytes": 273276928,
+      "registry_db_files": 200,
+      "state_snapshot_bytes": 124200,
+      "state_snapshot_files": 200,
+      "run_manifest_bytes": 9801
+    },
+    "totals": {
+      "retained_published_bytes": 824071188,
+      "registry_json_bytes": 4200469,
+      "registry_db_bytes": 425943040,
+      "state_snapshot_bytes": 616028,
+      "note": "These are benchmark artifact bytes. Registry database and state snapshots are isolated per-sample evaluation artifacts, not required product deployment footprint."
+    }
+  },
+  "limitations": [
+    "1000 行是协议规模清单，内部合成样本占多数；新增 AI 图片覆盖为 0/20，新增外部真实 PDF 覆盖为 0/10。",
+    "PDF 质量记录来自固定 120 DPI pypdfium2 重渲染，不是人工或阅读器截图。",
+    "裁剪 S0 仅报告来源线索；当前字节仍需 SM3/Manifest/SM2/状态检查。"
+  ]
+}

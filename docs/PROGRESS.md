@@ -1,5 +1,20 @@
 # 实施进度
 
+## 2026-10-18：PDF 栅格化、真实页面证据与提交材料
+
+* 保留 `416f18e54c68560bb002042f83af0a45af2ad79f` 以来全部未提交改动；当前工作区仍是 detached HEAD，未回滚原实验结果。系统 Python 缺少 pytest/pip，使用既有隔离解释器完成依赖探测、CLI、环境检查、compileall 和定向回归；完整 pytest/API 现场复核分别受测试长任务和 Windows loopback/临时目录权限影响，历史 API 9/9 摘要与当前阻塞日志均保留。
+* 新增 `src/gm_provenance/pdf_raster.py` 和 `tests/unit/test_pdf_raster.py`：固定 120 DPI、RGB/L、白底 alpha、确定性尺寸、PNG/JPEG 重编码、逐页盲恢复 gate、SM3/Manifest/SM2/版本链/撤销验证回调和匿名结构化日志。PDF 模块定向回归 4/4，截图模块回归 3/3。
+* 真实 PDF 第一页在隔离 Registry 中完成登记、hard 凭证验证、固定 DPI 渲染、watermark-v1、最终 PNG 编码和 ContentID 盲恢复；`submission/logs/pdf-raster/` 记录 PASS，`submission/figures/` 保存 rendered/final/JPEG 页面图。
+* 保留 Round9 1000 行清单和图片/PDF分组指标：800/200，gate 992/1000，D0 正确恢复 992/992，G0 误报 0/992，中心 95% 裁剪 S0 48/80。提交包包含 DOCX、同内容 PDF、源码、测试、配置、脚本、匿名日志、表格、真实页面图、清单和审批签字页占位。
+* 本机无 LibreOffice/soffice，DOCX 原生渲染未完成；使用 reportlab 生成同内容 PDF 并通过 PDFium 逐页检查 6 页，缺失渲染依赖及失败日志均单独记录。
+
+## 2026-10-15：旋转合并与整合验收
+
+* 以远端 `origin/main@416f18e54c68560bb002042f83af0a45af2ad79f` 建立独立整合工作区，逐项带入本地 Round9 评测/导入修改；原工作区全部未提交修改、数据、密钥和结果继续保留。
+* 定向整合回归实际为 `150 passed, 1 warning`；正交旋转/镜像脚本小样本 8/8 正例、24 条无水印负例 0 误报、16/16 服务检查，任意角度脚本（1 个合成 + 3 个既有本地图片）24/24 正例、24/24 负例。
+* 既有本地 pilot 的 1 张 JPEG 和 1 份 9 页 PDF 在独立数据库、密钥和状态快照下完成发布/full；90/180/270、左右镜像、33.3° 均恢复来源线索，中心 95% 裁剪执行 S0，负例和撤销拒绝符合既有语义；PDF 逐页 9/9 发现水印，但不宣称整文件完整性。
+* FastAPI 隔离验收实际 `9/9 PASS`。旋转/镜像状态更新为 `integrated`；PDF 真实阅读器截图模块仍 `integration_pending`，不把 PDFium 重渲染当成真实截图。
+
 ## 2026-10-13：任意角度旋转恢复
 
 * 提交前在首次功能版本 `29f8a42` 上整合主仓库 `bf2d03e`，保留 v2 发布/反馈、密钥信任、管理员授权、状态语义和受限同步。整合全量 **286 passed**，补充反馈/profile定向 **9 passed**，均退出 0；发布 gate、sync 初始 D0 和反馈观测显式保持历史直接检测。以下 169 项及 624/624 矩阵属于首次功能版本，整合版检查单独记录在 `docs/ARBITRARY_ROTATION.md`。
@@ -20,6 +35,23 @@
 * 新增离线验证脚本及可复现报告。原始日志、逐输入文件/记录、环境和源码指纹保存在 `results/rotation-mirror-20261013/run-001/`，由 Git 忽略；摘要、复现和限制见 `docs/ROTATION_MIRROR.md`。
 
 以下为此前实施记录；其中旧测试数量与旧 benchmark 样本数不是本次分支的最新统计。
+## Round 9：默认方案 1000 样本基线与裁剪封版（2026-10-14）
+
+* 冻结现有图片/PDF 密码与水印实现，生成 800 图片 + 200 PDF 的 1000 行本地清单；实际清单以内部合成为主，AI 可核验样本为 0、外部真实 PDF 为 1，网络限制和许可状态均单独记录，未把缺口改写成已完成。
+* 以 `watermark-v1`、D0 发布 gate、G0/G3 exact 完成默认规模运行：1000 次尝试、992 次通过 gate；最终发布字节 D0 预期 ID 992/992，独立 G0 无水印编码控制组误报 0/992。8 条 gate 失败保留原始错误；追踪确认旧评测器留下的 8 个 manifest 和 2 条 Registry content/asset 记录全部属于 G1 signed-only 对照，不属于失败 G3。当前评测器已改为按需生成 G1 并使用独立 `g1-registry`，详见 `scripts/audit_round9_gate_failures.py` 和 Round9 报告。
+* 用固定清单前 10 图片 + 前 10 PDF 完成 A/B/C 质量诊断 20/20；80 张既有 v1 发布图片的 exact/中心 95% 裁剪子集完成 S0 诊断，裁剪恢复 48/80，P50/P95 为 936.413/1237.624 ms。
+* 新增非法变换重分类和 task ID 映射：4654 条 paired row 中 `invalid_transform` 358、有效边界 363、有效传播 2862、资源耗尽 1071；旧 JSONL 和旧报告不改写。Round9 详细基线和限制见 `docs/ROUND9_SCALE_REPORT.md`。
+* Round9 收尾补充了 8 条失败输入的全新隔离复现：8/8 执行，2 条仍因 16MP 限制拒绝、2 条真实出现发布自检失败、4 条随机 ContentID 下通过；失败行均无 G3 manifest/Registry 内容。新增 `scripts/import_external_materials.py` 作为无网络本地图片/PDF 导入入口，现有 6 条 pilot 实测 6/6 可解析、6/6 重复、许可/来源家族仍待人工审查。
+
+## Round 8：外部矩阵收尾与 v3 退步边界（2026-10-13）
+
+* 完成 Round7 外部 gate 逐项审计：36 次尝试通过 27 次，失败 9 次归类为 6 次输入超过 16MP、2 次 RGBA 模式不受实验 profile 支持、1 次 feedback 质量预算拒绝；失败均发生在登记前，没有 Registry/版本/状态副作用。
+* 在原 execution fingerprint 下续跑外部矩阵，27 个已发布组合的 702/702 个变换任务完成；运行整体仍因 3 个无法构造的 mixed-ID 负例保留 partial 标记。矩阵内 v3 正确单候选 464/702，错误 ID 与冲突均为 0。
+* 对 4,654 条配对逐条导出 244 条严格退步和 545 条新增成功；24 条代表案例各重复 3 次，退步稳定表现为 v3 在固定软预算内 `TIME_BUDGET_EXHAUSTED`，没有实施算法补丁。S0 继续默认，v3 保留显式实验开关。
+* 以 10 个外部 v1 通过 gate 的最终字节补测默认组合：v1+D0 为 93/260，v1+S0 为 200/260；原 22 项配置明确扩展为 26 项，新增 4 个边界/范围检查并保留原始分母。
+* 原 3 条 mixed-ID 外部任务仍 missing，原因是指定组合缺少可用的两份发布媒体；另用两张自制图片正常签名发布后构造 3 个内部补充样本，D0/S0 为 `NOT_FOUND`、v3 为 `TIME_BUDGET_EXHAUSTED`，配原始 sidecar 的 18 次验证全部 `content_hash_match=FAIL`。
+* 审计脚本、逐条清单和交接命令见 `scripts/audit_round8_external.py`、`scripts/diagnose_round8_regressions.py` 和 `docs/ROUND8_FINAL_REPORT.md`。
+
 ## Round 7：外部挑战、几何候选与性能验收（2026-10-11）
 
 * 已完成外部挑战清单：15 个本地文件中排除 3 个重复或不计入项，保留 12 张此前未用于调参、来源页和许可依据可追踪的图片；覆盖 12 个来源家族，含地球/地景、动物、肖像和果实照片。AI 生成及小文字/图表样本仍为空，不能据此宣称真实世界覆盖完整。

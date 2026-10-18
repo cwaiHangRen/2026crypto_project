@@ -1,0 +1,47 @@
+tests/v2/test_attack_lab.py::test_attack_matrix_json_csv
+tests/v2/test_batch_audit.py::test_merkle_batch_and_proof_roundtrip
+tests/v2/test_batch_audit.py::test_merkle_tamper_root_and_cross_batch_rejected
+tests/v2/test_batch_audit.py::test_batch_sqlite_persistence
+tests/v2/test_batch_audit.py::test_audit_chain_and_checkpoint
+tests/v2/test_batch_audit.py::test_audit_tamper_reports_first_node
+tests/v2/test_batch_audit.py::test_audit_duplicate_event_and_timestamp_rollback
+tests/v2/test_key_manager_v2.py::test_keygen_status_rotation_revoke_and_secure_storage
+tests/v2/test_key_manager_v2.py::test_expired_and_wrong_key_handling
+tests/v2/test_key_manager_v2.py::test_sign_and_verify_respect_revocation
+tests/v2/test_key_manager_v2.py::test_public_import_and_redacted_status
+tests/v2/test_manifest_v2.py::test_fixed_field_order_and_length_prefix_is_deterministic
+tests/v2/test_manifest_v2.py::test_unicode_normalization_and_metadata_tamper_rejected
+tests/v2/test_manifest_v2.py::test_sign_verify_and_inspect
+tests/v2/test_media_adapters.py::test_image_adapter_roundtrip_and_attack_matrix
+tests/v2/test_media_adapters.py::test_pdf_adapter_reports_pages_and_raster_gate
+tests/v2/test_media_adapters.py::test_wav_adapter_roundtrip_and_attack
+tests/v2/test_media_adapters.py::test_mp4_feature_flag_is_explicit
+tests/v2/test_v2_cli_api.py::test_v2_cli_exposes_lifecycle_and_batch_commands
+tests/v2/test_v2_cli_api.py::test_v2_api_imports_without_changing_v1_app
+tests/v2/test_v2_cli_api.py::test_v2_api_register_response_is_json_safe
+tests/v2/test_v2_service_integration.py::test_register_verify_and_audit_chain
+tests/v2/test_v2_service_integration.py::test_batch_proof_and_tamper_rejection
+tests/v2/test_v2_service_integration.py::test_revoked_signing_key_is_explicit_risk
+tests/v2_1/test_api_boundaries.py::test_filename_is_basename_and_nul_safe
+tests/v2_1/test_api_boundaries.py::test_upload_size_boundary_is_explicit
+tests/v2_1/test_api_safety.py::test_v2_api_public_result_drops_binary_payload
+tests/v2_1/test_codec_capability.py::test_capability_report_is_privacy_safe_and_classifies_codecs
+tests/v2_1/test_codec_capability.py::test_mp3_flac_mp4_offline_fixtures_never_fake_success
+tests/v2_1/test_media_capabilities.py::test_codec_boundaries_are_explicit_and_offline_safe
+tests/v2_1/test_media_capabilities.py::test_enabled_offline_adapters_have_stable_media_boundary
+tests/v2_1/test_negative_security.py::test_content_id_and_mime_boundaries_are_rejected
+tests/v2_1/test_negative_security.py::test_audit_duplicate_and_tamper_are_detected
+tests/v2_1/test_negative_security.py::test_wrong_key_id_is_rejected_without_fallback
+tests/v2_1/test_negative_security.py::test_repeated_verify_is_audited_and_cross_batch_proof_fails
+tests/v2_1/test_v21_security.py::test_api_rejects_oversize_mime_and_path_traversal
+tests/v2_1/test_v21_security.py::test_api_register_verify_replay_and_json_boundary
+tests/v2_1/test_v21_security.py::test_management_bearer_and_batch_input_limits
+tests/v2_1/test_v21_security.py::test_merkle_replay_and_audit_tamper_are_rejected
+
+============================== warnings summary ===============================
+<environment>\Lib\site-packages\fastapi\testclient.py:1
+  <user-path-redacted> StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+39 tests collected in 2.40s

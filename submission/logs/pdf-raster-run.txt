@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "registration_allowed": true,
+  "page_count": 1,
+  "content_id": "ecafa611f1373b9a049dd7550a570e8d",
+  "output": "submission\\logs\\pdf-raster"
+}

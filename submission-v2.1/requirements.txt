@@ -1,0 +1,3 @@
+# 兼容 pip install -r requirements.txt 的入口。
+# 依赖版本和测试可选项的唯一来源是 pyproject.toml。
+-e .[test]

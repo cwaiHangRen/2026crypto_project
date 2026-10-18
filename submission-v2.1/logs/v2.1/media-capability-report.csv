@@ -1,0 +1,7 @@
+media_type,adapter,status,classification,available,reason
+audio/mpeg,Mp3Adapter,BLOCKED,dependency_missing,False,ffprobe 不在 PATH；该格式为 BLOCKED_DEPENDENCY
+audio/flac,FlacAdapter,BLOCKED,dependency_missing,False,ffprobe 不在 PATH；该格式为 BLOCKED_DEPENDENCY
+video/mp4,VideoAdapter,BLOCKED,dependency_missing,False,MP4 BLOCKED_DEPENDENCY: ffmpeg/ffprobe 不在 PATH；离线安全模式未启用外部组件
+image/png,ImageAdapter,PASS,offline_fixture,True,
+application/pdf,PdfAdapter,PASS,offline_fixture,True,
+audio/wav,AudioAdapter,PASS,offline_fixture,True,

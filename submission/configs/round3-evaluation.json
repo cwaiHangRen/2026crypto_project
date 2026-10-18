@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "seed": 20261007,
+  "watermark_profile": "watermark-v1",
+  "publisher_id": "publisher-round3",
+  "groups": ["G0", "G1", "G2", "G3"],
+  "sidecar_states": ["retained", "lost"],
+  "verification_modes": {"retained": "hard", "lost": "recover"},
+  "images": {
+    "jpeg_quality": [90, 75, 50],
+    "resize": [0.75],
+    "resize_jpeg": [[0.75, 75]],
+    "crop_keep": [0.95],
+    "metadata_clear": true,
+    "format_convert": true,
+    "screenshot_simulated": true,
+    "cross_content_id": true
+  },
+  "pdf": {
+    "render_dpi": [120],
+    "screenshot_simulated": true,
+    "delete_page": true,
+    "reorder_pages": true,
+    "replace_unmarked": true,
+    "cross_content_id": true
+  },
+  "performance": {"repeats": 1, "warmup": 0},
+  "artifact_retention": "minimal",
+  "notes": "开发集配置；截图仅为模拟，G0/G2不查询G3登记库。"
+}

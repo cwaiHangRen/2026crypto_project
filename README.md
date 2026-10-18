@@ -9,11 +9,13 @@
 - 密码协议：SM2 签名、SM3 摘要、JCS 正文规范化、内容 ID 和状态快照。
 - 媒体处理：JPEG、PNG 和 PDF 的来源水印与恢复验证；图片可显式选择兼容的
   `watermark-v1`、实验性 `watermark-v2-residual` 或有限反馈候选 `watermark-v2-feedback`，PDF 当前固定为 v1；水印只提供来源线索。
+- PDF 真实页面流程：`gm-provenance pdf-raster` 使用 PDFium 固定 120 DPI、RGB/L 颜色空间和确定性尺寸渲染，逐页写出 rendered/final 页面图像及匿名结构化日志；最终 PNG/JPEG 编码字节必须盲恢复本次 ContentID 才允许报告 gate 通过。多页结果按页验证，并明确不把页面来源线索扩展为整本文档完整性证明。
+- 输入质量门：图片及 PDF 页面支持不超过 16MP；超限样本安全拒绝，不生成发布字节。Round9 中 `wikimedia-artemis-earthrise` 与 `wikimedia-earth-from-space` 单列为 16MP 输入约束拒绝。
 - 盲几何同步：图片可手动选择 `decoder-v2-sync` 做有界裁剪/偏移来源恢复；它默认关闭，预算耗尽和候选冲突必须按不确定结果处理，不能放宽发布 gate。Round 6 的冻结评测和性能结果见 [`docs/ROUND6_SYNC_FINAL_REPORT.md`](docs/ROUND6_SYNC_FINAL_REPORT.md)。
 - 发布安全：登记和派生会对最终编码字节做盲恢复自检，只有恢复本次 ContentID 才进入摘要、签名和 Registry。
 - 服务与演示：FastAPI 本地服务、中文演示页面、登记、验证、变换预览、历史和撤销接口。
 - 验证与安全：单元、集成和攻击测试，以及 PDF 安全检查和离线数据集 pilot 验证。
-- 数据集：数据集、图片/PDF 样本及评测结果均留在本地，不随 Git 仓库上传；clone 后需另行下载或导入并审核许可。
+- 数据集：数据集、图片/PDF 样本及评测结果均留在本地，不随 Git 仓库上传；clone 后需另行下载或导入并审核许可。无网络时可用 [`scripts/import_external_materials.py`](scripts/import_external_materials.py) 从本地 incoming 清单校验和去重，详细字段见 [`docs/ROUND8_HANDOFF.md`](docs/ROUND8_HANDOFF.md)。
 
 系统验证的是签名、摘要、状态和媒体处理结果，不证明事实真实性、版权归属或内容一定由 AI 生成。
 
@@ -132,6 +134,39 @@ results/                 本地验证结果；不作为源代码发布
 
 更多设计和验证证据见 [`docs/`](docs/)、[`docs/PROGRESS.md`](docs/PROGRESS.md) 和 [`docs/TRACEABILITY.md`](docs/TRACEABILITY.md)。
 
+## v2 扩展（独立分支）
+
+v2 保留 v1 稳定基线，新增确定性 Manifest v2、密钥生命周期、批量 Merkle proof、SM3 审计链、多媒体适配器、攻击矩阵和 Web 演示。v2 使用独立数据根和数据库，不改写 v1 registry。
+
+安装与检查：
+
+```powershell
+python -m venv .venv-v2
+.\.venv-v2\Scripts\python.exe -m pip install -e ".[test]"
+.\.venv-v2\Scripts\python.exe -m gm_provenance.v2_cli --help
+```
+
+离线演示与导出：
+
+```powershell
+.\.venv-v2\Scripts\python.exe scripts\run_v2_demo.py
+.\.venv-v2\Scripts\python.exe scripts\run_v2_pdf_demo.py
+.\.venv-v2\Scripts\python.exe -m uvicorn gm_provenance.v2_api:app --host 127.0.0.1 --port 8001
+.\.venv-v2\Scripts\python.exe -m pytest -q --basetemp tests\.tmp\v2 tests\v2
+```
+
+`run_v2_demo.py` 使用 `sample_data/v2-demo/` 中的 10 个固定 PNG，输出登记、批量 Merkle、攻击矩阵、审计导出和性能表；`run_v2_pdf_demo.py` 对 `sample_data/real_pdf_page1.pdf` 固定 120 DPI 栅格化并保存渲染页、最终 PNG、发布 PDF 和结构化日志。常用命令：`gm-provenance-v2 keygen`、`key-import`、`key-rotate`、`key-revoke`、`key-status`、`manifest-inspect`、`register`、`verify`、`batch-create`、`batch-proof`、`audit-verify`、`attack-run` 和 `export`。私钥只留在本地运行目录，不能进入报告、日志或提交包；MP3/FLAC/MP4 没有可选编解码器时显示 `UNAVAILABLE`。
+
+### v2.1 环境复核与性能
+
+```powershell
+\.venv-v2\Scripts\python.exe scripts\probe_media_codecs.py --output logs\v2.1\codec-capability.json
+\.venv-v2\Scripts\python.exe scripts\run_v2_1_benchmark.py --count 30 --media image,pdf,wav --output logs\v2.1
+\.venv-v2\Scripts\python.exe -m pytest -q --basetemp tests\.tmp\v21-core tests\v2 tests\v2_1
+```
+
+`run_v2_1_benchmark.py` 输出媒体分组的平均、P50、P95、P99、吞吐量、Merkle proof 和审计 checkpoint 指标，并记录 CPU/内存可用性。默认安全 profile 不改变 v1/v2 验证语义；原生 MP3、FLAC、MP4 鲁棒水印仍需 FFmpeg/ffprobe 和对应适配器，缺少依赖时必须报告 `BLOCKED_DEPENDENCY`。API 写操作可通过 `GM_V2_API_BEARER` 启用 Bearer 鉴权，上传大小可由 `GM_V2_MAX_UPLOAD_BYTES` 限制；验证接口不返回媒体二进制，并记录审计事件。
+
 ### 本轮安全边界
 `keygen` 只生成密钥，不授予信任；需显式运行 `python -m gm_provenance.cli --root data trust --public <公钥> --publisher <发布者>`。API 写操作需要先运行 `init-admin` 并通过 `Authorization: Bearer` 传入令牌。`/api/verify` 默认使用 `full` 模式，也可显式传 `hard`、`recover`。
 
@@ -150,6 +185,17 @@ Round 2 隔离验收：`python scripts/run_round2_acceptance.py --output results
 # 以下尖括号为上一步实际输出，执行前替换
 .\.venv\Scripts\python.exe -m gm_provenance.cli --root data verify "<media_path>" --manifest "<manifest_path>" --mode hard
 .\.venv\Scripts\python.exe -m gm_provenance.cli --root data verify "<media_path>" --mode recover
+
+真实 PDF 页面栅格化和截图/重编码验收（`--content-id` 使用本次测试或登记得到的 32 位十六进制编号）：
+
+```powershell
+.\.venv\Scripts\python.exe -m gm_provenance.cli pdf-raster sample.pdf --content-id 0123456789abcdef0123456789abcdef --output results\pdf-raster
 ```
 
-`hard` 检查凭证与实际字节绑定；`recover` 恢复来源线索；`full` 的当前状态结论还需要新鲜的签名状态快照，参见协议文档。图片受限裁剪恢复需显式增加 `--decoder-profile decoder-v2-sync`，默认关闭，不保证任意裁剪、旋转或镜像恢复；PDF 固定 v1。`decoder-v3-sync` 和 Round7 文件属于显式实验材料，不表示旋转镜像、完整外部矩阵或队友后续 PDF 截图工作已经完成。
+命令会在输出目录保存 `source.pdf`、`pages/page-*-rendered.png`、最终编码页面和 `pdf-raster-log.json`。日志包含原始 PDF 摘要、页面尺寸、渲染/最终编码字节摘要、恢复出的 ContentID、gate、限制和验证回调结果；默认不写入用户名、私钥或令牌。需要将页面结果接入来源凭证检查时，调用 `gm_provenance.pdf_raster.process_pdf(..., verify_fn=...)`，在回调中执行服务层的 SM3、Manifest、SM2、版本链和撤销检查。
+
+`hard` 检查凭证与实际字节绑定；`recover` 恢复来源线索；`full` 的当前状态结论还需要新鲜的签名状态快照，参见协议文档。图片受限裁剪恢复需显式增加 `--decoder-profile decoder-v2-sync`，默认关闭，不保证任意裁剪、旋转或镜像恢复；PDF 固定 v1。`decoder-v3-sync` 和 Round7 文件属于显式实验材料；旋转/镜像已在当前主分支整合，完整外部矩阵和队友后续 PDF 截图工作仍需单独验收。
+
+### 裁剪模块封版交接
+
+默认图片嵌入是 `watermark-v1`，普通来源检测是 D0 `dct-difference-v1`；用户主动选择深度裁剪恢复时使用 S0 `decoder-v2-sync`，v3 `decoder-v3-sync` 只可显式尝试。调用方应展示实际 decoder、`watermark_status`、候选 ID、`search_complete`、`search_stop_reason`、`checked_scope` 和耗时。恢复 ID 是来源线索，不能替代当前上传字节的 SM3、签名、父链、撤销和状态检查。队友接入命令与文件边界见 [`docs/ROUND8_HANDOFF.md`](docs/ROUND8_HANDOFF.md)；外部结果和缺口见 [`docs/ROUND8_FINAL_REPORT.md`](docs/ROUND8_FINAL_REPORT.md)。Round9 的 800 图片 + 200 PDF 默认规模基线、数据类别限制和未完成目标见 [`docs/ROUND9_SCALE_REPORT.md`](docs/ROUND9_SCALE_REPORT.md)；本轮新增 AI 图片和外部真实 PDF 实际为 0/20、0/10，不能写成 1030 条已完成样本。
