@@ -18,7 +18,7 @@ def _jsonable(value: Any) -> Any:
     return value
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class AttackCase:
     attack_id: str
     media_type: str
@@ -27,7 +27,23 @@ class AttackCase:
     expected_result: str = "detect_or_reject"
     input_file: str | None = None
 
-    def as_dict(self) -> dict[str, Any]: return _jsonable(asdict(self))
+    def __init__(self, attack_id: str, media_type: str, attack_type: str,
+                 params: dict[str, Any] | None = None, expected_result: str = "detect_or_reject",
+                 input_file: str | None = None, *, parameters: dict[str, Any] | None = None):
+        object.__setattr__(self, "attack_id", attack_id)
+        object.__setattr__(self, "media_type", media_type)
+        object.__setattr__(self, "attack_type", attack_type)
+        object.__setattr__(self, "params", dict(params if params is not None else (parameters or {})))
+        object.__setattr__(self, "expected_result", expected_result)
+        object.__setattr__(self, "input_file", input_file)
+
+    @property
+    def parameters(self) -> dict[str, Any]:
+        """Alias used by the serialisable v2 domain model."""
+        return self.params
+
+    def as_dict(self) -> dict[str, Any]:
+        out = _jsonable(asdict(self)); out["parameters"] = out["params"]; return out
 
 
 @dataclass
